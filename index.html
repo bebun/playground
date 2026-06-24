@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NWM Playground</title>
+
+  <!-- Google Font: Bitcount Prop Single -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --color-navy: #001f3f;
+      --color-sidebar-bg: #001428;
+      --color-cream: #fffff0;
+      --color-logo: #f2ede0;
+      --sidebar-width: 240px;
+      --content-margin: 120px;
+      --gutter: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      color: var(--color-navy);
+      background-color: var(--color-cream);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+      flex: 0 0 var(--sidebar-width);
+      width: var(--sidebar-width);
+      min-height: 100vh;
+      padding: 20px;
+      background-color: var(--color-sidebar-bg);
+    }
+
+    .logo {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .logo__type {
+      font-family: "Bitcount Prop Single", system-ui, sans-serif;
+      font-size: 20pt;
+      color: var(--color-logo);
+      letter-spacing: 0;
+      margin: 0;
+      line-height: 1;
+    }
+
+    /* ---------- Main content ---------- */
+    .main {
+      flex: 1 1 auto;
+      min-width: 0;
+      background-color: var(--color-cream);
+      color: var(--color-navy);
+    }
+
+    .container {
+      margin-left: var(--content-margin);
+      margin-right: var(--content-margin);
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    /* 12-column grid, 20px gutter */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+
+    /* Column span helpers */
+    .col-1  { grid-column: span 1; }
+    .col-2  { grid-column: span 2; }
+    .col-3  { grid-column: span 3; }
+    .col-4  { grid-column: span 4; }
+    .col-5  { grid-column: span 5; }
+    .col-6  { grid-column: span 6; }
+    .col-7  { grid-column: span 7; }
+    .col-8  { grid-column: span 8; }
+    .col-9  { grid-column: span 9; }
+    .col-10 { grid-column: span 10; }
+    .col-11 { grid-column: span 11; }
+    .col-12 { grid-column: span 12; }
+
+    /* Demo styling so the grid is visible */
+    .cell {
+      background-color: rgba(0, 31, 63, 0.06);
+      border: 1px dashed rgba(0, 31, 63, 0.3);
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <p class="logo__type">nwm</p>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="container">
+      <h1>Playground</h1>
+
+      <!-- 12-column grid demo -->
+      <div class="grid">
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+        <div class="cell col-1">1</div>
+
+        <div class="cell col-6">col-6</div>
+        <div class="cell col-6">col-6</div>
+
+        <div class="cell col-4">col-4</div>
+        <div class="cell col-4">col-4</div>
+        <div class="cell col-4">col-4</div>
+
+        <div class="cell col-12">col-12</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
