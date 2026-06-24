@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Plan Rendah Kalori 7 Hari</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f5f5f0; color: #2d2d2d; }
+  header { background: #2e7d52; color: white; padding: 24px 20px; text-align: center; }
+  header h1 { font-size: 1.5rem; font-weight: 700; }
+  header p { font-size: 0.85rem; opacity: 0.85; margin-top: 6px; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; margin-top: 8px; }
+  .nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; overflow-x: auto; gap: 8px; padding: 12px 16px; background: white; border-bottom: 1px solid #e5e5e5; box-shadow: 0 2px 8px rgba(0,0,0,0.08); scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav button { flex-shrink: 0; padding: 8px 16px; border: 2px solid #e5e5e5; background: white; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; color: #555; }
+  .nav button.active { background: #2e7d52; color: white; border-color: #2e7d52; }
+  .day-panel { display: none; padding: 16px; max-width: 600px; margin: 0 auto; }
+  .day-panel.active { display: block; }
+  .kcal-bar { background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .kcal-bar .num { font-size: 1.4rem; font-weight: 700; color: #2e7d52; }
+  .kcal-bar .label { font-size: 0.75rem; color: #888; }
+  .meal-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .meal-card .meal-type { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #2e7d52; margin-bottom: 4px; }
+  .meal-card .meal-name { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+  .meal-card .meal-kcal { font-size: 0.8rem; color: #888; margin-bottom: 8px; }
+  .meal-card .items { font-size: 0.85rem; color: #555; line-height: 1.6; }
+  .meal-card .items li { list-style: none; padding-left: 14px; position: relative; }
+  .meal-card .items li::before { content: '•'; position: absolute; left: 0; color: #2e7d52; }
+  .tip { background: #e8f5ee; border-left: 3px solid #2e7d52; border-radius: 0 8px 8px 0; padding: 12px 14px; margin-top: 8px; font-size: 0.8rem; color: #2e7d52; }
+  .notes { background: #fff8e1; border-radius: 12px; padding: 14px 16px; margin: 16px; max-width: 568px; margin-left: auto; margin-right: auto; font-size: 0.8rem; color: #7a6000; }
+  .notes h3 { font-weight: 700; margin-bottom: 6px; }
+  .notes ul { padding-left: 16px; }
+  .notes li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🥗 Meal Plan Rendah Kalori 7 Hari</h1>
+  <p>Target penurunan berat: min. 5 kg/bulan pertama</p>
+  <span class="badge">~1.400–1.600 kkal/hari • Ramah jantung & asam urat</span>
+</header>
+
+<div class="notes">
+  <h3>⚠️ Catatan Penting</h3>
+  <ul>
+    <li>Ayam & ikan: oven/air fryer, BUKAN digoreng deep fry</li>
+    <li>Garam max 1 sdt/hari — rasa gurih dari kaldu/rempah</li>
+    <li>Hindari jeroan, kacang-kacangan tinggi purin, & seafood (udang, cumi)</li>
+    <li>Ikan aman: kembung, kakap, nila, patin</li>
+    <li>Minum air putih min. 2 liter/hari</li>
+  </ul>
+</div>
+
+<div class="nav" id="nav">
+  <button class="active" onclick="showDay(0)">Sen</button>
+  <button onclick="showDay(1)">Sel</button>
+  <button onclick="showDay(2)">Rab</button>
+  <button onclick="showDay(3)">Kam</button>
+  <button onclick="showDay(4)">Jum</button>
+  <button onclick="showDay(5)">Sab</button>
+  <button onclick="showDay(6)">Min</button>
+</div>
+
+<div id="day-0" class="day-panel active">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Ayam Panggang + Tumis Brokoli Jamur</div><ul class="items"><li>Ayam bagian dada 200g, dipanggang oven</li><li>Brokoli 100g + jamur tiram 80g, tumis bawang putih</li><li>Nasi merah 100g (matang)</li><li>Acar timun + wortel (tanpa gula)</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Buah</div><ul class="items"><li>2 telur rebus</li><li>Apel / pir 1 buah</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ikan Kembung Kukus + Sayur Bening</div><ul class="items"><li>Ikan kembung 180g, dikukus dengan jahe & daun salam</li><li>Sayur bening bayam + jagung</li><li>Nasi merah 75g</li><li>Sambal tomat (tanpa terasi/udang)</li></ul></div>
+  <div class="tip">💡 Semangat hari pertama! Prep ayam & ikan bisa dilakukan malam sebelumnya.</div>
+</div>
+
+<div id="day-1" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Ikan Kakap Panggang + Nasi Merah</div><ul class="items"><li>Kakap 180g, marinasi lemon + bawang putih, dipanggang</li><li>Tumis kangkung bawang putih (sedikit minyak zaitun)</li><li>Nasi merah 100g</li><li>Acar kuning rendah garam</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Buah</div><ul class="items"><li>2 telur rebus</li><li>Nanas / apel 1 porsi</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ayam Bumbu Kuning (Air Fryer) + Sup Sayur</div><ul class="items"><li>Ayam dada 200g, bumbu kuning, air fryer 180° 20 menit</li><li>Sup wortel + brokoli + jamur kuping</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Jamur kuping & tiram aman untuk asam urat — beda dengan jamur kancing yang sebaiknya dibatasi.</div>
+</div>
+
+<div id="day-2" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Pepes Ikan Nila + Tumis Brokoli</div><ul class="items"><li>Ikan nila 180g, pepes dengan bumbu rempah lengkap</li><li>Brokoli + wortel tumis bawang putih</li><li>Nasi merah 100g</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Apel</div><ul class="items"><li>2 telur rebus</li><li>Apel 1 buah</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ayam Katsu Air Fryer + Salad</div><ul class="items"><li>Ayam dada 200g, tepung gandum tipis, air fryer</li><li>Saus: tomat + sedikit kecap rendah garam</li><li>Salad: selada + tomat + timun + olive oil + perasan jeruk nipis</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Ayam katsu air fryer bisa batch cook untuk 2–3 hari — simpan di kulkas, reheat 5 menit sebelum makan.</div>
+</div>
+
+<div id="day-3" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Ikan Patin Bumbu Kuning + Acar</div><ul class="items"><li>Patin 180g, dikukus / dipanggang dengan bumbu kuning</li><li>Tumis kacang panjang + wortel</li><li>Nasi merah 100g</li><li>Acar timun + wortel</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Pir</div><ul class="items"><li>2 telur rebus</li><li>Pir 1 buah</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ayam Panggang Rempah + Sayur Bening</div><ul class="items"><li>Ayam dada 200g, marinasi kunyit + jahe + bawang</li><li>Sayur bening labu siam + wortel</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Hari ke-4 — badan mulai adaptasi. Kalau lapar di antara makan, tambah minum air putih dulu.</div>
+</div>
+
+<div id="day-4" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Ayam Panggang Lemon + Tumis Jamur Brokoli</div><ul class="items"><li>Ayam dada 200g, marinasi lemon + rosemary/kemangi</li><li>Jamur tiram + brokoli tumis</li><li>Nasi merah 100g</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Nanas</div><ul class="items"><li>2 telur rebus</li><li>Nanas 150g</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ikan Kembung Bakar + Sup Tomat</div><ul class="items"><li>Kembung 180g, dibakar/dipanggang dengan bumbu merah</li><li>Sup tomat + wortel + seledri</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Hari Jumat — weekend incoming. Plan ahead untuk Sabtu-Minggu supaya nggak off track.</div>
+</div>
+
+<div id="day-5" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟡</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Ikan Nila Bakar + Lalapan</div><ul class="items"><li>Nila 180g, dibakar bumbu pedas rendah garam</li><li>Lalapan: selada + tomat + timun</li><li>Sambal tomat segar (tanpa terasi)</li><li>Nasi merah 100g</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Buah Campuran</div><ul class="items"><li>2 telur rebus</li><li>Apel + nanas (total 150g)</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ayam Air Fryer + Tumis Sayur</div><ul class="items"><li>Ayam dada 200g, bumbu bawang putih + lemon</li><li>Tumis brokoli + jamur + wortel</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Weekend boleh sedikit fleksibel — tapi tetap hindari deep fry dan batasi garam ya.</div>
+</div>
+
+<div id="day-6" class="day-panel">
+  <div class="kcal-bar"><div><div class="num">1.550 kkal</div><div class="label">Total hari ini</div></div><div style="font-size:1.8rem">🟢</div></div>
+  <div class="meal-card"><div class="meal-type">Makan Siang · 650 kkal</div><div class="meal-name">Pepes Ayam + Nasi Merah + Sayur</div><ul class="items"><li>Ayam dada 200g, pepes dengan daun pisang + rempah</li><li>Tumis kacang panjang + wortel</li><li>Nasi merah 100g</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Snack · 200 kkal</div><div class="meal-name">Telur Rebus + Pir</div><ul class="items"><li>2 telur rebus</li><li>Pir 1 buah</li></ul></div>
+  <div class="meal-card"><div class="meal-type">Makan Malam · 600 kkal</div><div class="meal-name">Ikan Kakap Kukus + Sayur Bening</div><ul class="items"><li>Kakap 180g, kukus dengan jahe + daun jeruk</li><li>Sayur bening bayam + jagung</li><li>Nasi merah 75g</li></ul></div>
+  <div class="tip">💡 Minggu terakhir — weigh in besok pagi sebelum sarapan untuk tracking yang akurat! 💪</div>
+</div>
+
+<script>
+function showDay(idx) {
+  document.querySelectorAll('.day-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  document.querySelectorAll('#nav button').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+</script>
+</body>
+</html>
