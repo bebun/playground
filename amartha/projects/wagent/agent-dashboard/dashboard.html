@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#FFFFFF" />
+<title>Dasbor AmarthaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  /* FunDS Lite tokens — https://funds-lite.vercel.app/llms.txt */
+  :root {
+    --font: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --primary-50:#FEF3FF; --primary-200:#E5B8EF; --primary-300:#D68EE4; --primary-400:#A642B7;
+    --primary-500:#853291; --primary-600:#732C7C; --primary-700:#612966; --primary-900:#3D1042;
+    --neutral-white:#FFFFFF; --neutral-50:#F9FAF8; --neutral-200:#E5E7EB; --neutral-400:#C6CAD0;
+    --neutral-500:#8E95A3; --neutral-600:#6B7280; --neutral-700:#525C6A; --neutral-900:#111928;
+    --blue-50:#EDF7FF;  --blue-500:#056DCE;  --blue-600:#0457A5;
+    --green-50:#E4FCEF; --green-500:#009C6A; --green-600:#007D55; --green-700:#005E40;
+    --orange-50:#FDF4E9; --orange-500:#F7941D; --orange-700:#AD540A;
+    --red-50:#FFF4F3;   --red-500:#D73630;   --red-600:#AC2B26;
+    --yellow-50:#FFFED9; --yellow-500:#EAB20B; --yellow-700:#996F03;
+    --r-6:6px; --r-8:8px; --r-12:12px; --r-full:9999px;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { margin:0; padding:0; }
+  body { font-family:var(--font); font-weight:500; background:#d9dddb; color:var(--neutral-900);
+         display:flex; justify-content:center; min-height:100vh; -webkit-font-smoothing:antialiased; }
+
+  .t24{font-size:24px;font-weight:700;letter-spacing:-.02em} .t20{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .t18{font-size:18px;font-weight:500} .t16{font-size:16px;font-weight:500} .t16b{font-size:16px;font-weight:700}
+  .t14{font-size:14px;font-weight:500} .t14b{font-size:14px;font-weight:700} .t12{font-size:12px;font-weight:500}
+
+  .phone { width:100%; max-width:412px; min-height:100vh; background:var(--neutral-50);
+           position:relative; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 0 0 1px rgba(0,0,0,.04); }
+  @media (min-width:460px){ body{padding:24px 0} .phone{min-height:872px;height:872px;border-radius:36px;box-shadow:0 24px 60px rgba(0,0,0,.25)} }
+
+  /* StatusBar/Mobile — exact FunDS artwork (node 19249:158983) */
+  .statusbar { height:32px; flex:0 0 auto; background:var(--neutral-white); display:flex; align-items:center; padding:0 20px; }
+  .statusbar .sb-art { width:100%; height:11px; display:block; color:var(--neutral-900); }
+
+  /* Navigation Header · Dark BG=False (node 19547:44261) */
+  .navheader { flex:0 0 auto; background:var(--neutral-white); border-bottom:1px solid var(--neutral-200);
+               display:flex; align-items:center; gap:12px; padding:10px 12px; position:relative; z-index:5; }
+  .navheader .nh-left { flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:8px; }
+  .navheader .back { padding:4px; border:none; background:none; color:var(--neutral-900); cursor:pointer;
+                     display:flex; align-items:center; justify-content:center; }
+  .navheader .title { flex:1 1 auto; min-width:0; padding-left:4px; display:flex; align-items:center; }
+  .navheader .title .t16b { color:var(--neutral-900); height:32px; display:flex; align-items:center; line-height:normal;
+                            overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .scroll { flex:1 1 auto; overflow-y:auto; padding:16px 16px 32px;
+            -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none; }
+  .scroll::-webkit-scrollbar { width:0; height:0; display:none; }
+  .section-gap > * + * { margin-top:24px; }
+
+  .badge { display:inline-flex; align-items:center; border-radius:var(--r-full); padding:3px 10px; font-size:12px; font-weight:500; line-height:1; }
+  .badge.primary{background:var(--primary-50);color:var(--primary-600)} .badge.green{background:var(--green-50);color:var(--green-600)}
+  .badge.red{background:var(--red-50);color:var(--red-600)} .badge.orange{background:var(--orange-50);color:var(--orange-700)}
+  .badge.neutral{background:var(--neutral-50);color:var(--neutral-600)}
+
+  .card { background:var(--neutral-white); border:1px solid var(--neutral-200); border-radius:var(--r-12); padding:12px; }
+
+  .tile { display:flex; align-items:center; justify-content:center; }
+  .tile.blue{background:var(--blue-50);color:var(--blue-500)} .tile.green{background:var(--green-50);color:var(--green-500)}
+  .tile.orange{background:var(--orange-50);color:var(--orange-500)} .tile.purple{background:var(--primary-50);color:var(--primary-500)}
+  .tile.red{background:var(--red-50);color:var(--red-500)} .tile.neutral{background:var(--neutral-50);color:var(--neutral-600)}
+
+  .sechead { display:flex; align-items:center; justify-content:space-between; margin:0 2px 10px; }
+  .sechead .link { color:var(--primary-500); font-weight:700; font-size:14px; cursor:pointer; }
+  .sechead .sub { color:var(--neutral-500); }
+
+  /* Buttons */
+  .btn { border:none; cursor:pointer; border-radius:var(--r-full); font-family:var(--font); font-weight:700; font-size:14px;
+         display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 16px; }
+  .btn.block { width:100%; }
+  .btn-secondary { background:#fff; border:1px solid var(--primary-500); color:var(--primary-500); }
+  .btn-secondary:active { background:var(--primary-50); }
+
+  /* ===== S1 · Profitabilitas (toggle scoped inside) ===== */
+  .summary { background:linear-gradient(135deg,var(--primary-500),var(--primary-600)); border-radius:var(--r-12); padding:16px; color:#fff; }
+  .seg-in { display:flex; gap:4px; background:rgba(255,255,255,.15); border-radius:var(--r-full); padding:4px; margin-bottom:18px; }
+  .seg-in button { flex:1; border:none; background:none; cursor:pointer; border-radius:var(--r-full);
+                   padding:8px 4px; font-family:var(--font); font-weight:700; font-size:12px; color:rgba(255,255,255,.8); }
+  .seg-in button.active { background:#fff; color:var(--primary-600); }
+  .sum-label { color:rgba(255,255,255,.82); display:flex; align-items:center; gap:6px; }
+  .sum-amt { margin-top:6px; }
+  .sum-row { display:flex; margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); }
+  .sum-row > div { flex:1; }
+  .sum-row > div + div { border-left:1px solid rgba(255,255,255,.2); padding-left:14px; }
+  .sum-v { font-weight:700; font-size:16px; }
+  .sum-l { color:rgba(255,255,255,.75); font-size:12px; margin-top:2px; }
+  .cust { margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); }
+  .cust-h { display:flex; justify-content:space-between; align-items:baseline; }
+  .cust-h .n { font-weight:700; font-size:16px; }
+  .cust-h .l { color:rgba(255,255,255,.75); font-size:12px; }
+  .cust-bar { height:8px; border-radius:var(--r-full); overflow:hidden; margin:12px 0 10px; display:flex; gap:2px; background:rgba(255,255,255,.15); }
+  .cust-bar .langganan { background:#fff; } .cust-bar .baru { background:var(--primary-200); }
+  .cust-legend { display:flex; gap:18px; font-size:12px; color:rgba(255,255,255,.9); }
+  .cust-legend .dot { width:8px; height:8px; border-radius:2px; display:inline-block; margin-right:6px; vertical-align:middle; }
+  .cust-legend b { font-weight:700; }
+
+  /* ===== S2 · Level Agen (info) ===== */
+  .tier-top { display:flex; align-items:center; gap:12px; }
+  .tier-medal { width:44px; height:44px; border-radius:var(--r-12); flex:0 0 auto;
+                background:linear-gradient(135deg,#F7D774,#EAB20B); color:#7a5a00;
+                display:flex; align-items:center; justify-content:center; }
+  .tier-name { font-weight:700; font-size:16px; }
+  .tier-sub { color:var(--neutral-600); font-size:12px; margin-top:1px; }
+  .tiers { display:flex; gap:4px; margin:14px 0; }
+  .tiers .tier { flex:1; text-align:center; padding:7px 2px; border-radius:var(--r-full);
+                 font-size:10px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+                 background:var(--neutral-50); color:var(--neutral-400); }
+  .tiers .tier.done { background:var(--primary-50); color:var(--primary-600); }
+  .tiers .tier.current { background:var(--primary-500); color:#fff; }
+  .tier-pts { display:flex; justify-content:space-between; align-items:baseline; margin-top:4px; }
+  .tier-pts .p { font-weight:700; font-size:16px; }
+  .tier-pts .p small { font-weight:500; font-size:12px; color:var(--neutral-500); }
+  .tier-pts .n { font-size:12px; color:var(--neutral-600); }
+  .tier-prog { height:8px; background:var(--neutral-50); border-radius:var(--r-full); overflow:hidden; margin-top:10px; }
+  .tier-prog > i { display:block; height:100%; width:83%; border-radius:var(--r-full); background:linear-gradient(90deg,var(--primary-400),var(--primary-500)); }
+
+  /* ===== S3 · Promo banner (sliding) ===== */
+  .banners { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -16px; padding:0 16px;
+             scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .banners::-webkit-scrollbar { display:none; }
+  .banner { flex:0 0 84%; scroll-snap-align:center; border-radius:var(--r-12); padding:16px; color:#fff;
+            min-height:108px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; }
+  .banner .tag { align-self:flex-start; background:rgba(255,255,255,.22); border-radius:var(--r-full);
+                 padding:3px 10px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .banner .bt { font-weight:700; font-size:16px; }
+  .banner .bd { font-size:12px; color:rgba(255,255,255,.88); margin-top:2px; }
+  .banner.p{background:linear-gradient(135deg,var(--primary-500),var(--primary-700))}
+  .banner.o{background:linear-gradient(135deg,#F7941D,#AD540A)}
+  .banner.b{background:linear-gradient(135deg,#056DCE,#03417C)}
+  .dots { display:flex; gap:6px; justify-content:center; margin-top:12px; }
+  .dots i { width:6px; height:6px; border-radius:var(--r-full); background:var(--neutral-200); transition:all .2s; }
+  .dots i.on { width:18px; background:var(--primary-500); }
+
+  /* ===== generic list rows (missions, security) ===== */
+  .txcard { padding:0; overflow:hidden; }
+  .lrow { display:flex; align-items:center; gap:12px; padding:12px; width:100%; text-align:left;
+          background:none; border:none; font-family:var(--font); cursor:pointer; }
+  .lrow + .lrow { border-top:1px solid var(--neutral-200); }
+  .lrow .ic { width:40px; height:40px; border-radius:var(--r-8); flex:0 0 auto; }
+  .lrow .mid { flex:1; min-width:0; }
+  .lrow .t1 { font-weight:700; font-size:14px; color:var(--neutral-900); }
+  .lrow .t2 { color:var(--neutral-600); font-size:12px; margin-top:3px; }
+  .lrow .chev { color:var(--neutral-400); flex:0 0 auto; }
+  .lrow .pts { color:var(--primary-600); font-weight:700; font-size:12px; white-space:nowrap; }
+
+  /* mission progress */
+  .mrow-h { display:flex; justify-content:space-between; gap:8px; align-items:baseline; }
+  .mbar { height:6px; background:var(--neutral-50); border-radius:var(--r-full); overflow:hidden; margin:8px 0 5px; }
+  .mbar > i { display:block; height:100%; border-radius:var(--r-full); background:var(--primary-500); }
+  .mrow-s { color:var(--neutral-600); font-size:12px; }
+
+  /* ===== S5 · Tambah penghasilan (opportunity cards) ===== */
+  .op-list > * + * { margin-top:8px; }
+  .opp { display:flex; align-items:center; gap:12px; width:100%; text-align:left; cursor:pointer; font-family:var(--font); }
+  .opp .ic { width:44px; height:44px; border-radius:var(--r-12); flex:0 0 auto; }
+  .opp .mid { flex:1; min-width:0; }
+  .opp .t1 { font-weight:700; font-size:14px; }
+  .opp .t2 { color:var(--neutral-600); font-size:12px; margin-top:3px; }
+
+  /* ===== S6 · FAQ (fun cards) ===== */
+  .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .faq-card { display:flex; flex-direction:column; align-items:flex-start; gap:14px; padding:14px;
+              cursor:pointer; text-align:left; font-family:var(--font); }
+  .faq-card .ic { width:38px; height:38px; border-radius:var(--r-8); }
+  .faq-card .q { font-weight:700; font-size:13px; line-height:1.35; color:var(--neutral-900); }
+  .faq-all { grid-column:1 / -1; display:flex; align-items:center; gap:12px; padding:14px; cursor:pointer;
+             text-align:left; font-family:var(--font); background:var(--primary-50); border-color:var(--primary-200); }
+  .faq-all .ic { width:38px; height:38px; border-radius:var(--r-8); background:#fff; color:var(--primary-500); flex:0 0 auto;
+                 display:flex; align-items:center; justify-content:center; }
+  .faq-all .t1 { font-weight:700; font-size:14px; color:var(--primary-700); }
+  .faq-all .t2 { font-size:12px; color:var(--primary-600); margin-top:2px; }
+  .faq-all .chev { margin-left:auto; color:var(--primary-500); flex:0 0 auto; }
+
+  /* ===== S7 · Keamanan & Bantuan (3 grid cards) ===== */
+  .sec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .sec-grid .faq-card { gap:12px; }
+  .sec-grid .faq-card .q { font-size:12px; }
+
+  .toast { position:absolute; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
+           background:var(--neutral-900); color:#fff; font-size:12px; font-weight:500; padding:12px 16px;
+           border-radius:var(--r-full); opacity:0; pointer-events:none; transition:all .25s ease; z-index:30; white-space:nowrap; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- FunDS StatusBar/Mobile — exact artwork (node 19249:158983) -->
+  <div class="statusbar">
+    <svg class="sb-art" viewBox="0 0 320 9.44702" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M6.61625 4.40489C6.61625 7.29392 5.32034 9 3.13871 9C1.56935 9 0.374505 8.07265 0.11889 6.6638H1.64663C1.8428 7.31176 2.41347 7.71598 3.15059 7.71598C4.40489 7.71598 5.14795 6.54491 5.14795 4.58322H5.09445H5.06473H5.0469C4.64267 5.39762 3.82827 5.86724 2.82365 5.86724C1.1889 5.86724 0 4.66645 0 3.01387C0 1.25429 1.31968 0 3.18626 0C4.44055 0 5.43329 0.594452 6.00991 1.69419C6.40819 2.40159 6.61625 3.31704 6.61625 4.40489ZM1.50396 2.96631C1.50396 3.94716 2.20542 4.64861 3.19221 4.64861C4.17305 4.64861 4.89234 3.94716 4.89234 2.99009C4.89234 2.02114 4.15522 1.27807 3.19815 1.27807C2.24108 1.27807 1.50396 2.00925 1.50396 2.96631ZM10.0762 7.97754C10.0762 8.51255 9.6898 8.91678 9.12507 8.91678C8.56629 8.91678 8.17395 8.51255 8.17395 7.97754C8.17395 7.43659 8.56629 7.03831 9.12507 7.03831C9.6898 7.03831 10.0762 7.43659 10.0762 7.97754ZM10.0762 3.5251C10.0762 4.06011 9.6898 4.45839 9.12507 4.45839C8.56629 4.45839 8.17395 4.06011 8.17395 3.5251C8.17395 2.98415 8.56629 2.58587 9.12507 2.58587C9.6898 2.58587 10.0762 2.98415 10.0762 3.5251ZM15.6405 8.79194H17.1088V7.19287H18.268V5.89696H17.1088V0.214003H14.945C13.4291 2.4967 12.2224 4.40489 11.4496 5.82563V7.19287H15.6405V8.79194ZM12.8704 5.84346C13.869 4.08388 14.7607 2.67503 15.5811 1.46235H15.6643V5.93263H12.8704V5.84346ZM23.0714 8.79194H21.5377V1.75958H21.4366L19.3026 3.2576V1.78336L21.5436 0.214003H23.0714V8.79194ZM292.678 3.82114C291.416 2.56802 289.741 1.8692 288 1.86912C286.259 1.86911 284.584 2.56793 283.322 3.82114C283.227 3.91803 283.075 3.91681 282.982 3.8184L282.073 2.86086C282.026 2.81098 282 2.74346 282 2.67322C282 2.60298 282.028 2.53581 282.076 2.4866C285.388 -0.828865 290.613 -0.828865 293.924 2.4866C293.972 2.53585 294 2.60303 294 2.67327C294 2.74351 293.974 2.81102 293.927 2.86086L293.018 3.8184C292.925 3.91666 292.773 3.91788 292.678 3.82114ZM290.589 6.02649C289.879 5.35577 288.957 4.98435 288 4.98441C287.044 4.98483 286.123 5.35621 285.414 6.02649C285.318 6.12168 285.167 6.11962 285.073 6.02184L284.166 5.0643C284.119 5.01415 284.092 4.94602 284.093 4.87519C284.093 4.80437 284.121 4.73678 284.17 4.68758C286.329 2.58942 289.673 2.58942 291.833 4.68758C291.881 4.73678 291.909 4.80433 291.91 4.87514C291.911 4.94594 291.884 5.01407 291.836 5.0643L290.929 6.02184C290.836 6.11962 290.684 6.12168 290.589 6.02649ZM289.744 7.26966C289.792 7.21991 289.819 7.15146 289.818 7.08046C289.816 7.00946 289.787 6.94221 289.737 6.89457C288.734 6.00908 287.266 6.00908 286.264 6.89457C286.214 6.94217 286.184 7.0094 286.183 7.0804C286.181 7.1514 286.208 7.21988 286.257 7.26966L287.826 8.92402C287.872 8.97264 287.935 9 288 9C288.066 9 288.129 8.97264 288.174 8.92402L289.744 7.26966ZM318.086 2.66968C318.086 1.19707 316.892 0.00293449 315.42 0.00268555H302.667C301.194 0.00268555 300 1.19692 300 2.66968V6.78003C300 8.25279 301.194 9.44702 302.667 9.44702H315.42C316.892 9.44677 318.086 8.25264 318.086 6.78003V2.66968ZM301 2.66968C301 1.7492 301.747 1.00269 302.667 1.00269H315.42C316.34 1.00293 317.086 1.74936 317.086 2.66968V6.78003C317.086 7.70035 316.34 8.44677 315.42 8.44702H302.667C301.747 8.44702 301 7.7005 301 6.78003V2.66968ZM320 4.72487C320 5.45249 319.57 6.10923 318.908 6.39154V3.05821C319.57 3.34052 320 3.99726 320 4.72487ZM301.644 3.00269C301.644 2.26631 302.241 1.66935 302.978 1.66935H315.109C315.845 1.66935 316.442 2.26631 316.442 3.00269V6.44713C316.442 7.18351 315.845 7.78046 315.109 7.78046H302.978C302.241 7.78046 301.644 7.18351 301.644 6.44713V3.00269ZM275.176 0.335938H274.353C273.898 0.335938 273.529 0.713697 273.529 1.17969V8.49219C273.529 8.95818 273.898 9.33594 274.353 9.33594H275.176C275.631 9.33594 276 8.95818 276 8.49219V1.17969C276 0.713697 275.631 0.335938 275.176 0.335938ZM270.51 2.30469H271.333C271.788 2.30469 272.157 2.68245 272.157 3.14844V8.49219C272.157 8.95818 271.788 9.33594 271.333 9.33594H270.51C270.055 9.33594 269.686 8.95818 269.686 8.49219V3.14844C269.686 2.68245 270.055 2.30469 270.51 2.30469ZM267.49 4.27344H266.667C266.212 4.27344 265.843 4.6512 265.843 5.11719V8.49219C265.843 8.95818 266.212 9.33594 266.667 9.33594H267.49C267.945 9.33594 268.314 8.95818 268.314 8.49219V5.11719C268.314 4.6512 267.945 4.27344 267.49 4.27344ZM263.647 5.96094H262.824C262.369 5.96094 262 6.3387 262 6.80469V8.49219C262 8.95818 262.369 9.33594 262.824 9.33594H263.647C264.102 9.33594 264.471 8.95818 264.471 8.49219V6.80469C264.471 6.3387 264.102 5.96094 263.647 5.96094Z" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <!-- Navigation Header (Dark BG=False): back + title -->
+  <header class="navheader">
+    <div class="nh-left">
+      <button class="back" aria-label="Kembali" onclick="toast('Kembali')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="title"><span class="t16b">Dasbor AmarthaLink</span></div>
+    </div>
+  </header>
+
+  <div class="scroll section-gap">
+
+    <!-- ===== S1 · Profitabilitas ===== -->
+    <div class="summary">
+      <div class="seg-in" id="segment">
+        <button class="active" onclick="setPeriod('hari',this)">Hari Ini</button>
+        <button onclick="setPeriod('minggu',this)">7 Hari</button>
+        <button onclick="setPeriod('bulan',this)">30 Hari</button>
+      </div>
+      <div class="sum-label t12">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="s-label">Untung Hari Ini</span>
+      </div>
+      <div class="sum-amt t24" id="s-untung">Rp 87.500</div>
+      <div class="sum-row">
+        <div><div class="sum-v" id="s-modal">Rp 3.762.500</div><div class="sum-l">Modal keluar</div></div>
+        <div><div class="sum-v" id="s-trx">37</div><div class="sum-l">Transaksi</div></div>
+      </div>
+      <div class="cust">
+        <div class="cust-h"><span class="n"><span id="s-plg">29</span> pelanggan</span><span class="l">belanja hari ini</span></div>
+        <div class="cust-bar"><span class="langganan" id="s-bar-lang" style="width:72%"></span><span class="baru" id="s-bar-baru" style="width:28%"></span></div>
+        <div class="cust-legend">
+          <span><span class="dot" style="background:#fff"></span><b id="s-lang">21</b> langganan</span>
+          <span><span class="dot" style="background:var(--primary-200)"></span><b id="s-baru">8</b> baru</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== S2 · Level Agen (info) ===== -->
+    <div>
+      <div class="sechead"><span class="t16b">Level Agen</span><span class="link" onclick="toast('Detail level')">Detail</span></div>
+      <div class="card">
+        <div class="tier-top">
+          <span class="tier-medal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="M9 14.5 7.5 22l4.5-2.5L16.5 22 15 14.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <div class="tier-name">Agen Gold</div>
+            <div class="tier-sub">Level 3 dari 5</div>
+          </div>
+        </div>
+        <div class="tiers">
+          <span class="tier done">Bronze</span>
+          <span class="tier done">Silver</span>
+          <span class="tier current">Gold</span>
+          <span class="tier">Platinum</span>
+          <span class="tier">Titanium</span>
+        </div>
+        <div class="tier-pts">
+          <span class="p">1.240 <small>poin</small></span>
+          <span class="n">260 poin lagi ke Platinum</span>
+        </div>
+        <div class="tier-prog"><i></i></div>
+      </div>
+    </div>
+
+    <!-- ===== S3 · Promo & Program (sliding banner) ===== -->
+    <div>
+      <div class="banners" id="banners">
+        <div class="banner p" onclick="toast('Promo cashback')">
+          <span class="tag">Promo</span>
+          <div><div class="bt">Cashback 10% Token PLN</div><div class="bd">Berlaku s/d 31 Juli · tanpa minimum</div></div>
+        </div>
+        <div class="banner o" onclick="toast('Bonus komisi')">
+          <span class="tag">Program</span>
+          <div><div class="bt">Komisi ekstra tiap akhir pekan</div><div class="bd">Sabtu–Minggu, komisi naik 20%</div></div>
+        </div>
+        <div class="banner b" onclick="toast('Undian agen')">
+          <span class="tag">Event</span>
+          <div><div class="bt">Undian umrah untuk agen aktif</div><div class="bd">Tiap 100 transaksi = 1 kupon</div></div>
+        </div>
+      </div>
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+    </div>
+
+    <!-- ===== S4 · Misi (naik tier) ===== -->
+    <div>
+      <div class="sechead"><span class="t16b">Misi Kamu</span><span class="sub t12">Kumpulkan poin</span></div>
+      <div class="card txcard">
+        <button class="lrow" onclick="toast('Lengkapi lokasi agen')">
+          <span class="ic tile purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="2"/></svg></span>
+          <div class="mid">
+            <div class="mrow-h"><span class="t1">Lengkapi informasi lokasi agen</span><span class="pts">+50 poin</span></div>
+            <div class="mrow-s">Biar pelanggan gampang nemuin warung kamu</div>
+          </div>
+          <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="lrow" style="cursor:default">
+          <span class="ic tile blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <div class="mid">
+            <div class="mrow-h"><span class="t1">Transaksi 100x bulan ini</span><span class="pts">+100 poin</span></div>
+            <div class="mbar"><i style="width:67%"></i></div>
+            <div class="mrow-s">67 dari 100 transaksi</div>
+          </div>
+        </div>
+        <div class="lrow" style="cursor:default">
+          <span class="ic tile green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <div class="mid">
+            <div class="mrow-h"><span class="t1">Aktif jualan 20 hari</span><span class="pts">+80 poin</span></div>
+            <div class="mbar"><i style="width:90%"></i></div>
+            <div class="mrow-s">18 dari 20 hari</div>
+          </div>
+        </div>
+        <button class="lrow" onclick="toast('Ajak agen baru')">
+          <span class="ic tile orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.5" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 8v6M21 11h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <div class="mid">
+            <div class="mrow-h"><span class="t1">Ajak 3 agen baru</span><span class="pts">+150 poin</span></div>
+            <div class="mbar"><i style="width:33%"></i></div>
+            <div class="mrow-s">1 dari 3 agen</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== S5 · Tambah Penghasilan ===== -->
+    <div>
+      <div class="sechead"><span class="t16b">Tambah Penghasilan</span></div>
+      <div class="op-list">
+        <button class="card opp" onclick="toast('Cashback belanja')">
+          <span class="ic tile green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M15 9.5C14.5 8.6 13.4 8 12 8c-1.7 0-3 .9-3 2.2 0 3 6 1.5 6 4.6 0 1.3-1.3 2.2-3 2.2-1.4 0-2.5-.6-3-1.5M12 6.5v11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <div class="mid"><div class="t1">Cashback belanja</div><div class="t2">Transaksi Rp 500rb minggu ini, dapat cashback Rp 25rb</div></div>
+          <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <button class="card opp" onclick="toast('Program referral')">
+          <span class="ic tile purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 8v13M12 8c-1-3-5-4-5-1.5C7 8 10 8 12 8Zm0 0c1-3 5-4 5-1.5C17 8 14 8 12 8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+          <div class="mid"><div class="t1">Ajak jadi Agen AmarthaLink</div><div class="t2">Ajak keluarga/kenalan, dapat bonus Rp 25rb per agen aktif</div></div>
+          <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <button class="card opp" onclick="toast('QRIS segera hadir')">
+          <span class="ic tile blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="8.5" y="8.5" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg></span>
+          <div class="mid"><div class="t1">Terima pembayaran QRIS</div><div class="t2">Pelanggan bayar pakai QRIS langsung di warung kamu</div></div>
+          <span class="badge neutral">Segera</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== S6 · FAQ (fun cards) ===== -->
+    <div>
+      <div class="sechead"><span class="t16b">Pertanyaan Umum</span></div>
+      <div class="faq-grid">
+        <button class="card faq-card" onclick="toast('Transaksi gagal — dana kembali 1x24 jam')">
+          <span class="ic tile red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7.5v5.5M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="q">Transaksi gagal tapi saldo terpotong?</span>
+        </button>
+        <button class="card faq-card" onclick="toast('Cara isi saldo')">
+          <span class="ic tile blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><path d="M17 3v4M15 5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="q">Cara isi saldo?</span>
+        </button>
+        <button class="card faq-card" onclick="toast('Cara tarik komisi')">
+          <span class="ic tile green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v11M8 10l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="q">Cara tarik komisi?</span>
+        </button>
+        <button class="card faq-card" onclick="toast('Cara naik tier')">
+          <span class="ic tile purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="M9 14.5 7.5 22l4.5-2.5L16.5 22 15 14.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+          <span class="q">Cara naik tier?</span>
+        </button>
+        <button class="card faq-all" onclick="toast('Pusat Bantuan Agen')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><div class="t1">Lihat semua pertanyaan</div><div class="t2">Pusat Bantuan Agen</div></div>
+          <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== S7 · Keamanan & Bantuan ===== -->
+    <div>
+      <div class="sechead"><span class="t16b">Keamanan &amp; Bantuan</span></div>
+      <div class="sec-grid">
+        <button class="card faq-card" onclick="toast('Ganti PIN & Sandi')">
+          <span class="ic tile purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></svg></span>
+          <span class="q">Ganti PIN &amp; Sandi</span>
+        </button>
+        <button class="card faq-card" onclick="toast('Waspada penipuan — Amartha tak pernah minta PIN/OTP')">
+          <span class="ic tile red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3 3 7v5c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V7l-9-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="q">Waspada Penipuan</span>
+        </button>
+        <button class="card faq-card" onclick="toast('Menghubungi CS Amartha')">
+          <span class="ic tile green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 16 0M4 12v3a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Zm16 0v3a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+          <span class="q">Hubungi CS</span>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /scroll -->
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+  let toastTimer;
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>t.classList.remove('show'), 1400);
+  }
+
+  /* S1 period toggle */
+  const P = {
+    hari:   { label:'Untung Hari Ini', untung:'Rp 87.500',    modal:'Rp 3.762.500',  trx:'37',    plg:'29',  lang:'21',  baru:'8',    langPct:72, custWhen:'belanja hari ini' },
+    minggu: { label:'Untung 7 Hari',   untung:'Rp 615.000',   modal:'Rp 23.985.000', trx:'248',   plg:'176', lang:'132', baru:'44',  langPct:75, custWhen:'belanja 7 hari' },
+    bulan:  { label:'Untung 30 Hari',  untung:'Rp 2.480.000', modal:'Rp 95.920.000', trx:'1.024', plg:'412', lang:'300', baru:'112', langPct:73, custWhen:'belanja 30 hari' },
+  };
+  function setPeriod(k, btn){
+    const d = P[k];
+    document.getElementById('s-label').textContent  = d.label;
+    document.getElementById('s-untung').textContent = d.untung;
+    document.getElementById('s-modal').textContent  = d.modal;
+    document.getElementById('s-trx').textContent    = d.trx;
+    document.getElementById('s-plg').textContent    = d.plg;
+    document.getElementById('s-lang').textContent   = d.lang;
+    document.getElementById('s-baru').textContent   = d.baru;
+    document.getElementById('s-bar-lang').style.width = d.langPct + '%';
+    document.getElementById('s-bar-baru').style.width = (100 - d.langPct) + '%';
+    document.querySelector('.cust-h .l').textContent = d.custWhen;
+    document.querySelectorAll('#segment button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  /* S3 banner dots */
+  const banners = document.getElementById('banners');
+  const dots = [...document.querySelectorAll('#dots i')];
+  banners.addEventListener('scroll', () => {
+    const c = banners.scrollLeft + banners.clientWidth/2;
+    let idx = 0, min = 1e9;
+    [...banners.children].forEach((el,i) => {
+      const center = el.offsetLeft + el.offsetWidth/2;
+      const dist = Math.abs(center - c);
+      if (dist < min) { min = dist; idx = i; }
+    });
+    dots.forEach((d,i) => d.classList.toggle('on', i === idx));
+  }, { passive:true });
+</script>
+</body>
+</html>
