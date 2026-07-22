@@ -229,21 +229,21 @@
       <div class="sum-label t12">
         <span id="s-label">Keuntungan bersih hari ini</span>
       </div>
-      <div class="sum-amt t24" id="s-untung">Rp1.128.750</div>
+      <div class="sum-amt t24" id="s-untung">Rp69.500</div>
       <div class="sum-date t12" id="s-date"></div>
       <div class="sum-row">
-        <div><div class="sum-v" id="s-modal">Rp3.762.500</div><div class="sum-l">Nilai transaksi</div></div>
-        <div><div class="sum-v" id="s-trx">37</div><div class="sum-l">Transaksi</div></div>
+        <div><div class="sum-v" id="s-modal">Rp2.393.500</div><div class="sum-l">Nilai transaksi</div></div>
+        <div><div class="sum-v" id="s-trx">18</div><div class="sum-l">Transaksi</div></div>
       </div>
       <div class="cust">
-        <div class="cust-h"><span class="n"><span id="s-plg">29</span> pelanggan</span><span class="l">belanja hari ini</span></div>
-        <div class="cust-bar"><span class="langganan" id="s-bar-lang" style="width:72%"></span><span class="baru" id="s-bar-baru" style="width:28%"></span></div>
+        <div class="cust-h"><span class="n"><span id="s-plg">15</span> pelanggan</span><span class="l">belanja hari ini</span></div>
+        <div class="cust-bar"><span class="langganan" id="s-bar-lang" style="width:73%"></span><span class="baru" id="s-bar-baru" style="width:27%"></span></div>
         <div class="cust-legend">
-          <span><span class="dot" style="background:#fff"></span><b id="s-lang">21</b> langganan</span>
-          <span><span class="dot" style="background:var(--primary-200)"></span><b id="s-baru">8</b> baru</span>
+          <span><span class="dot" style="background:#fff"></span><b id="s-lang">11</b> langganan</span>
+          <span><span class="dot" style="background:var(--primary-200)"></span><b id="s-baru">4</b> baru</span>
         </div>
       </div>
-      <button class="sum-report" onclick="toast('Lihat laporan keuangan')">
+      <button class="sum-report" onclick="location.href='laporan-keuangan.html'">
         <span class="sr-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 17v-3M12 17v-5M16 17v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
         <span class="sr-t">Laporan keuangan selengkapnya</span>
         <span class="sr-chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -421,9 +421,9 @@
 
   /* S1 period toggle */
   const P = {
-    hari:   { label:'Keuntungan bersih hari ini', days:0,  untung:'Rp1.128.750',  modal:'Rp3.762.500',  trx:'37',    plg:'29',  lang:'21',  baru:'8',    langPct:72, custWhen:'belanja hari ini' },
-    minggu: { label:'Keuntungan bersih 7 hari',   days:7,  untung:'Rp7.195.500',  modal:'Rp23.985.000', trx:'248',   plg:'176', lang:'132', baru:'44',  langPct:75, custWhen:'belanja 7 hari' },
-    bulan:  { label:'Keuntungan bersih 30 hari',  days:30, untung:'Rp28.776.000', modal:'Rp95.920.000', trx:'1.024', plg:'412', lang:'300', baru:'112', langPct:73, custWhen:'belanja 30 hari' },
+    hari:   { label:'Keuntungan bersih hari ini', days:0,  untung:'Rp69.500',    modal:'Rp2.393.500',  trx:'18',  plg:'15',  lang:'11',  baru:'4',   langPct:73, custWhen:'belanja hari ini' },
+    minggu: { label:'Keuntungan bersih 7 hari',   days:7,  untung:'Rp471.000',   modal:'Rp16.240.000', trx:'122', plg:'88',  lang:'66',  baru:'22',  langPct:75, custWhen:'belanja 7 hari' },
+    bulan:  { label:'Keuntungan bersih 30 hari',  days:30, untung:'Rp2.015.000', modal:'Rp69.480.000', trx:'521', plg:'306', lang:'232', baru:'74',  langPct:76, custWhen:'belanja 30 hari' },
   };
   const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
   const fmtDate = d => `${d.getDate()} ${IDN_MON[d.getMonth()]} ${d.getFullYear()}`;
