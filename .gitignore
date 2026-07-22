@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+
+# Editor / tooling local config
+.claude/
+
+# Dependencies & build output
+node_modules
+dist
