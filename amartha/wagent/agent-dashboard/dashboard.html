@@ -102,6 +102,12 @@
   .cust-legend { display:flex; gap:18px; font-size:12px; color:rgba(255,255,255,.9); }
   .cust-legend .dot { width:8px; height:8px; border-radius:2px; display:inline-block; margin-right:6px; vertical-align:middle; }
   .cust-legend b { font-weight:700; }
+  .sum-report { display:flex; align-items:center; gap:12px; width:100%; margin-top:16px; padding:16px 0 0;
+                border:none; border-top:1px solid rgba(255,255,255,.2); background:none; cursor:pointer;
+                font-family:var(--font); color:#fff; text-align:left; }
+  .sum-report .sr-ic { flex:0 0 auto; display:flex; }
+  .sum-report .sr-t { flex:1; font-weight:700; font-size:14px; }
+  .sum-report .sr-chev { flex:0 0 auto; display:flex; color:rgba(255,255,255,.9); }
 
   /* ===== S2 · Level Agen (info) ===== */
   .tier-top { display:flex; align-items:center; gap:12px; }
@@ -237,17 +243,12 @@
           <span><span class="dot" style="background:var(--primary-200)"></span><b id="s-baru">8</b> baru</span>
         </div>
       </div>
+      <button class="sum-report" onclick="toast('Lihat laporan keuangan')">
+        <span class="sr-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 17v-3M12 17v-5M16 17v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="sr-t">Laporan keuangan selengkapnya</span>
+        <span class="sr-chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
     </div>
-
-    <!-- ===== S1.5 · Lihat Laporan Keuangan (entry point) ===== -->
-    <button class="card" onclick="toast('Lihat laporan keuangan')" style="display:flex; align-items:center; gap:12px; padding:14px; width:100%; text-align:left; border:none; font-family:var(--font); cursor:pointer; background:var(--neutral-white);">
-      <span class="ic tile blue" style="width:40px; height:40px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="14 2 14 10 22 10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><line x1="12" y1="13" x2="12" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-      <div style="flex:1; min-width:0;">
-        <div style="font-weight:700; font-size:14px; color:var(--neutral-900);">Lihat laporan keuangan</div>
-        <div style="color:var(--neutral-600); font-size:12px; margin-top:3px;">Laporan detail omset & komisi</div>
-      </div>
-      <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </button>
 
     <!-- ===== S2 · Level Agen (info) ===== -->
     <div>
