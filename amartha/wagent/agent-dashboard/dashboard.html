@@ -93,6 +93,8 @@
   .sum-row > div + div { border-left:1px solid rgba(255,255,255,.2); padding-left:14px; }
   .sum-v { font-weight:700; font-size:16px; }
   .sum-l { color:rgba(255,255,255,.75); font-size:12px; margin-top:2px; }
+  .sum-row.hero { border-top:none; padding-top:0; margin-top:12px; }
+  .sum-row.hero .sum-v { font-size:20px; letter-spacing:-.01em; }
   .cust { margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); }
   .cust-h { display:flex; justify-content:space-between; align-items:baseline; }
   .cust-h .n { font-weight:700; font-size:16px; }
@@ -227,13 +229,17 @@
         <button onclick="setPeriod('bulan',this)">30 Hari</button>
       </div>
       <div class="sum-label t12">
-        <span id="s-label">Keuntungan bersih hari ini</span>
+        <span id="s-label">Uang masuk &amp; keluar hari ini</span>
       </div>
-      <div class="sum-amt t24" id="s-untung">Rp69.500</div>
       <div class="sum-date t12" id="s-date"></div>
+      <div class="sum-row hero">
+        <div><div class="sum-v" id="s-masuk">Rp2.752.000</div><div class="sum-l">Pemasukan</div></div>
+        <div><div class="sum-v" id="s-keluar">Rp2.324.000</div><div class="sum-l">Pengeluaran</div></div>
+      </div>
       <div class="sum-row">
-        <div><div class="sum-v" id="s-modal">Rp2.393.500</div><div class="sum-l">Nilai transaksi</div></div>
-        <div><div class="sum-v" id="s-trx">18</div><div class="sum-l">Transaksi</div></div>
+        <div><div class="sum-v" id="s-trx">21</div><div class="sum-l">Jumlah transaksi</div></div>
+        <div><div class="sum-v" id="s-produk">18</div><div class="sum-l">Produk digital terjual</div></div>
+        <div><div class="sum-v" id="s-qris">Rp358.500</div><div class="sum-l">Pemasukan QRIS</div></div>
       </div>
       <div class="cust">
         <div class="cust-h"><span class="n"><span id="s-plg">15</span> pelanggan</span><span class="l">belanja hari ini</span></div>
@@ -421,9 +427,9 @@
 
   /* S1 period toggle */
   const P = {
-    hari:   { label:'Keuntungan bersih hari ini', days:0,  untung:'Rp69.500',    modal:'Rp2.393.500',  trx:'18',  plg:'15',  lang:'11',  baru:'4',   langPct:73, custWhen:'belanja hari ini' },
-    minggu: { label:'Keuntungan bersih 7 hari',   days:7,  untung:'Rp471.000',   modal:'Rp16.240.000', trx:'122', plg:'88',  lang:'66',  baru:'22',  langPct:75, custWhen:'belanja 7 hari' },
-    bulan:  { label:'Keuntungan bersih 30 hari',  days:30, untung:'Rp2.015.000', modal:'Rp69.480.000', trx:'521', plg:'306', lang:'232', baru:'74',  langPct:76, custWhen:'belanja 30 hari' },
+    hari:   { label:'Uang masuk & keluar hari ini', days:0,  masuk:'Rp2.752.000',  keluar:'Rp2.324.000',  trx:'21',  produk:'18',  qris:'Rp358.500',    plg:'15',  lang:'11',  baru:'4',   langPct:73, custWhen:'belanja hari ini' },
+    minggu: { label:'Uang masuk & keluar 7 hari',   days:7,  masuk:'Rp18.676.000', keluar:'Rp15.769.000', trx:'142', produk:'122', qris:'Rp2.436.000',  plg:'88',  lang:'66',  baru:'22',  langPct:75, custWhen:'belanja 7 hari' },
+    bulan:  { label:'Uang masuk & keluar 30 hari',  days:30, masuk:'Rp79.900.000', keluar:'Rp67.465.000', trx:'607', produk:'521', qris:'Rp10.420.000', plg:'306', lang:'232', baru:'74',  langPct:76, custWhen:'belanja 30 hari' },
   };
   const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
   const fmtDate = d => `${d.getDate()} ${IDN_MON[d.getMonth()]} ${d.getFullYear()}`;
@@ -438,9 +444,11 @@
     const d = P[k];
     document.getElementById('s-label').textContent  = d.label;
     document.getElementById('s-date').textContent    = dateRange(d.days);
-    document.getElementById('s-untung').textContent = d.untung;
-    document.getElementById('s-modal').textContent  = d.modal;
+    document.getElementById('s-masuk').textContent  = d.masuk;
+    document.getElementById('s-keluar').textContent = d.keluar;
     document.getElementById('s-trx').textContent    = d.trx;
+    document.getElementById('s-produk').textContent = d.produk;
+    document.getElementById('s-qris').textContent   = d.qris;
     document.getElementById('s-plg').textContent    = d.plg;
     document.getElementById('s-lang').textContent   = d.lang;
     document.getElementById('s-baru').textContent   = d.baru;

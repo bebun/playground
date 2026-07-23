@@ -184,8 +184,17 @@
                color:var(--neutral-900); cursor:pointer; white-space:nowrap; }
   .date-pill .cal { color:var(--primary-500); display:flex; }
   .date-pill .chev { color:var(--neutral-500); display:flex; }
-  .profit-amt { font-size:28px; font-weight:700; letter-spacing:-.02em; color:var(--primary-600); margin-top:12px; }
-  .profit-sub { color:var(--neutral-500); font-size:12px; margin-top:4px; }
+  .io-row { display:flex; margin-top:14px; }
+  .io { flex:1 1 0; min-width:0; }
+  .io + .io { border-left:1px solid var(--neutral-200); padding-left:14px; }
+  .io-l { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--neutral-600); }
+  .io-l .ai { display:flex; }
+  .io-l .ai.in { color:var(--green-500); }
+  .io-l .ai.out { color:var(--red-500); }
+  .io-v { font-size:18px; font-weight:700; letter-spacing:-.01em; margin-top:4px; }
+  .io-v.in { color:var(--green-600); }
+  .io-v.out { color:var(--red-600); }
+  .io-s { font-size:11px; color:var(--neutral-500); margin-top:3px; }
 
   .profit-stats { display:flex; margin-top:16px; padding-top:16px; border-top:1px solid var(--neutral-200); }
   .profit-stats > div { flex:1; }
@@ -214,6 +223,7 @@
   .tx .t2 { color:var(--neutral-600); font-size:12px; margin-top:2px; }
   .tx .right { text-align:right; flex:0 0 auto; }
   .tx .nom { font-weight:700; font-size:14px; color:var(--neutral-900); }
+  .tx .nom.in { color:var(--green-600); }
   .tx .komisi { color:var(--green-600); font-size:12px; font-weight:700; margin-top:2px; }
   .tx-more { width:100%; border:none; background:none; cursor:pointer; font-family:var(--font);
              color:var(--primary-500); font-weight:700; font-size:14px; padding:14px; border-top:1px solid var(--neutral-200); }
@@ -263,41 +273,29 @@
       </button>
     </div>
 
-    <!-- ===== Card Keuntungan ===== -->
+    <!-- ===== Card Ringkasan (Pemasukan vs Pengeluaran) ===== -->
     <div class="profit">
       <div class="profit-head">
-        <span class="profit-label">Keuntungan</span>
+        <span class="profit-label">Ringkasan hari ini</span>
       </div>
-      <div class="profit-amt" id="p-untung">Rp69.500</div>
-      <div class="profit-sub" id="p-sub">Hari ini</div>
+
+      <div class="io-row">
+        <div class="io">
+          <div class="io-l"><span class="ai in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4v12M6 10l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pemasukan</div>
+          <div class="io-v in" id="p-masuk">Rp2.752.000</div>
+          <div class="io-s">Poket, QRIS &amp; tunai (proyeksi)</div>
+        </div>
+        <div class="io">
+          <div class="io-l"><span class="ai out"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 20V8M6 14l6-6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pengeluaran</div>
+          <div class="io-v out" id="p-keluar">Rp2.324.000</div>
+          <div class="io-s">Dari Poket &amp; refund QRIS</div>
+        </div>
+      </div>
 
       <div class="profit-stats">
-        <div><div class="ps-v" id="p-modal">Rp2.324.000</div><div class="ps-k">Modal keluar</div></div>
-        <div><div class="ps-v" id="p-trx">18</div><div class="ps-k">Transaksi</div></div>
-      </div>
-
-      <div class="masuk">
-        <div class="masuk-h">Uang masuk dari pelanggan</div>
-        <div class="masuk-row">
-          <span class="masuk-ic tile purple">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M14 14h3v3M21 21v.01M17 21h.01M21 17v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </span>
-          <div class="masuk-mid">
-            <div class="masuk-t">Masuk Poket <span class="tag">Bisa ditarik</span></div>
-            <div class="masuk-s">Bayar via scan / QRIS ke Poket kamu</div>
-          </div>
-          <div class="masuk-v" id="p-poket">Rp358.500</div>
-        </div>
-        <div class="masuk-row">
-          <span class="masuk-ic tile neutral">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="2"/><path d="M6 10v4M18 10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </span>
-          <div class="masuk-mid">
-            <div class="masuk-t">Tunai</div>
-            <div class="masuk-s">Kamu terima langsung di tangan</div>
-          </div>
-          <div class="masuk-v" id="p-tunai">Rp2.035.000</div>
-        </div>
+        <div><div class="ps-v" id="p-trx">21</div><div class="ps-k">Jumlah transaksi</div></div>
+        <div><div class="ps-v" id="p-produk">18</div><div class="ps-k">Produk digital terjual</div></div>
+        <div><div class="ps-v" id="p-qris">Rp358.500</div><div class="ps-k">Pemasukan dari QRIS</div></div>
       </div>
     </div>
 
@@ -336,10 +334,10 @@
         <div class="fsec-h">Jenis transaksi</div>
         <div class="fchips">
           <button class="fchip" data-g="jenis" data-v="pulsa" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M2 20a18 18 0 0 1 18-18M6 20A12 12 0 0 1 18 8M10 20a6 6 0 0 1 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="20" r="1.4" fill="currentColor"/></svg></span>Pulsa &amp; Data</button>
-          <button class="fchip" data-g="jenis" data-v="kirim" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kirim uang</button>
+          <button class="fchip" data-g="jenis" data-v="transfer" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Transfer Poket</button>
           <button class="fchip" data-g="jenis" data-v="token" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>Token PLN</button>
-          <button class="fchip" data-g="jenis" data-v="ewallet" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="14.5" r="1.4" fill="currentColor"/></svg></span>E-wallet</button>
           <button class="fchip" data-g="jenis" data-v="tagihan" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17l-2.5-1.5L13 22l-2.5-1.5L8 22l-2.5-1.5L6 22V2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Tagihan</button>
+          <button class="fchip" data-g="jenis" data-v="voucher" onclick="toggleChip(this)"><span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="11" rx="4" stroke="currentColor" stroke-width="2"/><path d="M7 11.5v3M5.5 13h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1.1" fill="currentColor"/><circle cx="18.5" cy="14" r="1.1" fill="currentColor"/></svg></span>Voucher game</button>
         </div>
         <span class="flink" onclick="toast('Lihat semua jenis transaksi')">Lihat semua jenis transaksi</span>
       </div>
@@ -398,36 +396,42 @@
 
   // Product icons
   const IC = {
-    pulsa:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 20a18 18 0 0 1 18-18M6 20A12 12 0 0 1 18 8M10 20a6 6 0 0 1 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="20" r="1.4" fill="currentColor"/></svg>',
-    kirim:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    token:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-    ewallet:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="14.5" r="1.5" fill="currentColor"/></svg>',
-    tagihan:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17l-2.5-1.5L13 22l-2.5-1.5L8 22l-2.5-1.5L6 22V2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-    data:   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+    pulsa:   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 20a18 18 0 0 1 18-18M6 20A12 12 0 0 1 18 8M10 20a6 6 0 0 1 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="20" r="1.4" fill="currentColor"/></svg>',
+    data:    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    transfer:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    token:   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+    plnbill: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17l-2.5-1.5L13 22l-2.5-1.5L8 22l-2.5-1.5L6 22V2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    pdam:    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+    angsuran:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 3v4M16 3v4M8.5 15l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    voucher: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="11" rx="4" stroke="currentColor" stroke-width="2"/><path d="M7 11.5v3M5.5 13h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1.1" fill="currentColor"/><circle cx="18.5" cy="14" r="1.1" fill="currentColor"/></svg>',
+    qris:    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M14 14h3v3M21 21v.01M17 21h.01M21 17v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
   };
 
-  // All transactions for the selected date — komisi = profit earned per trx.
-  // Sums reconcile: uang masuk Rp2.393.500 · untung Rp69.500 · 18 transaksi.
-  // [tileColor, icon, name, time, nominal, komisi, category]
+  // Transactions — PPOB sales (with komisi ≤ min(50%, Rp10.000)) + QRIS "Terima dana" (no komisi).
+  // Sales reconcile with Dasbor: nominal Rp2.393.500 · untung Rp69.500 · 18 penjualan.
+  // QRIS receipts sum Rp358.500 (= Masuk Poket). {tile, ic, cat, title, sub, nom, komisi} · QRIS: {…, trxId, time, qris:true}
   const TX = [
-    ['purple','pulsa','Pulsa Telkomsel 50rb','14:32','Rp51.500','+Rp1.500','pulsa'],
-    ['blue','kirim','Kirim uang ke BCA','13:58','Rp507.000','+Rp7.000','kirim'],
-    ['orange','token','Token PLN 100rb','13:10','Rp103.000','+Rp3.000','token'],
-    ['purple','data','Paket Data XL 10GB','12:45','Rp68.000','+Rp8.000','pulsa'],
-    ['green','ewallet','Top-up GoPay','12:20','Rp203.000','+Rp3.000','ewallet'],
-    ['red','tagihan','Bayar BPJS Kesehatan','11:55','Rp164.500','+Rp4.500','tagihan'],
-    ['purple','pulsa','Pulsa Indosat 25rb','11:30','Rp26.000','+Rp1.000','pulsa'],
-    ['orange','token','Token PLN 50rb','11:08','Rp53.000','+Rp3.000','token'],
-    ['blue','kirim','Transfer ke DANA','10:47','Rp152.500','+Rp2.500','kirim'],
-    ['purple','pulsa','Pulsa Telkomsel 20rb','10:25','Rp21.000','+Rp1.000','pulsa'],
-    ['purple','data','Paket Data Tri 8GB','10:02','Rp55.000','+Rp7.000','pulsa'],
-    ['red','tagihan','Bayar PDAM','09:40','Rp87.000','+Rp5.000','tagihan'],
-    ['blue','kirim','Kirim uang ke BRI','09:18','Rp307.000','+Rp7.000','kirim'],
-    ['green','ewallet','Top-up OVO','08:55','Rp102.000','+Rp2.000','ewallet'],
-    ['purple','pulsa','Pulsa XL 50rb','08:33','Rp51.500','+Rp1.500','pulsa'],
-    ['orange','token','Token PLN 20rb','08:12','Rp22.500','+Rp2.500','token'],
-    ['green','ewallet','Voucher Game ML 100rb','07:50','Rp104.000','+Rp4.000','ewallet'],
-    ['red','tagihan','Bayar IndiHome','07:28','Rp315.000','+Rp6.000','tagihan'],
+    {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Telkomsel · 0812-3456-789',    nom:'Rp51.500',  komisi:'Rp1.500'},
+    {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BCA · Budi Santoso',           nom:'Rp507.000', komisi:'Rp5.000'},
+    {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-0098',     nom:'Rp103.000', komisi:'Rp3.000'},
+    {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'XL · 0817-2233-445',           nom:'Rp68.000',  komisi:'Rp8.000'},
+    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0091', time:'12:20', nom:'Rp150.000', qris:true},
+    {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Mobile Legends · 344 Diamond', nom:'Rp203.000', komisi:'Rp3.000'},
+    {tile:'orange', ic:'plnbill',  cat:'tagihan',  title:'Bayar tagihan PLN',       sub:'PLN Pascabayar · 5321-1187',   nom:'Rp164.500', komisi:'Rp4.500'},
+    {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Indosat · 0857-9911-223',      nom:'Rp26.000',  komisi:'Rp1.000'},
+    {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-4456',     nom:'Rp53.000',  komisi:'Rp3.000'},
+    {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BRI · Siti Aminah',            nom:'Rp152.500', komisi:'Rp2.500'},
+    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0072', time:'10:05', nom:'Rp120.000', qris:true},
+    {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Telkomsel · 0813-7788-990',    nom:'Rp21.000',  komisi:'Rp1.000'},
+    {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'Tri · 0896-5544-332',          nom:'Rp55.000',  komisi:'Rp7.000'},
+    {tile:'blue',   ic:'pdam',     cat:'tagihan',  title:'Bayar PDAM',              sub:'PDAM Bandung · 1102-8890',     nom:'Rp87.000',  komisi:'Rp5.000'},
+    {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BNI · Andi Wijaya',            nom:'Rp307.000', komisi:'Rp9.000'},
+    {tile:'red',    ic:'angsuran', cat:'tagihan',  title:'Bayar angsuran',          sub:'Angsuran Amartha · ke-3',      nom:'Rp102.000', komisi:'Rp2.000'},
+    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0043', time:'08:47', nom:'Rp88.500',  qris:true},
+    {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'XL · 0819-2345-678',           nom:'Rp51.500',  komisi:'Rp1.500'},
+    {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-7789',     nom:'Rp22.500',  komisi:'Rp2.500'},
+    {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Free Fire · 100 Diamond',      nom:'Rp104.000', komisi:'Rp4.000'},
+    {tile:'red',    ic:'angsuran', cat:'tagihan',  title:'Bayar angsuran',          sub:'Angsuran Amartha · ke-7',      nom:'Rp315.000', komisi:'Rp6.000'},
   ];
 
   const txListEl = document.getElementById('tx-list');
@@ -439,27 +443,47 @@
   const parseRp = s => parseInt(String(s).replace(/[^\d]/g, ''), 10) || 0;
   const fmtRp = n => 'Rp' + n.toLocaleString('id-ID');
 
+  function rowHTML(t){
+    if (t.qris){
+      return `
+      <div class="tx">
+        <span class="ic tile ${t.tile}">${IC[t.ic]}</span>
+        <div class="mid"><div class="t1">${t.title}</div><div class="t2">${t.trxId}</div><div class="t2">${t.time}</div></div>
+        <div class="right"><div class="nom in">+${t.nom}</div></div>
+      </div>`;
+    }
+    return `
+      <div class="tx">
+        <span class="ic tile ${t.tile}">${IC[t.ic]}</span>
+        <div class="mid"><div class="t1">${t.title}</div><div class="t2">${t.sub}</div></div>
+        <div class="right"><div class="nom">${t.nom}</div><div class="komisi">+${t.komisi} untung</div></div>
+      </div>`;
+  }
+  const matchSearch = (t, q) => (t.title + ' ' + (t.sub || '') + ' ' + (t.trxId || '')).toLowerCase().includes(q);
+
   function renderList(){
     const q = searchQuery.trim().toLowerCase();
-    let rows = selJenis.size ? TX.filter(t => selJenis.has(t[6])) : TX;
-    if (q) rows = rows.filter(t => t[2].toLowerCase().includes(q));
+    let rows = selJenis.size ? TX.filter(t => selJenis.has(t.cat)) : TX;
+    if (q) rows = rows.filter(t => matchSearch(t, q));
 
     txListEl.innerHTML = rows.length
-      ? rows.map(t => `
-      <div class="tx">
-        <span class="ic tile ${t[0]}">${IC[t[1]]}</span>
-        <div class="mid"><div class="t1">${t[2]}</div><div class="t2">${t[3]}</div></div>
-        <div class="right"><div class="nom">${t[4]}</div><div class="komisi">${t[5]} untung</div></div>
-      </div>`).join('')
+      ? rows.map(rowHTML).join('')
       : '<div class="tx-empty">Transaksi tidak ditemukan</div>';
     txCountEl.textContent = rows.length + ' transaksi';
 
-    // Keuntungan card follows the visible transactions (Poket & Tunai stay fixed)
-    let nom = 0, kom = 0;
-    rows.forEach(t => { nom += parseRp(t[4]); kom += parseRp(t[5]); });
-    document.getElementById('p-untung').textContent = fmtRp(kom);
-    document.getElementById('p-modal').textContent = fmtRp(nom - kom);
+    // Ringkasan card follows the visible rows:
+    // pemasukan = Σ nominal (sales = tunai/proyeksi, QRIS = masuk Poket);
+    // pengeluaran = Σ modal (nominal − komisi) of sales, paid from Poket.
+    const sales = rows.filter(t => !t.qris);
+    let masuk = 0, keluar = 0, qsum = 0;
+    rows.forEach(t => { masuk += parseRp(t.nom); });
+    sales.forEach(t => { keluar += parseRp(t.nom) - parseRp(t.komisi); });
+    rows.filter(t => t.qris).forEach(t => { qsum += parseRp(t.nom); });
+    document.getElementById('p-masuk').textContent = fmtRp(masuk);
+    document.getElementById('p-keluar').textContent = fmtRp(keluar);
     document.getElementById('p-trx').textContent = rows.length;
+    document.getElementById('p-produk').textContent = sales.length;
+    document.getElementById('p-qris').textContent = fmtRp(qsum);
   }
 
   function onSearch(){
@@ -484,7 +508,7 @@
   let stJenis, stAkt, stStatus, stDate;
 
   function stagedCount(){
-    return stJenis.size ? TX.filter(t => stJenis.has(t[6])).length : TX.length;
+    return stJenis.size ? TX.filter(t => stJenis.has(t.cat)).length : TX.length;
   }
   function updateApplyCount(){
     applyBtn.textContent = 'Tampilkan ' + stagedCount() + ' Transaksi';
