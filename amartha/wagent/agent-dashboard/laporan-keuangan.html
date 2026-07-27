@@ -62,7 +62,12 @@
   /* ===== Keuntungan + QRIS cards (match dashboard S1) ===== */
   .kcard, .qcard { background:var(--neutral-white); border:1px solid var(--neutral-200); border-radius:var(--r-8); overflow:hidden; }
   .kc-top { padding:12px 8px 12px; }
-  .kc-label { color:var(--neutral-600); font-size:12px; line-height:1.5; padding:0 8px; }
+  .kc-label { display:flex; align-items:center; gap:6px; color:var(--neutral-600); font-size:12px; line-height:1.5; padding:0 8px; }
+  .kc-info { border:none; background:none; padding:0; cursor:pointer; color:var(--neutral-500); display:flex; }
+  .info-lead { width:48px; height:48px; border-radius:var(--r-12); background:var(--primary-50); color:var(--primary-500);
+               display:flex; align-items:center; justify-content:center; margin:4px 0 14px; }
+  .info-p { font-size:14px; line-height:1.55; color:var(--neutral-700); margin:0 0 12px; }
+  .info-p b { color:var(--neutral-900); font-weight:700; }
   .kc-amt-row { display:flex; align-items:center; gap:6px; padding:0 8px; }
   .kc-amt { font-size:24px; font-weight:700; color:var(--neutral-900); letter-spacing:-.01em; }
   .kc-eye { border:none; background:none; cursor:pointer; color:var(--neutral-600); display:flex; padding:0; }
@@ -297,7 +302,12 @@
     <!-- ===== Card Keuntungan ===== -->
     <div class="kcard">
       <div class="kc-top">
-        <div class="kc-label">Keuntungan</div>
+        <div class="kc-label">
+          <span>Keuntungan · 24 Jul 2026</span>
+          <button class="kc-info" onclick="openInfo()" aria-label="Info keuntungan settle">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg>
+          </button>
+        </div>
         <div class="kc-amt-row">
           <span class="kc-amt" id="lp-untung">Rp81.500</span>
           <button class="kc-eye" id="lp-eye" onclick="toggleHide()" aria-label="Sembunyikan nilai">
@@ -309,18 +319,6 @@
           <div class="kc-cell"><div class="kc-v" id="lp-reward">Rp12.000</div><div class="kc-k">Cashback &amp; Rewards</div></div>
         </div>
       </div>
-    </div>
-
-    <!-- ===== Card Pemasukan QRIS ===== -->
-    <div class="qcard">
-      <div class="qc-row">
-        <span class="qc-label">Pemasukan QRIS</span>
-        <span class="qc-amt" id="lp-qris">Rp358.500</span>
-      </div>
-      <button class="qc-link" onclick="toast('Lihat Poket Merchant')">
-        <span>Lihat Poket Merchant</span>
-        <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
     </div>
 
     <!-- ===== Transaksi ===== -->
@@ -378,6 +376,25 @@
     </div>
     <div class="sheet-foot">
       <button class="sheet-apply" id="sheet-apply" onclick="applyFilter()">Tampilkan 18 Transaksi</button>
+    </div>
+  </div>
+
+  <!-- ===== Info sheet: keuntungan settle ===== -->
+  <div class="scrim" id="iscrim" onclick="closeInfo()"></div>
+  <div class="sheet" id="isheet" role="dialog" aria-label="Tentang keuntungan">
+    <div class="sheet-head">
+      <button class="close" onclick="closeInfo()" aria-label="Tutup">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <span class="stitle">Keuntungan yang tampil</span>
+    </div>
+    <div class="sheet-body">
+      <div class="info-lead"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor"/></svg></div>
+      <p class="info-p">Angka keuntungan di sini <b>hanya yang sudah settle</b> — komisi &amp; reward yang dananya sudah final masuk ke kamu.</p>
+      <p class="info-p">Keuntungan dari transaksi lain <b>tetap tercatat</b>, tapi masih <b>dalam proses settlement</b>. Nilainya otomatis ditambahkan begitu settlement selesai.</p>
+    </div>
+    <div class="sheet-foot">
+      <button class="sheet-apply" onclick="closeInfo()">Mengerti</button>
     </div>
   </div>
 
@@ -439,19 +456,16 @@
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BCA · Budi Santoso',           nom:'Rp507.000', komisi:'Rp5.000'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-0098',     nom:'Rp103.000', komisi:'Rp3.000'},
     {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'XL · 0817-2233-445',           nom:'Rp68.000',  komisi:'Rp8.000'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0091', time:'12:20', nom:'Rp150.000', qris:true},
     {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Mobile Legends · 344 Diamond', nom:'Rp203.000', komisi:'Rp3.000'},
     {tile:'orange', ic:'plnbill',  cat:'tagihan',  title:'Bayar tagihan PLN',       sub:'PLN Pascabayar · 5321-1187',   nom:'Rp164.500', komisi:'Rp4.500'},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Indosat · 0857-9911-223',      nom:'Rp26.000',  komisi:'Rp1.000'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-4456',     nom:'Rp53.000',  komisi:'Rp3.000'},
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BRI · Siti Aminah',            nom:'Rp152.500', komisi:'Rp2.500'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0072', time:'10:05', nom:'Rp120.000', qris:true},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Telkomsel · 0813-7788-990',    nom:'Rp21.000',  komisi:'Rp1.000'},
     {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'Tri · 0896-5544-332',          nom:'Rp55.000',  komisi:'Rp7.000'},
     {tile:'blue',   ic:'pdam',     cat:'tagihan',  title:'Bayar PDAM',              sub:'PDAM Bandung · 1102-8890',     nom:'Rp87.000',  komisi:'Rp5.000'},
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BNI · Andi Wijaya',            nom:'Rp307.000', komisi:'Rp9.000'},
     {tile:'red',    ic:'angsuran', cat:'tagihan',  title:'Bayar angsuran',          sub:'Angsuran Amartha · ke-3',      nom:'Rp102.000', komisi:'Rp2.000'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0043', time:'08:47', nom:'Rp88.500',  qris:true},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'XL · 0819-2345-678',           nom:'Rp51.500',  komisi:'Rp1.500'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-7789',     nom:'Rp22.500',  komisi:'Rp2.500'},
     {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Free Fire · 100 Diamond',      nom:'Rp104.000', komisi:'Rp4.000'},
@@ -495,16 +509,12 @@
       : '<div class="tx-empty">Transaksi tidak ditemukan</div>';
     txCountEl.textContent = rows.length + ' transaksi';
 
-    // Keuntungan = Penjualan (Σ komisi of visible sales) + Cashback & Rewards (fixed day bonus).
-    // QRIS = Σ nominal of visible QRIS rows. (Poket/Tunai concept dropped.)
-    const sales = rows.filter(t => !t.qris);
-    let jual = 0, qsum = 0;
-    sales.forEach(t => { jual += parseRp(t.komisi); });
-    rows.filter(t => t.qris).forEach(t => { qsum += parseRp(t.nom); });
+    // Keuntungan = Penjualan (Σ komisi of visible PPOB rows) + Cashback & Rewards (fixed day bonus).
+    let jual = 0;
+    rows.forEach(t => { jual += parseRp(t.komisi); });
     setVal('lp-jual', fmtRp(jual));
     setVal('lp-reward', fmtRp(REWARD));
     setVal('lp-untung', fmtRp(jual + REWARD));
-    document.getElementById('lp-qris').textContent = fmtRp(qsum);
     applyMask();
   }
 
@@ -520,6 +530,9 @@
     document.getElementById('lp-eye').innerHTML = hidden ? EYE_CLOSED : EYE_OPEN;
   }
   function toggleHide(){ hidden = !hidden; applyMask(); }
+
+  function openInfo(){ document.getElementById('iscrim').classList.add('open'); document.getElementById('isheet').classList.add('open'); }
+  function closeInfo(){ document.getElementById('iscrim').classList.remove('open'); document.getElementById('isheet').classList.remove('open'); }
 
   function onSearch(){
     searchQuery = searchInput.value;
