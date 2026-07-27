@@ -56,7 +56,28 @@
   .scroll::-webkit-scrollbar { width:0; height:0; display:none; }
   .section-gap > * + * { margin-top:24px; }
   .section-gap > .filterbar + * { margin-top:8px; }
+  .section-gap > .kcard + .qcard { margin-top:12px; }
   .section-gap > .tx-section { margin-top:12px; }
+
+  /* ===== Keuntungan + QRIS cards (match dashboard S1) ===== */
+  .kcard, .qcard { background:var(--neutral-white); border:1px solid var(--neutral-200); border-radius:var(--r-8); overflow:hidden; }
+  .kc-top { padding:12px 8px 12px; }
+  .kc-label { color:var(--neutral-600); font-size:12px; line-height:1.5; padding:0 8px; }
+  .kc-amt-row { display:flex; align-items:center; gap:6px; padding:0 8px; }
+  .kc-amt { font-size:24px; font-weight:700; color:var(--neutral-900); letter-spacing:-.01em; }
+  .kc-eye { border:none; background:none; cursor:pointer; color:var(--neutral-600); display:flex; padding:0; }
+  .kc-split { display:flex; background:var(--neutral-50); border-radius:var(--r-8); margin-top:12px; }
+  .kc-cell { flex:1 1 0; min-width:0; padding:8px; }
+  .kc-cell + .kc-cell { border-left:1px solid var(--neutral-200); }
+  .kc-v { font-size:14px; font-weight:700; color:var(--neutral-900); line-height:1.5; }
+  .kc-k { font-size:12px; color:var(--neutral-600); line-height:1.5; }
+  .qc-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px; }
+  .qc-label { color:var(--neutral-600); font-size:12px; }
+  .qc-amt { font-size:16px; font-weight:700; color:var(--neutral-900); }
+  .qc-link { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+             border:none; border-top:1px solid var(--neutral-200); background:none; cursor:pointer;
+             font-family:var(--font); font-weight:500; font-size:12px; color:var(--primary-500); text-align:left; padding:12px; }
+  .qc-link .chev { flex:0 0 auto; display:flex; }
 
   /* ===== Sticky filter bar (search + Filter button) ===== */
   .filterbar { position:sticky; top:0; z-index:10; background:var(--neutral-50);
@@ -273,30 +294,33 @@
       </button>
     </div>
 
-    <!-- ===== Card Ringkasan (Pemasukan vs Pengeluaran) ===== -->
-    <div class="profit">
-      <div class="profit-head">
-        <span class="profit-label">Ringkasan hari ini</span>
-      </div>
-
-      <div class="io-row">
-        <div class="io">
-          <div class="io-l"><span class="ai in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4v12M6 10l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pemasukan</div>
-          <div class="io-v in" id="p-masuk">Rp2.752.000</div>
-          <div class="io-s">Poket, QRIS &amp; tunai (proyeksi)</div>
+    <!-- ===== Card Keuntungan ===== -->
+    <div class="kcard">
+      <div class="kc-top">
+        <div class="kc-label">Keuntungan</div>
+        <div class="kc-amt-row">
+          <span class="kc-amt" id="lp-untung">Rp81.500</span>
+          <button class="kc-eye" id="lp-eye" onclick="toggleHide()" aria-label="Sembunyikan nilai">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
         </div>
-        <div class="io">
-          <div class="io-l"><span class="ai out"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 20V8M6 14l6-6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pengeluaran</div>
-          <div class="io-v out" id="p-keluar">Rp2.324.000</div>
-          <div class="io-s">Dari Poket &amp; refund QRIS</div>
+        <div class="kc-split">
+          <div class="kc-cell"><div class="kc-v" id="lp-jual">Rp69.500</div><div class="kc-k">Penjualan</div></div>
+          <div class="kc-cell"><div class="kc-v" id="lp-reward">Rp12.000</div><div class="kc-k">Cashback &amp; Rewards</div></div>
         </div>
       </div>
+    </div>
 
-      <div class="profit-stats">
-        <div><div class="ps-v" id="p-trx">21</div><div class="ps-k">Jumlah transaksi</div></div>
-        <div><div class="ps-v" id="p-produk">18</div><div class="ps-k">Produk digital terjual</div></div>
-        <div><div class="ps-v" id="p-qris">Rp358.500</div><div class="ps-k">Pemasukan dari QRIS</div></div>
+    <!-- ===== Card Pemasukan QRIS ===== -->
+    <div class="qcard">
+      <div class="qc-row">
+        <span class="qc-label">Pemasukan QRIS</span>
+        <span class="qc-amt" id="lp-qris">Rp358.500</span>
       </div>
+      <button class="qc-link" onclick="toast('Lihat Poket Merchant')">
+        <span>Lihat Poket Merchant</span>
+        <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
     </div>
 
     <!-- ===== Transaksi ===== -->
@@ -471,20 +495,31 @@
       : '<div class="tx-empty">Transaksi tidak ditemukan</div>';
     txCountEl.textContent = rows.length + ' transaksi';
 
-    // Ringkasan card follows the visible rows:
-    // pemasukan = Σ nominal (sales = tunai/proyeksi, QRIS = masuk Poket);
-    // pengeluaran = Σ modal (nominal − komisi) of sales, paid from Poket.
+    // Keuntungan = Penjualan (Σ komisi of visible sales) + Cashback & Rewards (fixed day bonus).
+    // QRIS = Σ nominal of visible QRIS rows. (Poket/Tunai concept dropped.)
     const sales = rows.filter(t => !t.qris);
-    let masuk = 0, keluar = 0, qsum = 0;
-    rows.forEach(t => { masuk += parseRp(t.nom); });
-    sales.forEach(t => { keluar += parseRp(t.nom) - parseRp(t.komisi); });
+    let jual = 0, qsum = 0;
+    sales.forEach(t => { jual += parseRp(t.komisi); });
     rows.filter(t => t.qris).forEach(t => { qsum += parseRp(t.nom); });
-    document.getElementById('p-masuk').textContent = fmtRp(masuk);
-    document.getElementById('p-keluar').textContent = fmtRp(keluar);
-    document.getElementById('p-trx').textContent = rows.length;
-    document.getElementById('p-produk').textContent = sales.length;
-    document.getElementById('p-qris').textContent = fmtRp(qsum);
+    setVal('lp-jual', fmtRp(jual));
+    setVal('lp-reward', fmtRp(REWARD));
+    setVal('lp-untung', fmtRp(jual + REWARD));
+    document.getElementById('lp-qris').textContent = fmtRp(qsum);
+    applyMask();
   }
+
+  // Cashback & Rewards — day-level bonus, not tied to individual transactions
+  const REWARD = 12000;
+  const MASK = 'Rp' + '•'.repeat(6);
+  const EYE_OPEN  = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>';
+  const EYE_CLOSED = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7c1.7 0 3.2.4 4.6 1.1M22 12s-3.6 7-10 7c-1.7 0-3.3-.4-4.6-1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  let hidden = false;
+  const setVal = (id, v) => { document.getElementById(id).dataset.val = v; };
+  function applyMask(){
+    ['lp-untung','lp-jual','lp-reward'].forEach(id => { const el = document.getElementById(id); el.textContent = hidden ? MASK : el.dataset.val; });
+    document.getElementById('lp-eye').innerHTML = hidden ? EYE_CLOSED : EYE_OPEN;
+  }
+  function toggleHide(){ hidden = !hidden; applyMask(); }
 
   function onSearch(){
     searchQuery = searchInput.value;
