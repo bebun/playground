@@ -69,7 +69,7 @@
   .tile.red{background:var(--red-50);color:var(--red-500)} .tile.neutral{background:var(--neutral-50);color:var(--neutral-600)}
 
   .sechead { display:flex; align-items:center; justify-content:space-between; margin:0 2px 10px; }
-  .sechead .link { color:var(--primary-500); font-weight:700; font-size:14px; cursor:pointer; }
+  .sechead .link { color:var(--primary-500); font-weight:500; font-size:12px; line-height:1.5; cursor:pointer; }
   .sechead .sub { color:var(--neutral-500); }
 
   /* Buttons */
@@ -142,8 +142,13 @@
   .juara-bar > i { display:block; height:100%; width:57%; background:var(--primary-400); border-radius:2010px; }
   .juara-note { margin:0; font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-500); }
   .juara-art { position:absolute; right:12px; top:11px; width:60px; height:66px; pointer-events:none; }
-  .juara-base { position:absolute; right:18px; bottom:7px; width:48px; height:57px; pointer-events:none; }
-  .juara-shadow { position:absolute; right:18px; bottom:7px; width:48px; height:10px; pointer-events:none; }
+  .juara-base { position:absolute; right:18px; top:28px; width:48px; height:57px; pointer-events:none; }
+  .juara-shadow { position:absolute; right:18px; top:75px; width:48px; height:10px; pointer-events:none; }
+  .juara-link { position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px;
+                border:none; border-top:1px solid var(--neutral-200); background:none; cursor:pointer; font-family:var(--font);
+                font-size:12px; font-weight:500; line-height:1.5; color:var(--primary-500); text-align:left;
+                padding:8px; }
+  .juara-link .chev { flex:0 0 auto; display:flex; }
 
   /* ===== S3 · Promo banner (sliding) ===== */
   .banners { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -16px; padding:0 16px;
@@ -318,6 +323,11 @@
         <p class="juara-note">260 poin lagi bisa jadi Agen Panutan</p>
       </div>
 
+      <button class="juara-link" onclick="toast('Lihat Benefit')">
+        <span>Lihat Benefit</span>
+        <span class="chev"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(13.958 3.542) rotate(90) scale(0.4697)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8661 0.366117C13.3543 -0.122039 14.1457 -0.122039 14.6339 0.366117L27.1339 12.8661C27.622 13.3543 27.622 14.1457 27.1339 14.6339C26.6457 15.122 25.8543 15.122 25.3661 14.6339L13.75 3.01777L2.13388 14.6339C1.64573 15.122 0.854272 15.122 0.366117 14.6339C-0.122039 14.1457 -0.122039 13.3543 0.366117 12.8661L12.8661 0.366117Z" fill="currentColor"/></g></svg></span>
+      </button>
+
       <span class="juara-base">
         <svg width="48" height="57" viewBox="0 0 48 57" fill="none" aria-hidden="true"><mask id="jbm" fill="#fff"><path d="M48 52C48 54.7614 37.2548 57 24 57C10.7452 57 0 54.7614 0 52V0H48V52Z"/></mask><path d="M48 52C48 54.7614 37.2548 57 24 57C10.7452 57 0 54.7614 0 52V0H48V52Z" fill="url(#jbg0)"/><path d="M0 0V-0.4H-0.4V0H0ZM48 0H48.4V-0.4H48V0ZM48 52H47.6C47.6 52.2057 47.5017 52.4477 47.227 52.7274C46.951 53.0084 46.5233 53.2987 45.9372 53.5874C44.7666 54.164 43.0468 54.6944 40.889 55.1439C36.5799 56.0417 30.6085 56.6 24 56.6V57V57.4C30.6463 57.4 36.6749 56.839 41.0521 55.9271C43.2375 55.4719 45.0324 54.9248 46.2907 54.3051C46.9191 53.9955 47.4344 53.6579 47.7978 53.288C48.1625 52.9167 48.4 52.4846 48.4 52H48ZM24 57V56.6C17.3915 56.6 11.4201 56.0417 7.11102 55.1439C4.95318 54.6944 3.2334 54.164 2.06278 53.5874C1.47669 53.2987 1.04898 53.0084 0.772963 52.7274C0.498251 52.4477 0.4 52.2057 0.4 52H0H-0.4C-0.4 52.4846 -0.162465 52.9167 0.202227 53.288C0.565612 53.6579 1.08092 53.9955 1.70929 54.3051C2.96761 54.9248 4.76255 55.4719 6.94786 55.9271C11.325 56.839 17.3537 57.4 24 57.4V57ZM0 52H0.4V0H0H-0.4V52H0ZM0 0V0.4H48V0V-0.4H0V0ZM48 0H47.6V52H48H48.4V0H48Z" fill="url(#jbg1)" mask="url(#jbm)"/><defs><linearGradient id="jbg0" x1="24" y1="17" x2="24" y2="51.5" gradientUnits="userSpaceOnUse"><stop stop-color="#EBEBEB" stop-opacity="0.3"/><stop offset="1" stop-color="#fff" stop-opacity="0.6"/></linearGradient><linearGradient id="jbg1" x1="24" y1="13.5" x2="24" y2="54.5" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs></svg>
       </span>
@@ -344,7 +354,7 @@
 
     <!-- ===== S4 · Misi (naik tier) ===== -->
     <div>
-      <div class="sechead"><span class="t16b">Misi Kamu</span><span class="sub t12">Kumpulkan poin</span></div>
+      <div class="sechead"><span class="t16b">Jalankan misi, tingkatkan poin</span><span class="link" onclick="toast('Cek riwayat poin')" style="display:inline-flex;align-items:center;gap:2px;">Cek riwayat poin<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="card txcard">
         <button class="lrow" onclick="toast('Lengkapi lokasi agen')">
           <span class="ic tile purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="2"/></svg></span>
