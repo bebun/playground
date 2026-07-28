@@ -248,28 +248,6 @@
            background:var(--neutral-900); color:#fff; font-size:12px; font-weight:500; padding:12px 16px;
            border-radius:var(--r-full); opacity:0; pointer-events:none; transition:all .25s ease; z-index:30; white-space:nowrap; }
   .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-
-  /* ===== Notes Sidebar ===== */
-  .notes-sidebar { position:fixed; right:0; top:0; height:100vh; width:300px; background:var(--neutral-50);
-                   border-left:1px solid var(--neutral-200); overflow-y:auto; z-index:100;
-                   transform:translateX(0); transition:transform .3s ease; scrollbar-width:none;
-                   box-shadow:0 0 12px rgba(0,0,0,.08); }
-  .notes-sidebar.collapsed { transform:translateX(100%); }
-  .notes-sidebar::-webkit-scrollbar { display:none; }
-  .notes-header { position:sticky; top:0; background:var(--neutral-white); border-bottom:1px solid var(--neutral-200);
-                  padding:12px 16px; display:flex; align-items:center; justify-content:space-between; z-index:101; }
-  .notes-header .title { font-weight:700; font-size:14px; color:var(--neutral-900); }
-  .notes-header .btn-toggle { border:none; background:none; cursor:pointer; padding:4px; color:var(--neutral-600);
-                              display:flex; align-items:center; justify-content:center; }
-  .notes-content { padding:16px; }
-  .note-section { margin-bottom:24px; }
-  .note-section-title { font-weight:700; font-size:14px; color:var(--neutral-900); margin-bottom:8px; }
-  .note-section-title.future { color:var(--primary-500); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
-  .note-text { font-size:13px; line-height:1.6; color:var(--neutral-600); }
-  .note-text strong { font-weight:700; color:var(--neutral-900); }
-  .note-list { margin-top:8px; padding-left:16px; }
-  .note-list li { font-size:13px; line-height:1.6; color:var(--neutral-600); margin-bottom:6px; }
-  @media (max-width:1200px){ .notes-sidebar { display:none; } }
 </style>
 </head>
 <body>
@@ -568,82 +546,6 @@
   <div class="toast" id="toast"></div>
 </div>
 
-<!-- ===== Notes Sidebar ===== -->
-<div class="notes-sidebar" id="notesSidebar">
-  <div class="notes-header">
-    <span class="title">Catatan</span>
-    <button class="btn-toggle" onclick="toggleNotes()" aria-label="Toggle notes">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="notes-content">
-
-    <!-- Section 1: Catatan Penjualan -->
-    <div class="note-section">
-      <div class="note-section-title">1. Catatan Penjualan</div>
-      <div class="note-text">
-        <strong>Poket agen AmarthaLink</strong> — ini tempat dimana semua penjualan lu masuk. Mau lihat detail revenue, keuntungan, dan cashback yang lu terima hari ini? Tinggal liat aja di atas.
-      </div>
-      <div class="note-text" style="margin-top:8px;">
-        Pengen lihat laporan keuangan yang lebih lengkap? Ada link "Laporan Keuangan Selengkapnya" — tapi untuk sekarang isinya masih dikerjain.
-      </div>
-      <div class="note-text" style="margin-top:8px;">
-        <strong>Pemasukan QRIS dipisah</strong> dari nilai keuntungan aja. Kalo lu belum punya Poket merchant atau belum terdaftar sebagai QRIS acquirer, kolom ini bakal hilang.
-      </div>
-    </div>
-
-    <!-- Section 2: Tier & Misi -->
-    <div class="note-section">
-      <div class="note-section-title future">- Future Development -</div>
-      <div class="note-section-title">2. Tier Agent & Misi</div>
-      <div class="note-text">
-        Buat naikin motivasi lu, kami bakal nampilin tier terbaru, total poin lu sekarang, dan poin yang dibutuhin buat naik level. Tier ini juga nanti bisa dipake buat kirimin promo sesuai level lu.
-      </div>
-      <div class="note-text" style="margin-top:8px;">
-        Cara naikin poin? Selesaiin misi yang diberiin. Ini bisa jadi gamifikasi yang seru lho. Setiap naik tier, lu bakal dapetin benefit yang beda — bisa cashback atau hadiah fisik.
-      </div>
-    </div>
-
-    <!-- Section 3: Promo -->
-    <div class="note-section">
-      <div class="note-section-title">3. Promo Khusus Agent</div>
-      <div class="note-text">
-        Sama kayak di agent promo page, section ini nampilin banner promo yang khusus buat lu. Update promo terus nih biar selalu ada yang menarik.
-      </div>
-    </div>
-
-    <!-- Section 4: Tambah Penghasilan -->
-    <div class="note-section">
-      <div class="note-section-title">4. Tambah Penghasilan</div>
-      <div class="note-text">
-        Section ini buat motivasi lu juga, tapi fokus ke kesempatan diluar misi. Banyak cara buat nambahin penghasilan, jadi ini tempat buat explore semuanya.
-      </div>
-    </div>
-
-    <!-- Section 5: FAQ -->
-    <div class="note-section">
-      <div class="note-section-title">5. FAQ</div>
-      <div class="note-text">
-        Sekarang kalau ada pertanyaan, lu paling tanya ke ARCO atau CS. Nah di section ini, kami bakal kasih FAQ yang paling sering banget ditanya sama agent. Dari feedback NPS atau CX lu semua.
-      </div>
-    </div>
-
-    <!-- Section 6: Entry Point Aktivitas -->
-    <div class="note-section">
-      <div class="note-section-title">6. Aktivitas Penting</div>
-      <div class="note-text">
-        Ini semacam entry point buat aktivitas-aktivitas yang perlu lu lakukan. Misalnya:
-      </div>
-      <ul class="note-list">
-        <li>Ada perubahan info pribadi atau lokasi usaha</li>
-        <li>Update harga jual produk di setiap item</li>
-        <li>dan aktivitas penting lainnya</li>
-      </ul>
-    </div>
-
-  </div>
-</div>
-
 <script>
   let toastTimer;
   function toast(msg){
@@ -689,17 +591,6 @@
   }
   function closeQrisInfo(){ document.getElementById('qscrim').classList.remove('open'); document.getElementById('qsheet').classList.remove('open'); }
   setPeriod('minggu', document.querySelectorAll('#segment button')[1]);
-
-  /* Notes toggle */
-  function toggleNotes(){
-    const sidebar = document.getElementById('notesSidebar');
-    sidebar.classList.toggle('collapsed');
-  }
-  // Set expanded by default
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const sidebar = document.getElementById('notesSidebar');
-    sidebar.classList.remove('collapsed');
-  });
 
   /* S3 banner dots */
   const banners = document.getElementById('banners');
