@@ -480,10 +480,20 @@
 
   /* S1 period toggle */
   const P = {
-    hari:   { untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500',    date:'25 Jul 2026' },
-    minggu: { untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500',  date:'19 Jul 2026 - 25 Jul 2026' },
-    bulan:  { untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000', date:'26 Jun 2026 - 25 Jul 2026' },
+    hari:   { untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500'   },
+    minggu: { untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500' },
+    bulan:  { untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000' },
   };
+  /* Tanggal real-time: Hari ini = hari ini; 7/30 hari = (H-1 dikurangi N hari) s/d H-1 */
+  const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const fmtD = d => `${d.getDate()} ${IDN_MON[d.getMonth()]} ${d.getFullYear()}`;
+  function periodDate(k){
+    const today = new Date();
+    if (k === 'hari') return fmtD(today);
+    const end = new Date(today); end.setDate(end.getDate() - 1);          // H-1
+    const start = new Date(end); start.setDate(start.getDate() - (k === 'minggu' ? 7 : 30));
+    return `${fmtD(start)} - ${fmtD(end)}`;
+  }
   const MASK_IDS = ['s-untung','s-jual','s-reward'];
   const MASK = 'Rp' + '•'.repeat(6);
   const EYE_OPEN  = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.964 4.376)"><path d="M8.0366 8.125C9.41731 8.125 10.5366 7.00571 10.5366 5.625C10.5366 4.24429 9.41731 3.125 8.0366 3.125C6.65589 3.125 5.5366 4.24429 5.5366 5.625C5.5366 7.00571 6.65589 8.125 8.0366 8.125Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.0366 0C6.04997 0 4.30791 0.809735 2.96442 1.81496C1.62544 2.8168 0.634489 4.0479 0.147622 4.97937C-0.0782551 5.41152 -0.0337523 5.9089 0.205079 6.29345C0.757804 7.18342 1.72044 8.40974 3.03133 9.41983C4.34441 10.4316 6.03923 11.25 8.0366 11.25C10.0232 11.25 11.7653 10.4403 13.1088 9.43504C14.4478 8.4332 15.4387 7.2021 15.9256 6.27063C16.1515 5.83848 16.107 5.3411 15.8681 4.95655C15.3154 4.06658 14.3528 2.84026 13.0419 1.83017C11.7288 0.818385 10.034 0 8.0366 0ZM1.25542 5.5584C1.64884 4.80572 2.51167 3.71487 3.71327 2.81581C4.91036 1.92013 6.39571 1.25 8.0366 1.25C9.67929 1.25 11.1127 1.92172 12.2789 2.82032C13.4473 3.7206 14.3149 4.82493 14.8063 5.61604C14.8181 5.63511 14.8223 5.65241 14.823 5.66479C14.8237 5.67634 14.8214 5.68459 14.8178 5.6916C14.4244 6.44428 13.5615 7.53513 12.3599 8.43418C11.1628 9.32987 9.6775 10 8.0366 10C6.39391 10 4.96047 9.32828 3.79428 8.42968C2.6259 7.52939 1.75828 6.42507 1.26695 5.63396C1.25511 5.61489 1.25086 5.59758 1.25018 5.58521C1.24954 5.57366 1.25176 5.56541 1.25542 5.5584Z" fill="currentColor"/></g></svg>';
@@ -500,7 +510,7 @@
     document.getElementById('s-jual').dataset.val   = d.jual;
     document.getElementById('s-reward').dataset.val = d.reward;
     document.getElementById('s-qris').textContent   = d.qris;
-    document.getElementById('s-date').textContent   = d.date;
+    document.getElementById('s-date').textContent   = periodDate(k);
     applyMask();
     document.querySelectorAll('#segment button').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
