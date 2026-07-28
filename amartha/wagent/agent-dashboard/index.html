@@ -242,7 +242,9 @@
         // on a phone the frame is the viewport: drop the 412px cap and the device styling
         ? 'body{padding:0;background:var(--neutral-50)}' +
           '.phone{max-width:none;height:100dvh;min-height:0;border-radius:0;box-shadow:none}' +
-          '.scroll{min-height:0}'
+          // clear the 56px notes bar (plus the frame's own 32px) so the last
+          // section is never stuck underneath it
+          '.scroll{min-height:0;padding-bottom:calc(88px + env(safe-area-inset-bottom))}'
         : '.phone{height:100vh}.scroll{min-height:0}';
     } catch (e) { /* cross-origin — ignore */ }
   }
