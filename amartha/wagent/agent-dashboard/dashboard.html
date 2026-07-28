@@ -96,6 +96,11 @@
   .tbody { width:100%; display:flex; flex-direction:column; align-items:flex-start; }
   .tbody > * { width:100%; }
   .kbody { width:100%; display:flex; flex-direction:column; gap:8px; padding:16px 8px; }
+  .ogrp { width:100%; display:flex; flex-direction:column; padding:0 8px; }
+  .orow { width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .orow .olabel { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-600); }
+  .orow .oval { font-size:14px; font-weight:700; line-height:1.5; color:var(--neutral-900); }
+  .ohr { width:100%; height:0; border-top:1px solid #E7E9F2; margin-top:8px; }
   .kgrp { width:100%; display:flex; flex-direction:column; gap:2px; padding:0 8px; }
   .klabel { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-600); }
   .kamt-row { display:flex; align-items:center; gap:4px; }
@@ -246,6 +251,10 @@
 
         <div class="tbody">
           <div class="kbody">
+            <div class="ogrp">
+              <div class="orow"><span class="olabel">Omzet</span><b class="oval" id="s-omzet">Rp1.554.000</b></div>
+              <div class="ohr"></div>
+            </div>
             <div class="kgrp">
               <div class="klabel">Keuntungan</div>
               <div class="kamt-row">
@@ -256,9 +265,9 @@
               </div>
             </div>
             <div class="ksplit">
-              <div class="kcell"><b id="s-jual">Rp59.500</b><span>Penjualan</span></div>
+              <div class="kcell"><b id="s-jual">Rp59.500</b><span>Dari penjualan</span></div>
               <span class="kvdiv"></span>
-              <div class="kcell"><b id="s-reward">Rp12.000</b><span>Cashback &amp; Rewards </span></div>
+              <div class="kcell"><b id="s-reward">Rp12.000</b><span>Dari cashback &amp; rewards</span></div>
             </div>
             <button class="tlink" onclick="location.href='laporan-keuangan.html'">
               <span>Laporan Keuangan Selengkapnya</span>
@@ -480,9 +489,9 @@
 
   /* S1 period toggle */
   const P = {
-    hari:   { untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500'   },
-    minggu: { untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500' },
-    bulan:  { untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000' },
+    hari:   { omzet:'Rp238.000',   untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500'   },
+    minggu: { omzet:'Rp1.554.000', untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500' },
+    bulan:  { omzet:'Rp6.640.000', untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000' },
   };
   /* Tanggal real-time: Hari ini = hari ini; 7/30 hari = (H-1 dikurangi N hari) s/d H-1 */
   const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
@@ -509,6 +518,7 @@
     document.getElementById('s-untung').dataset.val = d.untung;
     document.getElementById('s-jual').dataset.val   = d.jual;
     document.getElementById('s-reward').dataset.val = d.reward;
+    document.getElementById('s-omzet').textContent  = d.omzet;
     document.getElementById('s-qris').textContent   = d.qris;
     document.getElementById('s-date').textContent   = periodDate(k);
     applyMask();
