@@ -56,7 +56,33 @@
   .scroll::-webkit-scrollbar { width:0; height:0; display:none; }
   .section-gap > * + * { margin-top:24px; }
   .section-gap > .filterbar + * { margin-top:8px; }
+  .section-gap > .kcard + .qcard { margin-top:12px; }
   .section-gap > .tx-section { margin-top:12px; }
+
+  /* ===== Keuntungan + QRIS cards (match dashboard S1) ===== */
+  .kcard, .qcard { background:var(--neutral-white); border:1px solid var(--neutral-200); border-radius:var(--r-8); overflow:hidden; }
+  .kc-top { padding:12px 8px 12px; }
+  .kc-label { display:flex; align-items:center; gap:6px; color:var(--neutral-600); font-size:12px; line-height:1.5; padding:0 8px; }
+  .kc-info { border:none; background:none; padding:0; cursor:pointer; color:var(--neutral-500); display:flex; }
+  .info-lead { width:48px; height:48px; border-radius:var(--r-12); background:var(--primary-50); color:var(--primary-500);
+               display:flex; align-items:center; justify-content:center; margin:4px 0 14px; }
+  .info-p { font-size:14px; line-height:1.55; color:var(--neutral-700); margin:0 0 12px; }
+  .info-p b { color:var(--neutral-900); font-weight:700; }
+  .kc-amt-row { display:flex; align-items:center; gap:6px; padding:0 8px; }
+  .kc-amt { font-size:24px; font-weight:700; color:var(--neutral-900); letter-spacing:-.01em; }
+  .kc-eye { border:none; background:none; cursor:pointer; color:var(--neutral-600); display:flex; padding:0; }
+  .kc-split { display:flex; background:var(--neutral-50); border-radius:var(--r-8); margin-top:12px; }
+  .kc-cell { flex:1 1 0; min-width:0; padding:8px; }
+  .kc-cell + .kc-cell { border-left:1px solid var(--neutral-200); }
+  .kc-v { font-size:14px; font-weight:700; color:var(--neutral-900); line-height:1.5; }
+  .kc-k { font-size:12px; color:var(--neutral-600); line-height:1.5; }
+  .qc-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px; }
+  .qc-label { color:var(--neutral-600); font-size:12px; }
+  .qc-amt { font-size:16px; font-weight:700; color:var(--neutral-900); }
+  .qc-link { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+             border:none; border-top:1px solid var(--neutral-200); background:none; cursor:pointer;
+             font-family:var(--font); font-weight:500; font-size:12px; color:var(--primary-500); text-align:left; padding:12px; }
+  .qc-link .chev { flex:0 0 auto; display:flex; }
 
   /* ===== Sticky filter bar (search + Filter button) ===== */
   .filterbar { position:sticky; top:0; z-index:10; background:var(--neutral-50);
@@ -273,29 +299,25 @@
       </button>
     </div>
 
-    <!-- ===== Card Ringkasan (Pemasukan vs Pengeluaran) ===== -->
-    <div class="profit">
-      <div class="profit-head">
-        <span class="profit-label">Ringkasan hari ini</span>
-      </div>
-
-      <div class="io-row">
-        <div class="io">
-          <div class="io-l"><span class="ai in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4v12M6 10l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pemasukan</div>
-          <div class="io-v in" id="p-masuk">Rp2.752.000</div>
-          <div class="io-s">Poket, QRIS &amp; tunai (proyeksi)</div>
+    <!-- ===== Card Keuntungan ===== -->
+    <div class="kcard">
+      <div class="kc-top">
+        <div class="kc-label">
+          <span>Keuntungan · 24 Jul 2026</span>
+          <button class="kc-info" onclick="openInfo()" aria-label="Info keuntungan settle">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg>
+          </button>
         </div>
-        <div class="io">
-          <div class="io-l"><span class="ai out"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 20V8M6 14l6-6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pengeluaran</div>
-          <div class="io-v out" id="p-keluar">Rp2.324.000</div>
-          <div class="io-s">Dari Poket &amp; refund QRIS</div>
+        <div class="kc-amt-row">
+          <span class="kc-amt" id="lp-untung">Rp81.500</span>
+          <button class="kc-eye" id="lp-eye" onclick="toggleHide()" aria-label="Sembunyikan nilai">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
         </div>
-      </div>
-
-      <div class="profit-stats">
-        <div><div class="ps-v" id="p-trx">21</div><div class="ps-k">Jumlah transaksi</div></div>
-        <div><div class="ps-v" id="p-produk">18</div><div class="ps-k">Produk digital terjual</div></div>
-        <div><div class="ps-v" id="p-qris">Rp358.500</div><div class="ps-k">Pemasukan dari QRIS</div></div>
+        <div class="kc-split">
+          <div class="kc-cell"><div class="kc-v" id="lp-jual">Rp69.500</div><div class="kc-k">Penjualan</div></div>
+          <div class="kc-cell"><div class="kc-v" id="lp-reward">Rp12.000</div><div class="kc-k">Cashback &amp; Rewards</div></div>
+        </div>
       </div>
     </div>
 
@@ -357,6 +379,25 @@
     </div>
   </div>
 
+  <!-- ===== Info sheet: keuntungan settle ===== -->
+  <div class="scrim" id="iscrim" onclick="closeInfo()"></div>
+  <div class="sheet" id="isheet" role="dialog" aria-label="Tentang keuntungan">
+    <div class="sheet-head">
+      <button class="close" onclick="closeInfo()" aria-label="Tutup">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <span class="stitle">Keuntungan yang tampil</span>
+    </div>
+    <div class="sheet-body">
+      <div class="info-lead"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor"/></svg></div>
+      <p class="info-p">Angka keuntungan di sini <b>hanya yang sudah settle</b> — komisi &amp; reward yang dananya sudah final masuk ke kamu.</p>
+      <p class="info-p">Keuntungan dari transaksi lain <b>tetap tercatat</b>, tapi masih <b>dalam proses settlement</b>. Nilainya otomatis ditambahkan begitu settlement selesai.</p>
+    </div>
+    <div class="sheet-foot">
+      <button class="sheet-apply" onclick="closeInfo()">Mengerti</button>
+    </div>
+  </div>
+
   <!-- ===== Date picker sub-sheet (Pilih tanggal) ===== -->
   <div class="dscrim" id="dscrim" onclick="closeDate()"></div>
   <div class="dsheet" id="dsheet" role="dialog" aria-label="Pilih tanggal">
@@ -415,19 +456,16 @@
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BCA · Budi Santoso',           nom:'Rp507.000', komisi:'Rp5.000'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-0098',     nom:'Rp103.000', komisi:'Rp3.000'},
     {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'XL · 0817-2233-445',           nom:'Rp68.000',  komisi:'Rp8.000'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0091', time:'12:20', nom:'Rp150.000', qris:true},
     {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Mobile Legends · 344 Diamond', nom:'Rp203.000', komisi:'Rp3.000'},
     {tile:'orange', ic:'plnbill',  cat:'tagihan',  title:'Bayar tagihan PLN',       sub:'PLN Pascabayar · 5321-1187',   nom:'Rp164.500', komisi:'Rp4.500'},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Indosat · 0857-9911-223',      nom:'Rp26.000',  komisi:'Rp1.000'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-4456',     nom:'Rp53.000',  komisi:'Rp3.000'},
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BRI · Siti Aminah',            nom:'Rp152.500', komisi:'Rp2.500'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0072', time:'10:05', nom:'Rp120.000', qris:true},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'Telkomsel · 0813-7788-990',    nom:'Rp21.000',  komisi:'Rp1.000'},
     {tile:'purple', ic:'data',     cat:'pulsa',    title:'Beli paket data',         sub:'Tri · 0896-5544-332',          nom:'Rp55.000',  komisi:'Rp7.000'},
     {tile:'blue',   ic:'pdam',     cat:'tagihan',  title:'Bayar PDAM',              sub:'PDAM Bandung · 1102-8890',     nom:'Rp87.000',  komisi:'Rp5.000'},
     {tile:'blue',   ic:'transfer', cat:'transfer', title:'Transfer Poket',          sub:'BNI · Andi Wijaya',            nom:'Rp307.000', komisi:'Rp9.000'},
     {tile:'red',    ic:'angsuran', cat:'tagihan',  title:'Bayar angsuran',          sub:'Angsuran Amartha · ke-3',      nom:'Rp102.000', komisi:'Rp2.000'},
-    {tile:'green',  ic:'qris',     cat:'qris',     title:'Terima dana', trxId:'QR-2026-0722-0043', time:'08:47', nom:'Rp88.500',  qris:true},
     {tile:'purple', ic:'pulsa',    cat:'pulsa',    title:'Beli pulsa',              sub:'XL · 0819-2345-678',           nom:'Rp51.500',  komisi:'Rp1.500'},
     {tile:'orange', ic:'token',    cat:'token',    title:'Beli token PLN',          sub:'PLN Prabayar · 5321-7789',     nom:'Rp22.500',  komisi:'Rp2.500'},
     {tile:'green',  ic:'voucher',  cat:'voucher',  title:'Beli voucher game',       sub:'Free Fire · 100 Diamond',      nom:'Rp104.000', komisi:'Rp4.000'},
@@ -471,20 +509,30 @@
       : '<div class="tx-empty">Transaksi tidak ditemukan</div>';
     txCountEl.textContent = rows.length + ' transaksi';
 
-    // Ringkasan card follows the visible rows:
-    // pemasukan = Σ nominal (sales = tunai/proyeksi, QRIS = masuk Poket);
-    // pengeluaran = Σ modal (nominal − komisi) of sales, paid from Poket.
-    const sales = rows.filter(t => !t.qris);
-    let masuk = 0, keluar = 0, qsum = 0;
-    rows.forEach(t => { masuk += parseRp(t.nom); });
-    sales.forEach(t => { keluar += parseRp(t.nom) - parseRp(t.komisi); });
-    rows.filter(t => t.qris).forEach(t => { qsum += parseRp(t.nom); });
-    document.getElementById('p-masuk').textContent = fmtRp(masuk);
-    document.getElementById('p-keluar').textContent = fmtRp(keluar);
-    document.getElementById('p-trx').textContent = rows.length;
-    document.getElementById('p-produk').textContent = sales.length;
-    document.getElementById('p-qris').textContent = fmtRp(qsum);
+    // Keuntungan = Penjualan (Σ komisi of visible PPOB rows) + Cashback & Rewards (fixed day bonus).
+    let jual = 0;
+    rows.forEach(t => { jual += parseRp(t.komisi); });
+    setVal('lp-jual', fmtRp(jual));
+    setVal('lp-reward', fmtRp(REWARD));
+    setVal('lp-untung', fmtRp(jual + REWARD));
+    applyMask();
   }
+
+  // Cashback & Rewards — day-level bonus, not tied to individual transactions
+  const REWARD = 12000;
+  const MASK = 'Rp' + '•'.repeat(6);
+  const EYE_OPEN  = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>';
+  const EYE_CLOSED = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7c1.7 0 3.2.4 4.6 1.1M22 12s-3.6 7-10 7c-1.7 0-3.3-.4-4.6-1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  let hidden = false;
+  const setVal = (id, v) => { document.getElementById(id).dataset.val = v; };
+  function applyMask(){
+    ['lp-untung','lp-jual','lp-reward'].forEach(id => { const el = document.getElementById(id); el.textContent = hidden ? MASK : el.dataset.val; });
+    document.getElementById('lp-eye').innerHTML = hidden ? EYE_CLOSED : EYE_OPEN;
+  }
+  function toggleHide(){ hidden = !hidden; applyMask(); }
+
+  function openInfo(){ document.getElementById('iscrim').classList.add('open'); document.getElementById('isheet').classList.add('open'); }
+  function closeInfo(){ document.getElementById('iscrim').classList.remove('open'); document.getElementById('isheet').classList.remove('open'); }
 
   function onSearch(){
     searchQuery = searchInput.value;

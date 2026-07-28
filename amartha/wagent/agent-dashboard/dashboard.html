@@ -13,7 +13,7 @@
   /* FunDS Lite tokens — https://funds-lite.vercel.app/llms.txt */
   :root {
     --font: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
-    --primary-50:#FEF3FF; --primary-200:#E5B8EF; --primary-300:#D68EE4; --primary-400:#A642B7;
+    --primary-50:#FEF3FF; --primary-100:#F6D7FC; --primary-200:#E5B8EF; --primary-300:#D68EE4; --primary-400:#A642B7;
     --primary-500:#853291; --primary-600:#732C7C; --primary-700:#612966; --primary-900:#3D1042;
     --neutral-white:#FFFFFF; --neutral-50:#F9FAF8; --neutral-200:#E5E7EB; --neutral-400:#C6CAD0;
     --neutral-500:#8E95A3; --neutral-600:#6B7280; --neutral-700:#525C6A; --neutral-900:#111928;
@@ -79,61 +79,70 @@
   .btn-secondary { background:#fff; border:1px solid var(--primary-500); color:var(--primary-500); }
   .btn-secondary:active { background:var(--primary-50); }
 
-  /* ===== S1 · Profitabilitas (toggle scoped inside) ===== */
-  .summary { background:linear-gradient(135deg,var(--primary-500),var(--primary-600)); border-radius:var(--r-12); padding:16px; color:#fff; }
-  .seg-in { display:flex; gap:4px; background:rgba(255,255,255,.15); border-radius:var(--r-full); padding:4px; margin-bottom:18px; }
-  .seg-in button { flex:1; border:none; background:none; cursor:pointer; border-radius:var(--r-full);
-                   padding:8px 4px; font-family:var(--font); font-weight:700; font-size:12px; color:rgba(255,255,255,.8); }
-  .seg-in button.active { background:#fff; color:var(--primary-600); }
-  .sum-label { color:rgba(255,255,255,.82); display:flex; align-items:center; gap:6px; }
-  .sum-amt { margin-top:6px; }
-  .sum-date { color:rgba(255,255,255,.7); margin-top:4px; }
-  .sum-row { display:flex; margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); }
-  .sum-row > div { flex:1; }
-  .sum-row > div + div { border-left:1px solid rgba(255,255,255,.2); padding-left:14px; }
-  .sum-v { font-weight:700; font-size:16px; }
-  .sum-l { color:rgba(255,255,255,.75); font-size:12px; margin-top:2px; }
-  .sum-row.hero { border-top:none; padding-top:0; margin-top:12px; }
-  .sum-row.hero .sum-v { font-size:20px; letter-spacing:-.01em; }
-  .cust { margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); }
-  .cust-h { display:flex; justify-content:space-between; align-items:baseline; }
-  .cust-h .n { font-weight:700; font-size:16px; }
-  .cust-h .l { color:rgba(255,255,255,.75); font-size:12px; }
-  .cust-bar { height:8px; border-radius:var(--r-full); overflow:hidden; margin:12px 0 10px; display:flex; gap:2px; background:rgba(255,255,255,.15); }
-  .cust-bar .langganan { background:#fff; } .cust-bar .baru { background:var(--primary-200); }
-  .cust-legend { display:flex; gap:18px; font-size:12px; color:rgba(255,255,255,.9); }
-  .cust-legend .dot { width:8px; height:8px; border-radius:2px; display:inline-block; margin-right:6px; vertical-align:middle; }
-  .cust-legend b { font-weight:700; }
-  .sum-report { display:flex; align-items:center; gap:12px; width:100%; margin-top:16px; padding:16px 0 0;
-                border:none; border-top:1px solid rgba(255,255,255,.2); background:none; cursor:pointer;
-                font-family:var(--font); color:#fff; text-align:left; }
-  .sum-report .sr-ic { flex:0 0 auto; display:flex; }
-  .sum-report .sr-t { flex:1; font-weight:700; font-size:14px; }
-  .sum-report .sr-chev { flex:0 0 auto; display:flex; color:rgba(255,255,255,.9); }
+  /* ===== S1 · Top section — Figma 2009:1624 (period + Keuntungan + QRIS in one card) ===== */
+  .topsec { margin:-16px -16px 0; padding:16px; background:#F3F6FD; border-bottom:.6px solid #CDCFE7; }
+  .tcard { background:var(--neutral-white); border:.6px solid #CDCFE7; border-radius:8px;
+           overflow:hidden; padding-top:4px; display:flex; flex-direction:column; align-items:center; }
 
-  /* ===== S2 · Level Agen (info) ===== */
-  .tier-top { display:flex; align-items:center; gap:12px; }
-  .tier-medal { width:44px; height:44px; border-radius:var(--r-12); flex:0 0 auto;
-                background:linear-gradient(135deg,#F7D774,#EAB20B); color:#7a5a00;
-                display:flex; align-items:center; justify-content:center; }
-  .tier-name { font-weight:700; font-size:16px; }
-  .tier-sub { color:var(--neutral-600); font-size:12px; margin-top:1px; }
-  .tiers { display:flex; gap:4px; margin:14px 0; }
-  .tiers .tier { flex:1; text-align:center; padding:7px 2px; border-radius:var(--r-full);
-                 font-size:10px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
-                 background:var(--neutral-50); color:var(--neutral-400); }
-  .tiers .tier.done { background:var(--primary-50); color:var(--primary-600); }
-  .tiers .tier.current { background:var(--primary-500); color:#fff; }
-  .tier-pts { display:flex; justify-content:space-between; align-items:baseline; margin-top:4px; }
-  .tier-pts .p { font-weight:700; font-size:16px; }
-  .tier-pts .p small { font-weight:500; font-size:12px; color:var(--neutral-500); }
-  .tier-pts .n { font-size:12px; color:var(--neutral-600); }
-  .tier-prog { height:8px; background:var(--neutral-50); border-radius:var(--r-full); overflow:hidden; margin-top:10px; }
-  .tier-prog > i { display:block; height:100%; width:83%; border-radius:var(--r-full); background:linear-gradient(90deg,var(--primary-400),var(--primary-500)); }
+  .period { width:calc(100% - 8px); background:var(--primary-700); border-radius:8px; display:flex; flex-direction:column; align-items:center; }
+  .seg { width:100%; background:var(--primary-500); border-bottom:.6px solid var(--primary-400);
+         border-radius:8px; padding:4px; margin-bottom:-8px; overflow:hidden; display:flex; }
+  .seg button { flex:1 1 0; min-width:0; height:32px; border:none; background:none; cursor:pointer; border-radius:4px;
+                font-family:var(--font); font-weight:500; font-size:14px; line-height:1.5; color:#fff; }
+  .seg button.active { background:var(--neutral-white); color:var(--primary-500); }
+  .period-date { width:100%; padding:12px 8px 4px; text-align:center;
+                 font-size:12px; font-weight:500; line-height:1.5; color:var(--primary-100); }
+
+  .tbody { width:100%; display:flex; flex-direction:column; align-items:flex-start; }
+  .tbody > * { width:100%; }
+  .kbody { width:100%; display:flex; flex-direction:column; gap:8px; padding:16px 8px; }
+  .kgrp { width:100%; display:flex; flex-direction:column; gap:2px; padding:0 8px; }
+  .klabel { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-600); }
+  .kamt-row { display:flex; align-items:center; gap:4px; }
+  .kamt { font-size:24px; font-weight:700; line-height:normal; color:var(--neutral-900); }
+  .keye { border:none; background:none; padding:0; cursor:pointer; display:flex; color:var(--neutral-900); }
+  .ksplit { width:100%; display:flex; align-items:center; background:var(--neutral-50); border-radius:8px; }
+  .kcell { flex:1 1 0; min-width:0; padding:8px; border-radius:8px; display:flex; flex-direction:column; align-items:flex-start; }
+  .kcell b { font-size:14px; font-weight:700; line-height:1.5; color:var(--neutral-900); }
+  .kcell span { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-600); }
+  .kvdiv { flex:0 0 auto; width:1px; height:54px; background:#E7E9F2; }
+  .tlink { width:100%; display:flex; align-items:center; justify-content:space-between;
+           border:none; background:none; cursor:pointer; font-family:var(--font);
+           font-size:12px; font-weight:500; line-height:1.5; color:var(--primary-500); text-align:left; }
+  .kbody .tlink { padding:2px 8px; }
+  .tlink .chev { flex:0 0 auto; display:flex; }
+  .tdivider { width:100%; height:8px; background:var(--neutral-50); }
+  .qbody { width:100%; display:flex; flex-direction:column; gap:8px; padding:16px; }
+  .qgrp { width:100%; display:flex; flex-direction:column; gap:2px; }
+  .qamt { font-size:16px; font-weight:700; line-height:normal; color:var(--neutral-900); }
+  .qbody .tlink { padding:2px 0; }
+
+  /* ===== S2 · Agen Juara (tier) — Figma 2039:3678 ===== */
+  .section-gap > .topsec + .juara { margin-top:16px; }
+  .juara { position:relative; overflow:hidden; border:1px solid #FFF0E3; border-radius:8px;
+           background:linear-gradient(109.719deg,#FFFFFF 0%,#FFFFFF 30.217%,#FFF6D9 80.512%,#FFFDFA 100%);
+           display:flex; flex-direction:column; align-items:flex-start; }
+  .juara-glow { position:absolute; left:223px; top:-158px; width:245px; height:245px; pointer-events:none; }
+  .juara-head { position:relative; width:100%; display:flex; align-items:center; gap:8px; padding:8px 8px 0; }
+  .juara-title { font-size:16px; font-weight:700; line-height:1.5; white-space:nowrap;
+                 background:linear-gradient(to top,#C87C1A 0%,#EDAC2A 52.404%,#FFAE00 100%);
+                 -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .juara-spark { position:absolute; left:95px; top:6px; width:10px; height:12px; display:flex; }
+  .juara-body { position:relative; width:100%; display:flex; flex-direction:column; gap:2px; padding:0 84px 8px 8px; }
+  .juara-grp { width:100%; display:flex; flex-direction:column; gap:4px; }
+  .juara-pts { width:100%; display:flex; align-items:center; gap:4px; }
+  .juara-coin { flex:0 0 auto; width:20px; height:20px; display:flex; }
+  .juara-pts b { font-size:16px; font-weight:700; line-height:1.5; color:var(--neutral-900); }
+  .juara-bar { width:100%; height:4px; background:var(--neutral-200); border-radius:2010px; overflow:hidden; }
+  .juara-bar > i { display:block; height:100%; width:82.7%; background:var(--primary-400); border-radius:2010px; }
+  .juara-note { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-500); }
+  .juara-art { position:absolute; right:12px; top:11px; width:60px; height:66px; pointer-events:none; }
+  .juara-base { position:absolute; right:18px; bottom:7px; width:48px; height:57px; pointer-events:none; }
+  .juara-shadow { position:absolute; right:18px; bottom:7px; width:48px; height:10px; pointer-events:none; }
 
   /* ===== S3 · Promo banner (sliding) ===== */
   .banners { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -16px; padding:0 16px;
-             scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+             scrollbar-width:none; -webkit-overflow-scrolling:touch; overflow-anchor:none; }
   .banners::-webkit-scrollbar { display:none; }
   .banner { flex:0 0 84%; scroll-snap-align:center; border-radius:var(--r-12); padding:16px; color:#fff;
             min-height:108px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; }
@@ -144,6 +153,8 @@
   .banner.p{background:linear-gradient(135deg,var(--primary-500),var(--primary-700))}
   .banner.o{background:linear-gradient(135deg,#F7941D,#AD540A)}
   .banner.b{background:linear-gradient(135deg,#056DCE,#03417C)}
+  .banner.g{background:linear-gradient(135deg,var(--green-500),var(--green-700))}
+  .qris-off{display:none !important;}
   .dots { display:flex; gap:6px; justify-content:center; margin-top:12px; }
   .dots i { width:6px; height:6px; border-radius:var(--r-full); background:var(--neutral-200); transition:all .2s; }
   .dots i.on { width:18px; background:var(--primary-500); }
@@ -215,92 +226,111 @@
       <button class="back" aria-label="Kembali" onclick="toast('Kembali')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="title"><span class="t16b">Dasbor AmarthaLink</span></div>
+      <div class="title"><span class="t16b">AmarthaLink</span></div>
     </div>
   </header>
 
   <div class="scroll section-gap">
 
-    <!-- ===== S1 · Profitabilitas ===== -->
-    <div class="summary">
-      <div class="seg-in" id="segment">
-        <button class="active" onclick="setPeriod('hari',this)">Hari Ini</button>
-        <button onclick="setPeriod('minggu',this)">7 Hari</button>
-        <button onclick="setPeriod('bulan',this)">30 Hari</button>
-      </div>
-      <div class="sum-label t12">
-        <span id="s-label">Uang masuk &amp; keluar hari ini</span>
-      </div>
-      <div class="sum-date t12" id="s-date"></div>
-      <div class="sum-row hero">
-        <div><div class="sum-v" id="s-masuk">Rp2.752.000</div><div class="sum-l">Pemasukan</div></div>
-        <div><div class="sum-v" id="s-keluar">Rp2.324.000</div><div class="sum-l">Pengeluaran</div></div>
-      </div>
-      <div class="sum-row">
-        <div><div class="sum-v" id="s-trx">21</div><div class="sum-l">Jumlah transaksi</div></div>
-        <div><div class="sum-v" id="s-produk">18</div><div class="sum-l">Produk digital terjual</div></div>
-        <div><div class="sum-v" id="s-qris">Rp358.500</div><div class="sum-l">Pemasukan QRIS</div></div>
-      </div>
-      <div class="cust">
-        <div class="cust-h"><span class="n"><span id="s-plg">15</span> pelanggan</span><span class="l">belanja hari ini</span></div>
-        <div class="cust-bar"><span class="langganan" id="s-bar-lang" style="width:73%"></span><span class="baru" id="s-bar-baru" style="width:27%"></span></div>
-        <div class="cust-legend">
-          <span><span class="dot" style="background:#fff"></span><b id="s-lang">11</b> langganan</span>
-          <span><span class="dot" style="background:var(--primary-200)"></span><b id="s-baru">4</b> baru</span>
+    <!-- ===== S1 · Top section (Figma 2009:1624) ===== -->
+    <div class="topsec">
+      <div class="tcard">
+        <div class="period">
+          <div class="seg" id="segment">
+            <button onclick="setPeriod('hari',this)">Hari ini</button>
+            <button class="active" onclick="setPeriod('minggu',this)">7 Hari</button>
+            <button onclick="setPeriod('bulan',this)">30 Hari</button>
+          </div>
+          <div class="period-date" id="s-date">19 Jul 2026 - 25 Jul 2026</div>
         </div>
-      </div>
-      <button class="sum-report" onclick="location.href='laporan-keuangan.html'">
-        <span class="sr-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 17v-3M12 17v-5M16 17v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-        <span class="sr-t">Laporan keuangan selengkapnya</span>
-        <span class="sr-chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
-    </div>
 
-    <!-- ===== S2 · Level Agen (info) ===== -->
-    <div>
-      <div class="sechead"><span class="t16b">Level Agen</span><span class="link" onclick="toast('Detail level')">Detail</span></div>
-      <div class="card">
-        <div class="tier-top">
-          <span class="tier-medal">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="M9 14.5 7.5 22l4.5-2.5L16.5 22 15 14.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-          </span>
-          <div>
-            <div class="tier-name">Agen Gold</div>
-            <div class="tier-sub">Level 3 dari 5</div>
+        <div class="tbody">
+          <div class="kbody">
+            <div class="kgrp">
+              <div class="klabel">Keuntungan</div>
+              <div class="kamt-row">
+                <span class="kamt" id="s-untung">Rp81.500</span>
+                <button class="keye" id="kc-eye" onclick="toggleHide()" aria-label="Sembunyikan nilai">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.964 4.376)"><path d="M8.0366 8.125C9.41731 8.125 10.5366 7.00571 10.5366 5.625C10.5366 4.24429 9.41731 3.125 8.0366 3.125C6.65589 3.125 5.5366 4.24429 5.5366 5.625C5.5366 7.00571 6.65589 8.125 8.0366 8.125Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.0366 0C6.04997 0 4.30791 0.809735 2.96442 1.81496C1.62544 2.8168 0.634489 4.0479 0.147622 4.97937C-0.0782551 5.41152 -0.0337523 5.9089 0.205079 6.29345C0.757804 7.18342 1.72044 8.40974 3.03133 9.41983C4.34441 10.4316 6.03923 11.25 8.0366 11.25C10.0232 11.25 11.7653 10.4403 13.1088 9.43504C14.4478 8.4332 15.4387 7.2021 15.9256 6.27063C16.1515 5.83848 16.107 5.3411 15.8681 4.95655C15.3154 4.06658 14.3528 2.84026 13.0419 1.83017C11.7288 0.818385 10.034 0 8.0366 0ZM1.25542 5.5584C1.64884 4.80572 2.51167 3.71487 3.71327 2.81581C4.91036 1.92013 6.39571 1.25 8.0366 1.25C9.67929 1.25 11.1127 1.92172 12.2789 2.82032C13.4473 3.7206 14.3149 4.82493 14.8063 5.61604C14.8181 5.63511 14.8223 5.65241 14.823 5.66479C14.8237 5.67634 14.8214 5.68459 14.8178 5.6916C14.4244 6.44428 13.5615 7.53513 12.3599 8.43418C11.1628 9.32987 9.6775 10 8.0366 10C6.39391 10 4.96047 9.32828 3.79428 8.42968C2.6259 7.52939 1.75828 6.42507 1.26695 5.63396C1.25511 5.61489 1.25086 5.59758 1.25018 5.58521C1.24954 5.57366 1.25176 5.56541 1.25542 5.5584Z" fill="currentColor"/></g></svg>
+                </button>
+              </div>
+            </div>
+            <div class="ksplit">
+              <div class="kcell"><b id="s-jual">Rp59.500</b><span>Penjualan</span></div>
+              <span class="kvdiv"></span>
+              <div class="kcell"><b id="s-reward">Rp12.000</b><span>Cashback &amp; Rewards </span></div>
+            </div>
+            <button class="tlink" onclick="location.href='laporan-keuangan.html'">
+              <span>Laporan Keuangan Selengkapnya</span>
+              <span class="chev"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(13.958 3.542) rotate(90) scale(0.4697)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8661 0.366117C13.3543 -0.122039 14.1457 -0.122039 14.6339 0.366117L27.1339 12.8661C27.622 13.3543 27.622 14.1457 27.1339 14.6339C26.6457 15.122 25.8543 15.122 25.3661 14.6339L13.75 3.01777L2.13388 14.6339C1.64573 15.122 0.854272 15.122 0.366117 14.6339C-0.122039 14.1457 -0.122039 13.3543 0.366117 12.8661L12.8661 0.366117Z" fill="currentColor"/></g></svg></span>
+            </button>
+          </div>
+
+          <div id="qris-card">
+            <div class="tdivider"></div>
+            <div class="qbody">
+              <div class="qgrp">
+                <div class="klabel">Pemasukan dari QRIS</div>
+                <div class="qamt" id="s-qris">Rp2.481.500</div>
+              </div>
+              <button class="tlink" onclick="toast('Lihat Poket Merchant')">
+                <span>Lihat Poket Merchant</span>
+                <span class="chev"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(13.958 3.542) rotate(90) scale(0.4697)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8661 0.366117C13.3543 -0.122039 14.1457 -0.122039 14.6339 0.366117L27.1339 12.8661C27.622 13.3543 27.622 14.1457 27.1339 14.6339C26.6457 15.122 25.8543 15.122 25.3661 14.6339L13.75 3.01777L2.13388 14.6339C1.64573 15.122 0.854272 15.122 0.366117 14.6339C-0.122039 14.1457 -0.122039 13.3543 0.366117 12.8661L12.8661 0.366117Z" fill="currentColor"/></g></svg></span>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="tiers">
-          <span class="tier done">Bronze</span>
-          <span class="tier done">Silver</span>
-          <span class="tier current">Gold</span>
-          <span class="tier">Platinum</span>
-          <span class="tier">Titanium</span>
-        </div>
-        <div class="tier-pts">
-          <span class="p">1.240 <small>poin</small></span>
-          <span class="n">260 poin lagi ke Platinum</span>
-        </div>
-        <div class="tier-prog"><i></i></div>
       </div>
     </div>
 
-    <!-- ===== S3 · Promo & Program (sliding banner) ===== -->
-    <div>
-      <div class="banners" id="banners">
-        <div class="banner p" onclick="toast('Promo cashback')">
-          <span class="tag">Promo</span>
-          <div><div class="bt">Cashback 10% Token PLN</div><div class="bd">Berlaku s/d 31 Juli · tanpa minimum</div></div>
-        </div>
-        <div class="banner o" onclick="toast('Bonus komisi')">
-          <span class="tag">Program</span>
-          <div><div class="bt">Komisi ekstra tiap akhir pekan</div><div class="bd">Sabtu–Minggu, komisi naik 20%</div></div>
-        </div>
-        <div class="banner b" onclick="toast('Undian agen')">
-          <span class="tag">Event</span>
-          <div><div class="bt">Undian umrah untuk agen aktif</div><div class="bd">Tiap 100 transaksi = 1 kupon</div></div>
-        </div>
+    <!-- ===== S2 · Agen Juara (Figma 2039:3678) ===== -->
+    <div class="juara">
+      <span class="juara-glow">
+        <svg width="245" height="245" viewBox="0 0 261 261" fill="none" aria-hidden="true"><g filter="url(#jglow)"><circle cx="130.5" cy="130.5" r="122.5" fill="url(#jglowg)"/></g><defs><filter id="jglow" x="0" y="0" width="261" height="261" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="4" result="b"/></filter><linearGradient id="jglowg" x1="110.5" y1="164.5" x2="73.5" y2="250" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE59B"/><stop offset="1" stop-color="#FFEDB9" stop-opacity="0"/></linearGradient></defs></svg>
+      </span>
+
+      <div class="juara-head">
+        <span class="juara-title">Agen Juara</span>
+        <span class="juara-spark">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" aria-hidden="true"><path d="M5.0013 12C4.90786 11.439 4.48222 8.55672 3.47781 7.71263C2.3618 6.7759 0 6.0965 0 6.0965C0 6.0965 2.93278 5.58439 3.77628 4.05319C4.48482 2.76903 4.90267 1.42312 4.95199 0.211023L4.95977 0C5.0584 0.602187 5.5619 3.32747 6.44173 4.28222C7.50324 5.4377 10 6.13511 10 6.13511C10 6.13511 7.32676 6.47223 6.33013 7.74351C5.5619 8.71885 5.09733 10.4611 5.04801 11.6732L5.0013 12Z" fill="#F8C723"/></svg>
+        </span>
       </div>
-      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+
+      <div class="juara-body">
+        <div class="juara-grp">
+          <div class="juara-pts">
+            <span class="juara-coin">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#C6CAD0"/><circle cx="10" cy="10" r="8.5714" fill="#8E95A3"/><g transform="translate(4.286 4.286) scale(1.1667)"><path d="M1.90768 0.277211C3.03533 -0.0851676 4.17965 -0.100357 5.30026 0.280141C6.19437 0.582619 6.64869 1.26777 6.7778 2.18053C6.86418 2.791 6.80246 3.40409 6.82077 4.01549C6.85166 4.4966 6.82702 4.97711 6.81198 5.45788C5.96083 5.24921 5.08346 5.87973 5.08346 6.80065V8.29186C4.50205 8.4995 3.87537 8.52364 3.24362 8.50084C2.5925 8.47762 1.95364 8.38367 1.33444 8.12584C-0.250463 7.46566 -0.294623 5.4197 0.529751 4.54674C0.904363 4.15003 1.34558 3.87678 1.85397 3.70397C2.65487 3.43265 3.48351 3.3542 4.3276 3.37975C4.84396 3.39552 4.84363 3.3815 4.79342 2.87487C4.78591 2.80657 4.78268 2.73706 4.78268 2.66784C4.78871 1.9265 4.36467 1.56848 3.63522 1.48717C2.89817 1.40448 2.17657 1.52066 1.46627 1.71764C1.28238 1.76866 1.09106 1.79409 0.906704 1.84655C0.687965 1.90879 0.652282 1.82806 0.687954 1.62877C0.813275 0.925993 1.2469 0.490039 1.90768 0.277211ZM4.58542 4.53893C4.1737 4.52917 3.76447 4.54447 3.35885 4.59557C2.26047 4.7341 1.74505 5.53865 2.10885 6.53698C2.22434 6.85567 2.44503 7.06723 2.76706 7.19127C3.08488 7.31392 3.41171 7.32719 3.74362 7.31139C4.2215 7.28954 4.56759 7.03085 4.70749 6.57604C4.83048 6.17603 4.83664 5.76096 4.83053 5.34655C4.83052 5.16685 4.82126 4.98425 4.83346 4.80455V4.8026C4.8466 4.61633 4.78298 4.5436 4.58542 4.53893Z" fill="#fff"/><path d="M5.71749 9.15806V6.7603C5.71749 6.28674 6.18794 5.97873 6.58778 6.19051L8.85125 7.3894C9.29448 7.62416 9.29448 8.2942 8.85125 8.52896L6.58778 9.72784C6.18794 9.93963 5.71749 9.63162 5.71749 9.15806Z" fill="#fff"/></g></svg>
+            </span>
+            <b id="s-poin">1.240 </b>
+          </div>
+          <div class="juara-bar"><i></i></div>
+        </div>
+        <p class="juara-note">260 poin lagi bisa jadi Agen Panutan</p>
+      </div>
+
+      <span class="juara-base">
+        <svg width="48" height="57" viewBox="0 0 48 57" fill="none" aria-hidden="true"><mask id="jbm" fill="#fff"><path d="M48 52C48 54.7614 37.2548 57 24 57C10.7452 57 0 54.7614 0 52V0H48V52Z"/></mask><path d="M48 52C48 54.7614 37.2548 57 24 57C10.7452 57 0 54.7614 0 52V0H48V52Z" fill="url(#jbg0)"/><path d="M0 0V-0.4H-0.4V0H0ZM48 0H48.4V-0.4H48V0ZM48 52H47.6C47.6 52.2057 47.5017 52.4477 47.227 52.7274C46.951 53.0084 46.5233 53.2987 45.9372 53.5874C44.7666 54.164 43.0468 54.6944 40.889 55.1439C36.5799 56.0417 30.6085 56.6 24 56.6V57V57.4C30.6463 57.4 36.6749 56.839 41.0521 55.9271C43.2375 55.4719 45.0324 54.9248 46.2907 54.3051C46.9191 53.9955 47.4344 53.6579 47.7978 53.288C48.1625 52.9167 48.4 52.4846 48.4 52H48ZM24 57V56.6C17.3915 56.6 11.4201 56.0417 7.11102 55.1439C4.95318 54.6944 3.2334 54.164 2.06278 53.5874C1.47669 53.2987 1.04898 53.0084 0.772963 52.7274C0.498251 52.4477 0.4 52.2057 0.4 52H0H-0.4C-0.4 52.4846 -0.162465 52.9167 0.202227 53.288C0.565612 53.6579 1.08092 53.9955 1.70929 54.3051C2.96761 54.9248 4.76255 55.4719 6.94786 55.9271C11.325 56.839 17.3537 57.4 24 57.4V57ZM0 52H0.4V0H0H-0.4V52H0ZM0 0V0.4H48V0V-0.4H0V0ZM48 0H47.6V52H48H48.4V0H48Z" fill="url(#jbg1)" mask="url(#jbm)"/><defs><linearGradient id="jbg0" x1="24" y1="17" x2="24" y2="51.5" gradientUnits="userSpaceOnUse"><stop stop-color="#EBEBEB" stop-opacity="0.3"/><stop offset="1" stop-color="#fff" stop-opacity="0.6"/></linearGradient><linearGradient id="jbg1" x1="24" y1="13.5" x2="24" y2="54.5" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs></svg>
+      </span>
+
+      <span class="juara-shadow">
+        <svg width="48" height="10" viewBox="0 0 48 10" fill="none" aria-hidden="true"><path d="M24 0.200195C30.6179 0.200195 36.6036 0.758893 40.9297 1.66016C43.0943 2.11113 44.8329 2.64602 46.0254 3.2334C46.6221 3.52729 47.0723 3.82956 47.3701 4.13281C47.6671 4.43526 47.7998 4.72467 47.7998 5C47.7998 5.27533 47.6671 5.56474 47.3701 5.86719C47.0723 6.17044 46.6221 6.47271 46.0254 6.7666C44.8329 7.35398 43.0943 7.88887 40.9297 8.33984C36.6036 9.24111 30.6179 9.7998 24 9.7998C17.3821 9.7998 11.3964 9.24111 7.07031 8.33984C4.90567 7.88887 3.16714 7.35398 1.97461 6.7666C1.37788 6.47271 0.927716 6.17044 0.629883 5.86719C0.332898 5.56474 0.200195 5.27533 0.200195 5C0.200195 4.72467 0.332898 4.43526 0.629883 4.13281C0.927716 3.82956 1.37788 3.52729 1.97461 3.2334C3.16714 2.64602 4.90567 2.11113 7.07031 1.66016C11.3964 0.758893 17.3821 0.200195 24 0.200195Z" fill="#F3E2C4"/></svg>
+      </span>
+
+      <span class="juara-art">
+        <svg width="60" height="66" viewBox="0 0 60 66" fill="none" style="overflow:visible" aria-hidden="true">
+          <svg x="-8" y="-4" width="76" height="82.0038" viewBox="0 0 76 82.0038" preserveAspectRatio="none" overflow="visible"><g filter="url(#jf1)"><path d="M68 50.2889V23.7174C68 21.4211 66.7511 19.2998 64.724 18.1504L41.2747 4.86208C39.2476 3.71264 36.7498 3.71264 34.7253 4.86208L11.276 18.1504C9.24887 19.2998 8 21.4211 8 23.7174V50.2889C8 52.5853 9.24887 54.7065 11.276 55.856L34.7253 69.1417C36.7524 70.2912 39.2502 70.2912 41.2747 69.1417L64.724 55.856C66.7511 54.7065 68 52.5853 68 50.2889Z" fill="url(#jg1)"/></g><defs><filter id="jf1" x="0" y="0" width="76" height="82.0038" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="bg"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="ha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="4"/><feComposite in2="ha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.714787 0 0 0 0 0.289013 0 0 0 0 0.076126 0 0 0 0.2 0"/><feBlend mode="normal" in2="bg" result="e1"/><feBlend mode="normal" in="SourceGraphic" in2="e1"/></filter><linearGradient id="jg1" x1="58.2702" y1="76.5002" x2="22.4045" y2="3.92582" gradientUnits="userSpaceOnUse"><stop stop-color="#A65C1E"/><stop offset="1" stop-color="#FEDB40"/></linearGradient></defs></svg>
+          <svg x="6.168" y="2.554" width="39.4855" height="55.9799" viewBox="0 0 39.4855 55.9799" preserveAspectRatio="none"><path opacity="0.24" d="M9.55398 54.7721C12.1319 50.0703 14.7641 45.3964 17.4531 40.753C20.137 36.1172 22.8752 31.5144 25.6703 26.942C28.4732 22.3595 31.3303 17.8074 34.2469 13.2934C35.9716 10.6215 37.7195 7.96486 39.4855 5.3209L30.0944 0C27.8681 3.40517 25.6703 6.83065 23.5061 10.2764C20.393 15.2345 17.3497 20.2306 14.3736 25.2698C11.4131 30.2837 8.51972 35.3357 5.69619 40.4257C3.76212 43.912 1.86684 47.4162 0 50.9381L8.89722 55.9799C9.117 55.5764 9.3342 55.173 9.55398 54.7721Z" fill="#F5D6D1"/></svg>
+          <svg x="19.026" y="10.039" width="34.0142" height="53.1837" viewBox="0 0 34.0142 53.1837" preserveAspectRatio="none"><path opacity="0.24" d="M11.8216 39.0834C14.4383 34.2497 17.0989 29.4362 19.8449 24.6736C22.5856 19.916 25.4118 15.2066 28.362 10.5708C30.1952 7.69082 32.0776 4.8388 34.0142 2.02484L30.4409 0C28.1913 3.40771 25.9858 6.84334 23.819 10.2993C20.9438 14.8843 18.1306 19.51 15.3639 24.161C12.6076 28.7943 9.89528 33.4504 7.20621 38.1217C4.78862 42.3211 2.39431 46.5306 0 50.7452L4.30252 53.1837C6.7925 48.4768 9.28765 43.7725 11.8242 39.0885L11.8216 39.0834Z" fill="#F5D6D1"/></svg>
+          <svg x="4.632" y="4.963" width="50.733" height="56.0725" viewBox="0 0 50.733 56.0725" preserveAspectRatio="none"><path d="M50.733 39.7615V16.311C50.733 14.6744 49.8436 13.1595 48.3982 12.34L27.7027 0.614682C26.2573 -0.204894 24.4758 -0.204894 23.0304 0.614682L2.33484 12.34C0.889464 13.1595 0 14.6718 0 16.311V39.7615C0 41.3981 0.889464 42.913 2.33484 43.7325L23.0304 55.4578C24.4758 56.2774 26.2573 56.2774 27.7027 55.4578L48.3982 43.7325C49.8436 42.913 50.733 41.4007 50.733 39.7615Z" fill="url(#jg3)"/><defs><linearGradient id="jg3" x1="41.1532" y1="53.2071" x2="17.0564" y2="13.3099" gradientUnits="userSpaceOnUse"><stop stop-color="#FF970F"/><stop offset="0.99" stop-color="#FFEDB9"/></linearGradient></defs></svg>
+          <svg x="4.632" y="5.148" width="34.4279" height="45.6559" viewBox="0 0 34.4279 45.6559" preserveAspectRatio="none" style="mix-blend-mode:multiply"><path d="M3.66904 42.1974C3.17259 41.2307 2.78992 40.203 2.57531 39.1399C2.31674 37.861 2.35811 36.5695 2.3607 35.2703C2.36587 32.1367 2.40207 28.9979 2.63478 25.8693C2.75113 24.2961 2.92178 22.7255 3.15708 21.1625C3.351 19.8785 3.51907 18.554 4.05171 17.3564C4.91791 15.4051 6.60116 13.9436 8.34389 12.7485C10.1823 11.4899 12.181 10.4826 14.0737 9.31031C16.2017 7.99087 18.3943 6.72725 20.693 5.71483C22.7434 4.81152 24.8843 4.16449 27.1183 3.90821C29.5566 3.6291 32.0155 3.82702 34.4279 4.23807L28.3155 0.774538C26.4926 -0.258179 24.2456 -0.258179 22.4228 0.774538L2.94506 11.8122C1.12217 12.8449 0 14.753 0 16.8184V38.8861C0 40.9515 1.12217 42.8597 2.94506 43.8924L6.05818 45.6559C5.12993 44.5927 4.31286 43.4509 3.66904 42.1949V42.1974Z" fill="url(#jg4)"/><defs><linearGradient id="jg4" x1="37.7143" y1="55.0747" x2="13.6377" y2="15.2057" gradientUnits="userSpaceOnUse"><stop stop-color="#CF9C37"/><stop offset="0.99" stop-color="#FFF7CB"/></linearGradient></defs></svg>
+          <svg x="6" y="5.003" width="9.96251" height="11.8318" viewBox="0 0 9.96251 11.8318" preserveAspectRatio="none"><path d="M4.98255 11.8318C4.88946 11.2787 4.46542 8.43681 3.46477 7.60455C2.35294 6.68094 0 6.01107 0 6.01107C0 6.01107 2.92178 5.50613 3.76212 3.99639C4.468 2.73023 4.88429 1.40318 4.93342 0.208066L4.94118 0C5.03943 0.593749 5.54105 3.28084 6.41758 4.22221C7.47511 5.3615 9.96251 6.04913 9.96251 6.04913C9.96251 6.04913 7.29929 6.38153 6.3064 7.635C5.54105 8.59667 5.07822 10.3145 5.02909 11.5096L4.98255 11.8318Z" fill="#fff"/></svg>
+          <svg x="13.002" y="5.003" width="4" height="4" viewBox="0 0 4 4" preserveAspectRatio="none"><path d="M2.00052 4C1.96315 3.813 1.79289 2.85224 1.39112 2.57088C0.944719 2.25863 0 2.03217 0 2.03217C0 2.03217 1.17311 1.86146 1.51051 1.35106C1.79393 0.923011 1.96107 0.474373 1.98079 0.070341L1.98391 0C2.02336 0.200729 2.22476 1.10916 2.57669 1.42741C3.0013 1.81257 4 2.04504 4 2.04504C4 2.04504 2.9307 2.15741 2.53205 2.58117C2.22476 2.90628 2.03893 3.48703 2.01921 3.89106L2.00052 4Z" fill="#fff"/></svg>
+          <svg x="46.002" y="46.002" width="10" height="12" viewBox="0 0 10 12" preserveAspectRatio="none"><path d="M5.0013 12C4.90786 11.439 4.48222 8.55672 3.47781 7.71263C2.3618 6.7759 0 6.0965 0 6.0965C0 6.0965 2.93278 5.58439 3.77628 4.05319C4.48482 2.76903 4.90267 1.42312 4.95199 0.211023L4.95977 0C5.0584 0.602187 5.5619 3.32747 6.44173 4.28222C7.50324 5.4377 10 6.13511 10 6.13511C10 6.13511 7.32676 6.47223 6.33013 7.74351C5.5619 8.71885 5.09733 10.4611 5.04801 11.6732L5.0013 12Z" fill="#fff"/></svg>
+          <svg x="16.218" y="17.074" width="28.7036" height="27.3605" viewBox="0 0 28.7036 27.3605" preserveAspectRatio="none"><path d="M19.0561 8.30058L15.8422 0.939613C15.3095 -0.280871 13.5616 -0.321468 12.9695 0.871104L9.37546 8.10774L1.01605 9.51345C0.0309159 9.67838 -0.34659 10.8735 0.374807 11.556L6.06841 16.9429L4.94106 25.5421C4.76783 26.8641 6.2132 27.808 7.38968 27.1407L14.7303 22.9667L22.04 27.1026C23.2345 27.7801 24.6903 26.7702 24.4369 25.4381L22.7639 16.5877L28.1886 11.6322C29.2151 10.6933 28.6127 9.00597 27.2139 8.90194L19.0561 8.29804V8.30058Z" fill="#E5A654"/></svg>
+          <svg x="15.078" y="16.361" width="28.7036" height="27.3605" viewBox="0 0 28.7036 27.3605" preserveAspectRatio="none"><path d="M19.0561 8.30058L15.8422 0.939614C15.3095 -0.28087 13.5616 -0.321469 12.9695 0.871103L9.37545 8.10774L1.01605 9.51345C0.0309153 9.67838 -0.346589 10.8735 0.374807 11.556L6.06841 16.9429L4.94106 25.5421C4.76783 26.8641 6.2132 27.808 7.38968 27.1407L14.7303 22.9667L22.04 27.1026C23.2345 27.7801 24.6903 26.7702 24.4369 25.4381L22.7639 16.5877L28.1886 11.6322C29.2151 10.6933 28.6127 9.00597 27.2139 8.90194L19.0561 8.29804V8.30058Z" fill="#fff"/></svg>
+        </svg>
+      </span>
     </div>
 
     <!-- ===== S4 · Misi (naik tier) ===== -->
@@ -342,10 +372,38 @@
       </div>
     </div>
 
+    <!-- ===== S3 · Promo & Program (sliding banner) — after Misi ===== -->
+    <div>
+      <div class="banners" id="banners">
+        <div class="banner g qris-off" id="banner-qris" onclick="toast('Aktivasi QRIS')">
+          <span class="tag">Baru</span>
+          <div><div class="bt">Aktifkan terima pembayaran QRIS</div><div class="bd">Pelanggan bisa bayar langsung di warung kamu</div></div>
+        </div>
+        <div class="banner p" onclick="toast('Promo cashback')">
+          <span class="tag">Promo</span>
+          <div><div class="bt">Cashback 10% Token PLN</div><div class="bd">Berlaku s/d 31 Juli · tanpa minimum</div></div>
+        </div>
+        <div class="banner o" onclick="toast('Bonus komisi')">
+          <span class="tag">Program</span>
+          <div><div class="bt">Komisi ekstra tiap akhir pekan</div><div class="bd">Sabtu–Minggu, komisi naik 20%</div></div>
+        </div>
+        <div class="banner b" onclick="toast('Undian agen')">
+          <span class="tag">Event</span>
+          <div><div class="bt">Undian umrah untuk agen aktif</div><div class="bd">Tiap 100 transaksi = 1 kupon</div></div>
+        </div>
+      </div>
+      <div class="dots" id="dots"><i class="qris-off"></i><i class="on"></i><i></i><i></i></div>
+    </div>
+
     <!-- ===== S5 · Tambah Penghasilan ===== -->
     <div>
       <div class="sechead"><span class="t16b">Tambah Penghasilan</span></div>
-      <div class="op-list">
+      <div class="op-list" id="op-list">
+        <button class="card opp qris-off" id="opp-qris" onclick="toast('Aktivasi QRIS')">
+          <span class="ic tile blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="8.5" y="8.5" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg></span>
+          <div class="mid"><div class="t1">Terima pembayaran QRIS</div><div class="t2">Pelanggan bayar pakai QRIS langsung di warung kamu</div></div>
+          <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
         <button class="card opp" onclick="toast('Cashback belanja')">
           <span class="ic tile green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M15 9.5C14.5 8.6 13.4 8 12 8c-1.7 0-3 .9-3 2.2 0 3 6 1.5 6 4.6 0 1.3-1.3 2.2-3 2.2-1.4 0-2.5-.6-3-1.5M12 6.5v11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
           <div class="mid"><div class="t1">Cashback belanja</div><div class="t2">Transaksi Rp500rb minggu ini, dapat cashback Rp25rb</div></div>
@@ -355,11 +413,6 @@
           <span class="ic tile purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 8v13M12 8c-1-3-5-4-5-1.5C7 8 10 8 12 8Zm0 0c1-3 5-4 5-1.5C17 8 14 8 12 8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
           <div class="mid"><div class="t1">Ajak jadi Agen AmarthaLink</div><div class="t2">Ajak keluarga/kenalan, dapat bonus Rp25rb per agen aktif</div></div>
           <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </button>
-        <button class="card opp" onclick="toast('QRIS segera hadir')">
-          <span class="ic tile blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="8.5" y="8.5" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg></span>
-          <div class="mid"><div class="t1">Terima pembayaran QRIS</div><div class="t2">Pelanggan bayar pakai QRIS langsung di warung kamu</div></div>
-          <span class="badge neutral">Segera</span>
         </button>
       </div>
     </div>
@@ -392,21 +445,21 @@
       </div>
     </div>
 
-    <!-- ===== S7 · Keamanan & Bantuan ===== -->
+    <!-- ===== S7 · Profil & Keamanan ===== -->
     <div>
-      <div class="sechead"><span class="t16b">Keamanan &amp; Bantuan</span></div>
+      <div class="sechead"><span class="t16b">Profil &amp; Keamanan</span></div>
       <div class="sec-grid">
+        <button class="card faq-card" onclick="toast('Informasi & Lokasi Usaha')">
+          <span class="ic tile orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="2"/></svg></span>
+          <span class="q">Informasi &amp; Lokasi Usaha</span>
+        </button>
         <button class="card faq-card" onclick="toast('Ganti PIN & Sandi')">
           <span class="ic tile purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></svg></span>
-          <span class="q">Ganti PIN &amp; Sandi</span>
+          <span class="q">Ganti PIN</span>
         </button>
-        <button class="card faq-card" onclick="toast('Waspada penipuan — Amartha tak pernah minta PIN/OTP')">
-          <span class="ic tile red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3 3 7v5c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V7l-9-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-          <span class="q">Waspada Penipuan</span>
-        </button>
-        <button class="card faq-card" onclick="toast('Menghubungi CS Amartha')">
-          <span class="ic tile green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 16 0M4 12v3a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Zm16 0v3a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
-          <span class="q">Hubungi CS</span>
+        <button class="card faq-card" onclick="toast('Profil')">
+          <span class="ic tile blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="q">Profil</span>
         </button>
       </div>
     </div>
@@ -427,52 +480,62 @@
 
   /* S1 period toggle */
   const P = {
-    hari:   { label:'Uang masuk & keluar hari ini', days:0,  masuk:'Rp2.752.000',  keluar:'Rp2.324.000',  trx:'21',  produk:'18',  qris:'Rp358.500',    plg:'15',  lang:'11',  baru:'4',   langPct:73, custWhen:'belanja hari ini' },
-    minggu: { label:'Uang masuk & keluar 7 hari',   days:7,  masuk:'Rp18.676.000', keluar:'Rp15.769.000', trx:'142', produk:'122', qris:'Rp2.436.000',  plg:'88',  lang:'66',  baru:'22',  langPct:75, custWhen:'belanja 7 hari' },
-    bulan:  { label:'Uang masuk & keluar 30 hari',  days:30, masuk:'Rp79.900.000', keluar:'Rp67.465.000', trx:'607', produk:'521', qris:'Rp10.420.000', plg:'306', lang:'232', baru:'74',  langPct:76, custWhen:'belanja 30 hari' },
+    hari:   { untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500',    date:'25 Jul 2026' },
+    minggu: { untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500',  date:'19 Jul 2026 - 25 Jul 2026' },
+    bulan:  { untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000', date:'26 Jun 2026 - 25 Jul 2026' },
   };
-  const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-  const fmtDate = d => `${d.getDate()} ${IDN_MON[d.getMonth()]} ${d.getFullYear()}`;
-  function dateRange(days){
-    const end = new Date();
-    if (days === 0) return fmtDate(end);
-    const start = new Date();
-    start.setDate(end.getDate() - days);
-    return `${fmtDate(start)} - ${fmtDate(end)}`;
+  const MASK_IDS = ['s-untung','s-jual','s-reward'];
+  const MASK = 'Rp' + '•'.repeat(6);
+  const EYE_OPEN  = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.964 4.376)"><path d="M8.0366 8.125C9.41731 8.125 10.5366 7.00571 10.5366 5.625C10.5366 4.24429 9.41731 3.125 8.0366 3.125C6.65589 3.125 5.5366 4.24429 5.5366 5.625C5.5366 7.00571 6.65589 8.125 8.0366 8.125Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.0366 0C6.04997 0 4.30791 0.809735 2.96442 1.81496C1.62544 2.8168 0.634489 4.0479 0.147622 4.97937C-0.0782551 5.41152 -0.0337523 5.9089 0.205079 6.29345C0.757804 7.18342 1.72044 8.40974 3.03133 9.41983C4.34441 10.4316 6.03923 11.25 8.0366 11.25C10.0232 11.25 11.7653 10.4403 13.1088 9.43504C14.4478 8.4332 15.4387 7.2021 15.9256 6.27063C16.1515 5.83848 16.107 5.3411 15.8681 4.95655C15.3154 4.06658 14.3528 2.84026 13.0419 1.83017C11.7288 0.818385 10.034 0 8.0366 0ZM1.25542 5.5584C1.64884 4.80572 2.51167 3.71487 3.71327 2.81581C4.91036 1.92013 6.39571 1.25 8.0366 1.25C9.67929 1.25 11.1127 1.92172 12.2789 2.82032C13.4473 3.7206 14.3149 4.82493 14.8063 5.61604C14.8181 5.63511 14.8223 5.65241 14.823 5.66479C14.8237 5.67634 14.8214 5.68459 14.8178 5.6916C14.4244 6.44428 13.5615 7.53513 12.3599 8.43418C11.1628 9.32987 9.6775 10 8.0366 10C6.39391 10 4.96047 9.32828 3.79428 8.42968C2.6259 7.52939 1.75828 6.42507 1.26695 5.63396C1.25511 5.61489 1.25086 5.59758 1.25018 5.58521C1.24954 5.57366 1.25176 5.56541 1.25542 5.5584Z" fill="currentColor"/></g></svg>';
+  const EYE_CLOSED = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.874 6.042) scale(0.8334)"><path d="M19.0019 0.0436984C19.3921 0.182704 19.5957 0.611705 19.4567 1.0019C19.0325 2.19246 18.0072 3.88693 16.314 5.24706L17.9024 6.81675C18.197 7.1079 18.1998 7.58277 17.9086 7.87739C17.6175 8.17201 17.1426 8.17482 16.848 7.88366L15.0557 6.1125C14.4275 6.47842 13.7319 6.79257 12.9668 7.02896C12.9688 7.03529 12.9706 7.04166 12.9724 7.04808L13.5974 9.28138C13.7091 9.68027 13.4762 10.0941 13.0773 10.2058C12.6784 10.3174 12.2646 10.0845 12.1529 9.68563L11.5279 7.45233C11.5199 7.42348 11.5136 7.39456 11.5091 7.36568C10.9532 7.45294 10.3671 7.5002 9.75018 7.5002C9.34047 7.5002 8.9429 7.47868 8.55762 7.43791C8.55352 7.47235 8.54699 7.50691 8.53789 7.5414L7.97539 9.67473C7.86978 10.0753 7.45948 10.3143 7.05896 10.2087C6.65843 10.1031 6.41936 9.69282 6.52496 9.29229L7.08254 7.17765C6.13736 6.94143 5.28214 6.58853 4.51988 6.16297L3.36048 7.78613C3.11972 8.12319 2.65131 8.20126 2.31425 7.9605C1.97719 7.71975 1.89912 7.25134 2.13988 6.91428L3.26444 5.33989C3.15175 5.25402 3.04189 5.16675 2.93489 5.07832C1.32764 3.75002 0.319557 2.12005 0.0225705 0.932106C-0.077891 0.53026 0.16643 0.123059 0.568276 0.0225975C0.970122 -0.0778641 1.37732 0.166456 1.47778 0.568303C1.6808 1.38036 2.47271 2.75039 3.89046 3.92209C5.28654 5.07586 7.24659 6.0002 9.75018 6.0002C14.7392 6.0002 17.3648 2.40418 18.0437 0.498512C18.1827 0.108319 18.6117 -0.0953077 19.0019 0.0436984Z" fill="currentColor"/></g></svg>';
+  let hidden = false;
+  function applyMask(){
+    MASK_IDS.forEach(id => { const el = document.getElementById(id); el.textContent = hidden ? MASK : el.dataset.val; });
+    document.getElementById('kc-eye').innerHTML = hidden ? EYE_CLOSED : EYE_OPEN;
   }
+  function toggleHide(){ hidden = !hidden; applyMask(); }
   function setPeriod(k, btn){
     const d = P[k];
-    document.getElementById('s-label').textContent  = d.label;
-    document.getElementById('s-date').textContent    = dateRange(d.days);
-    document.getElementById('s-masuk').textContent  = d.masuk;
-    document.getElementById('s-keluar').textContent = d.keluar;
-    document.getElementById('s-trx').textContent    = d.trx;
-    document.getElementById('s-produk').textContent = d.produk;
+    document.getElementById('s-untung').dataset.val = d.untung;
+    document.getElementById('s-jual').dataset.val   = d.jual;
+    document.getElementById('s-reward').dataset.val = d.reward;
     document.getElementById('s-qris').textContent   = d.qris;
-    document.getElementById('s-plg').textContent    = d.plg;
-    document.getElementById('s-lang').textContent   = d.lang;
-    document.getElementById('s-baru').textContent   = d.baru;
-    document.getElementById('s-bar-lang').style.width = d.langPct + '%';
-    document.getElementById('s-bar-baru').style.width = (100 - d.langPct) + '%';
-    document.querySelector('.cust-h .l').textContent = d.custWhen;
+    document.getElementById('s-date').textContent   = d.date;
+    applyMask();
     document.querySelectorAll('#segment button').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
   }
-  document.getElementById('s-date').textContent = dateRange(P.hari.days);
+  setPeriod('minggu', document.querySelectorAll('#segment button')[1]);
 
   /* S3 banner dots */
   const banners = document.getElementById('banners');
   const dots = [...document.querySelectorAll('#dots i')];
-  banners.addEventListener('scroll', () => {
+  function syncDots(){
     const c = banners.scrollLeft + banners.clientWidth/2;
     let idx = 0, min = 1e9;
     [...banners.children].forEach((el,i) => {
+      if (getComputedStyle(el).display === 'none') return;
       const center = el.offsetLeft + el.offsetWidth/2;
       const dist = Math.abs(center - c);
       if (dist < min) { min = dist; idx = i; }
     });
     dots.forEach((d,i) => d.classList.toggle('on', i === idx));
-  }, { passive:true });
+  }
+  banners.addEventListener('scroll', syncDots, { passive:true });
+
+  /* ===== Prototype switcher: QRIS Aktif vs Belum Aktif — driven externally
+     by the wrapper (index.html) via iframe.contentWindow.setQris(state) ===== */
+  function setQris(state){
+    const inactive = state === 'inactive';
+    document.getElementById('qris-card').classList.toggle('qris-off', inactive);
+    document.getElementById('banner-qris').classList.toggle('qris-off', !inactive);
+    dots[0].classList.toggle('qris-off', !inactive);
+    document.getElementById('opp-qris').classList.toggle('qris-off', !inactive);
+
+    void banners.offsetWidth; // force reflow before repositioning, avoids stale-layout snap jumps
+    banners.scrollLeft = 0;
+    requestAnimationFrame(syncDots);
+  }
 </script>
 </body>
 </html>
