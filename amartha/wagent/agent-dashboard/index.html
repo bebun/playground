@@ -98,6 +98,45 @@
   .workspace.notes-collapsed .notes-head,
   .workspace.notes-collapsed .notes-body { display:none; }
   .workspace.notes-collapsed .notes-rail { display:flex; }
+
+  /* ---------- Mobile: dashboard-only view ----------
+     On a phone the workspace chrome (left nav, device bezel, lavender canvas)
+     is dropped so the prototype fills the screen like a real app. Notes become
+     a sticky bottom sheet: collapsed to a bar, expanding to full screen. */
+  @media (max-width:768px) {
+    .workspace { display:block; height:100vh; height:100dvh; }
+
+    /* left concept nav is desktop-only */
+    .nav { display:none; }
+
+    .canvas { height:100vh; height:100dvh; padding:0; overflow:hidden;
+              background:var(--white); justify-content:flex-start; }
+
+    /* slim preview switcher above the screen */
+    .proto-bar { width:100%; border-radius:0; border:0; border-bottom:1px solid var(--stroke);
+                 box-shadow:none; margin:0; padding:8px 12px; justify-content:center; }
+
+    /* device chrome removed — the dashboard IS the screen */
+    .device { width:100%; flex:1 1 auto; min-height:0; padding:0; border-radius:0;
+              background:none; box-shadow:none; }
+    .screen { width:100%; height:100%; border-radius:0; }
+    .screen iframe { width:100%; height:100%; transform:none; }
+    .camera, .btn-pw, .btn-vol { display:none; }
+
+    /* notes: sticky bottom sheet, full-screen when open */
+    .notes { position:fixed; left:0; right:0; bottom:0; width:auto;
+             height:100vh; height:100dvh; z-index:50;
+             border-left:0; border-top:1px solid var(--stroke); border-radius:16px 16px 0 0;
+             box-shadow:0 -4px 24px rgba(88,92,95,.18);
+             transition:transform .28s ease; }
+    .notes-body { flex:1 1 auto; padding-bottom:calc(24px + env(safe-area-inset-bottom)); }
+
+    /* collapsed → slide down, leaving only the bar visible */
+    .workspace.notes-collapsed .notes { width:auto; transform:translateY(calc(100% - 56px)); }
+    .notes-rail { flex-direction:row-reverse; justify-content:space-between; align-items:center;
+                  width:100%; height:56px; padding:0 16px; gap:12px; }
+    .notes-rail .label { writing-mode:horizontal-tb; transform:none; font-size:11px; }
+  }
 </style>
 </head>
 <body>
@@ -179,6 +218,15 @@
     document.getElementById('workspace').classList.toggle('notes-collapsed');
   }
 
+  /* Notes start collapsed on a phone (the dashboard gets the whole screen) and
+     expanded on desktop. Re-applied when the viewport crosses the breakpoint. */
+  const mqPhone = window.matchMedia('(max-width:768px)');
+  function applyNotesDefault(mq){
+    document.getElementById('workspace').classList.toggle('notes-collapsed', mq.matches);
+  }
+  applyNotesDefault(mqPhone);
+  mqPhone.addEventListener('change', applyNotesDefault);
+
   /* Make the embedded dashboard scroll INTERNALLY (via its own .scroll, whose
      scrollbar is already hidden) instead of the iframe window — kills the iframe
      scrollbar and keeps the FunDS statusbar at full width. index.html is untouched:
@@ -187,12 +235,21 @@
     try {
       const doc = ifr.contentDocument;
       if (!doc) return;
-      const s = doc.createElement('style');
+      let s = doc.getElementById('embed-fit');
+      if (!s) { s = doc.createElement('style'); s.id = 'embed-fit'; doc.head.appendChild(s); }
       // bound the phone to the iframe height so its own .scroll (hidden bar) does the scrolling
-      s.textContent = '.phone{height:100vh}.scroll{min-height:0}';
-      doc.head.appendChild(s);
+      s.textContent = mqPhone.matches
+        // on a phone the frame is the viewport: drop the 412px cap and the device styling
+        ? 'body{padding:0;background:var(--neutral-50)}' +
+          '.phone{max-width:none;height:100dvh;min-height:0;border-radius:0;box-shadow:none}' +
+          '.scroll{min-height:0}'
+        : '.phone{height:100vh}.scroll{min-height:0}';
     } catch (e) { /* cross-origin — ignore */ }
   }
+  mqPhone.addEventListener('change', () => {
+    const ifr = document.querySelector('.screen iframe');
+    if (ifr) fitFrame(ifr);
+  });
 
   /* Preview switcher (outside the phone) drives dashboard.html's own setQris(state)
      across the iframe boundary — same-origin, so this is a direct function call. */
