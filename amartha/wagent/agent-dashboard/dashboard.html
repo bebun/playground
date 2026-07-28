@@ -105,7 +105,37 @@
   .klabel { font-size:12px; font-weight:500; line-height:1.5; color:var(--neutral-600); }
   .kamt-row { display:flex; align-items:center; gap:4px; }
   .kamt { font-size:24px; font-weight:700; line-height:normal; color:var(--neutral-900); }
-  .keye { border:none; background:none; padding:0; cursor:pointer; display:flex; color:var(--neutral-900); }
+  .qlabel-row { display:flex; align-items:center; gap:6px; }
+  .qinfo { border:none; background:none; padding:0; cursor:pointer; display:flex; color:var(--neutral-500); }
+
+  /* Bottom sheet (info) */
+  .scrim { position:absolute; inset:0; z-index:40; background:rgba(17,25,40,.45);
+           opacity:0; pointer-events:none; transition:opacity .25s ease; }
+  .scrim.open { opacity:1; pointer-events:auto; }
+  .sheet { position:absolute; left:0; right:0; bottom:0; z-index:41; background:var(--neutral-white);
+           border-radius:20px 20px 0 0; display:flex; flex-direction:column; max-height:90%;
+           transform:translateY(101%); transition:transform .3s cubic-bezier(.32,.72,0,1); }
+  .sheet.open { transform:none; }
+  .sheet-head { flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:12px 16px 8px; }
+  .sheet-head .close { border:none; background:none; cursor:pointer; color:var(--neutral-900); padding:4px; margin-left:-4px; display:flex; }
+  .sheet-head .stitle { font-weight:700; font-size:18px; }
+  .sheet-body { flex:1 1 auto; overflow-y:auto; padding:8px 16px 16px; scrollbar-width:none; }
+  .sheet-body::-webkit-scrollbar { display:none; }
+  .sheet-foot { flex:0 0 auto; padding:12px 16px 16px; border-top:1px solid var(--neutral-200); }
+  .sheet-apply { width:100%; border:none; cursor:pointer; border-radius:var(--r-full); background:var(--primary-500);
+                 color:#fff; font-family:var(--font); font-weight:700; font-size:14px; padding:14px; }
+  .sheet-apply:active { background:var(--primary-600); }
+  .qi-card { border-radius:var(--r-8); padding:12px; margin:4px 0 8px; }
+  .qi-card.primary { background:var(--primary-50); border:1px solid var(--primary-200); }
+  .qi-card.gray { background:var(--neutral-50); border:1px solid var(--neutral-200); }
+  .qi-label { font-size:12px; font-weight:500; line-height:1.5; }
+  .qi-amt { font-size:20px; font-weight:700; line-height:1.4; }
+  .qi-cap { font-size:12px; font-weight:500; line-height:1.5; margin-top:2px; }
+  .qi-card.primary .qi-label, .qi-card.primary .qi-cap { color:var(--primary-600); }
+  .qi-card.primary .qi-amt { color:var(--primary-700); }
+  .qi-card.gray .qi-label { color:var(--neutral-600); }
+  .qi-card.gray .qi-amt { color:var(--neutral-700); }
+  .qi-card.gray .qi-cap { color:var(--neutral-500); margin-top:4px; }
   .ksplit { width:100%; display:flex; align-items:center; background:var(--neutral-50); border-radius:8px; }
   .kcell { flex:1 1 0; min-width:0; padding:8px; border-radius:8px; display:flex; flex-direction:column; align-items:flex-start; }
   .kcell b { font-size:14px; font-weight:700; line-height:1.5; color:var(--neutral-900); }
@@ -264,9 +294,6 @@
               <div class="klabel">Keuntungan</div>
               <div class="kamt-row">
                 <span class="kamt" id="s-untung">Rp81.500</span>
-                <button class="keye" id="kc-eye" onclick="toggleHide()" aria-label="Sembunyikan nilai">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.964 4.376)"><path d="M8.0366 8.125C9.41731 8.125 10.5366 7.00571 10.5366 5.625C10.5366 4.24429 9.41731 3.125 8.0366 3.125C6.65589 3.125 5.5366 4.24429 5.5366 5.625C5.5366 7.00571 6.65589 8.125 8.0366 8.125Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.0366 0C6.04997 0 4.30791 0.809735 2.96442 1.81496C1.62544 2.8168 0.634489 4.0479 0.147622 4.97937C-0.0782551 5.41152 -0.0337523 5.9089 0.205079 6.29345C0.757804 7.18342 1.72044 8.40974 3.03133 9.41983C4.34441 10.4316 6.03923 11.25 8.0366 11.25C10.0232 11.25 11.7653 10.4403 13.1088 9.43504C14.4478 8.4332 15.4387 7.2021 15.9256 6.27063C16.1515 5.83848 16.107 5.3411 15.8681 4.95655C15.3154 4.06658 14.3528 2.84026 13.0419 1.83017C11.7288 0.818385 10.034 0 8.0366 0ZM1.25542 5.5584C1.64884 4.80572 2.51167 3.71487 3.71327 2.81581C4.91036 1.92013 6.39571 1.25 8.0366 1.25C9.67929 1.25 11.1127 1.92172 12.2789 2.82032C13.4473 3.7206 14.3149 4.82493 14.8063 5.61604C14.8181 5.63511 14.8223 5.65241 14.823 5.66479C14.8237 5.67634 14.8214 5.68459 14.8178 5.6916C14.4244 6.44428 13.5615 7.53513 12.3599 8.43418C11.1628 9.32987 9.6775 10 8.0366 10C6.39391 10 4.96047 9.32828 3.79428 8.42968C2.6259 7.52939 1.75828 6.42507 1.26695 5.63396C1.25511 5.61489 1.25086 5.59758 1.25018 5.58521C1.24954 5.57366 1.25176 5.56541 1.25542 5.5584Z" fill="currentColor"/></g></svg>
-                </button>
               </div>
             </div>
             <div class="ksplit">
@@ -284,7 +311,12 @@
             <div class="tdivider"></div>
             <div class="qbody">
               <div class="qgrp">
-                <div class="klabel">Pemasukan dari QRIS</div>
+                <div class="klabel qlabel-row">
+                  <span>Pemasukan dari QRIS</span>
+                  <button class="qinfo" onclick="openQrisInfo()" aria-label="Info pemasukan QRIS">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg>
+                  </button>
+                </div>
                 <div class="qamt" id="s-qris">Rp2.481.500</div>
               </div>
               <button class="tlink" onclick="toast('Lihat Poket Merchant')">
@@ -485,6 +517,32 @@
 
   </div><!-- /scroll -->
 
+  <!-- ===== Info sheet: Pemasukan dari QRIS ===== -->
+  <div class="scrim" id="qscrim" onclick="closeQrisInfo()"></div>
+  <div class="sheet" id="qsheet" role="dialog" aria-label="Tentang pemasukan QRIS">
+    <div class="sheet-head">
+      <button class="close" onclick="closeQrisInfo()" aria-label="Tutup">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <span class="stitle">Pemasukan dari QRIS</span>
+    </div>
+    <div class="sheet-body">
+      <div class="qi-card primary">
+        <div class="qi-label">Siap ditarik</div>
+        <div class="qi-amt" id="qi-ready">Rp2.481.500</div>
+        <div class="qi-cap">Dana ini bisa ditarik kapan aja.</div>
+      </div>
+      <div class="qi-card gray">
+        <div class="qi-label">Dana diproses</div>
+        <div class="qi-amt">Rp312.000</div>
+        <div class="qi-cap">Transaksi QRIS akan siap dipakai pukul 17.00 WIB di hari berikutnya.</div>
+      </div>
+    </div>
+    <div class="sheet-foot">
+      <button class="sheet-apply" onclick="closeQrisInfo()">Tutup</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 </div>
 
@@ -513,28 +571,25 @@
     const start = new Date(end); start.setDate(start.getDate() - (k === 'minggu' ? 7 : 30));
     return `${fmtD(start)} - ${fmtD(end)}`;
   }
-  const MASK_IDS = ['s-untung','s-jual','s-reward'];
-  const MASK = 'Rp' + '•'.repeat(6);
-  const EYE_OPEN  = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.964 4.376)"><path d="M8.0366 8.125C9.41731 8.125 10.5366 7.00571 10.5366 5.625C10.5366 4.24429 9.41731 3.125 8.0366 3.125C6.65589 3.125 5.5366 4.24429 5.5366 5.625C5.5366 7.00571 6.65589 8.125 8.0366 8.125Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.0366 0C6.04997 0 4.30791 0.809735 2.96442 1.81496C1.62544 2.8168 0.634489 4.0479 0.147622 4.97937C-0.0782551 5.41152 -0.0337523 5.9089 0.205079 6.29345C0.757804 7.18342 1.72044 8.40974 3.03133 9.41983C4.34441 10.4316 6.03923 11.25 8.0366 11.25C10.0232 11.25 11.7653 10.4403 13.1088 9.43504C14.4478 8.4332 15.4387 7.2021 15.9256 6.27063C16.1515 5.83848 16.107 5.3411 15.8681 4.95655C15.3154 4.06658 14.3528 2.84026 13.0419 1.83017C11.7288 0.818385 10.034 0 8.0366 0ZM1.25542 5.5584C1.64884 4.80572 2.51167 3.71487 3.71327 2.81581C4.91036 1.92013 6.39571 1.25 8.0366 1.25C9.67929 1.25 11.1127 1.92172 12.2789 2.82032C13.4473 3.7206 14.3149 4.82493 14.8063 5.61604C14.8181 5.63511 14.8223 5.65241 14.823 5.66479C14.8237 5.67634 14.8214 5.68459 14.8178 5.6916C14.4244 6.44428 13.5615 7.53513 12.3599 8.43418C11.1628 9.32987 9.6775 10 8.0366 10C6.39391 10 4.96047 9.32828 3.79428 8.42968C2.6259 7.52939 1.75828 6.42507 1.26695 5.63396C1.25511 5.61489 1.25086 5.59758 1.25018 5.58521C1.24954 5.57366 1.25176 5.56541 1.25542 5.5584Z" fill="currentColor"/></g></svg>';
-  const EYE_CLOSED = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(1.874 6.042) scale(0.8334)"><path d="M19.0019 0.0436984C19.3921 0.182704 19.5957 0.611705 19.4567 1.0019C19.0325 2.19246 18.0072 3.88693 16.314 5.24706L17.9024 6.81675C18.197 7.1079 18.1998 7.58277 17.9086 7.87739C17.6175 8.17201 17.1426 8.17482 16.848 7.88366L15.0557 6.1125C14.4275 6.47842 13.7319 6.79257 12.9668 7.02896C12.9688 7.03529 12.9706 7.04166 12.9724 7.04808L13.5974 9.28138C13.7091 9.68027 13.4762 10.0941 13.0773 10.2058C12.6784 10.3174 12.2646 10.0845 12.1529 9.68563L11.5279 7.45233C11.5199 7.42348 11.5136 7.39456 11.5091 7.36568C10.9532 7.45294 10.3671 7.5002 9.75018 7.5002C9.34047 7.5002 8.9429 7.47868 8.55762 7.43791C8.55352 7.47235 8.54699 7.50691 8.53789 7.5414L7.97539 9.67473C7.86978 10.0753 7.45948 10.3143 7.05896 10.2087C6.65843 10.1031 6.41936 9.69282 6.52496 9.29229L7.08254 7.17765C6.13736 6.94143 5.28214 6.58853 4.51988 6.16297L3.36048 7.78613C3.11972 8.12319 2.65131 8.20126 2.31425 7.9605C1.97719 7.71975 1.89912 7.25134 2.13988 6.91428L3.26444 5.33989C3.15175 5.25402 3.04189 5.16675 2.93489 5.07832C1.32764 3.75002 0.319557 2.12005 0.0225705 0.932106C-0.077891 0.53026 0.16643 0.123059 0.568276 0.0225975C0.970122 -0.0778641 1.37732 0.166456 1.47778 0.568303C1.6808 1.38036 2.47271 2.75039 3.89046 3.92209C5.28654 5.07586 7.24659 6.0002 9.75018 6.0002C14.7392 6.0002 17.3648 2.40418 18.0437 0.498512C18.1827 0.108319 18.6117 -0.0953077 19.0019 0.0436984Z" fill="currentColor"/></g></svg>';
-  let hidden = false;
-  function applyMask(){
-    MASK_IDS.forEach(id => { const el = document.getElementById(id); el.textContent = hidden ? MASK : el.dataset.val; });
-    document.getElementById('kc-eye').innerHTML = hidden ? EYE_CLOSED : EYE_OPEN;
-  }
-  function toggleHide(){ hidden = !hidden; applyMask(); }
   function setPeriod(k, btn){
     const d = P[k];
-    document.getElementById('s-untung').dataset.val = d.untung;
-    document.getElementById('s-jual').dataset.val   = d.jual;
-    document.getElementById('s-reward').dataset.val = d.reward;
+    document.getElementById('s-untung').textContent = d.untung;
+    document.getElementById('s-jual').textContent   = d.jual;
+    document.getElementById('s-reward').textContent = d.reward;
     document.getElementById('s-omzet').textContent  = d.omzet;
     document.getElementById('s-qris').textContent   = d.qris;
     document.getElementById('s-date').textContent   = periodDate(k);
-    applyMask();
     document.querySelectorAll('#segment button').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
   }
+
+  /* QRIS info bottom sheet */
+  function openQrisInfo(){
+    document.getElementById('qi-ready').textContent = document.getElementById('s-qris').textContent;
+    document.getElementById('qscrim').classList.add('open');
+    document.getElementById('qsheet').classList.add('open');
+  }
+  function closeQrisInfo(){ document.getElementById('qscrim').classList.remove('open'); document.getElementById('qsheet').classList.remove('open'); }
   setPeriod('minggu', document.querySelectorAll('#segment button')[1]);
 
   /* S3 banner dots */
