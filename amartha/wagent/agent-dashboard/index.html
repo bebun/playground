@@ -30,7 +30,7 @@
 
   /* ---------- Left: concept navigation ---------- */
   .nav { width:var(--nav-w); flex:0 0 auto; background:var(--white); border-right:1px solid var(--stroke);
-         display:flex; flex-direction:column; padding:20px 12px; gap:20px; }
+         display:flex; flex-direction:column; padding:20px 12px; gap:20px; overflow-y:auto; }
   .brand { display:flex; align-items:center; padding:0 8px; }
   /* Payment Design — Inter Light 300, 18 (weight not in FunDS; loaded from Google Fonts) */
   .brand .name { font-weight:300; font-size:18px; }
@@ -51,16 +51,15 @@
             scrollbar-width:none; -ms-overflow-style:none; }
   .canvas::-webkit-scrollbar { width:0; height:0; display:none; }
 
-  /* Preview switcher — sits above the device, outside the phone screen.
-     Demo/discussion control only, not part of the product UI. */
-  .proto-bar { flex:0 0 auto; display:flex; align-items:center; gap:10px; margin-bottom:16px;
-               background:var(--white); border:1px solid var(--stroke); border-radius:999px; padding:6px 8px 6px 14px;
-               box-shadow:0 2px 10px rgba(88,92,95,.10); }
-  .proto-bar .proto-label { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--disabled); }
-  .proto-seg { display:flex; gap:2px; background:#F2F0F8; border-radius:999px; padding:3px; }
-  .proto-seg button { border:none; background:none; cursor:pointer; padding:7px 12px; border-radius:999px;
-                       font-family:var(--font); font-weight:700; font-size:12px; color:var(--caption); white-space:nowrap; }
-  .proto-seg button.active { background:var(--primary); color:#fff; }
+  /* State switcher — lives in the left sidebar. Demo/discussion control only,
+     not part of the product UI. Options stack vertically like nav items. */
+  .state-section { position:sticky; top:0; }
+  .state-section .overline { padding:0 8px 2px; font-size:11px; font-weight:700; }
+  .proto-seg { display:flex; flex-direction:column; gap:6px; }
+  .proto-seg button { width:100%; text-align:left; border:none; cursor:pointer; padding:6px 8px; border-radius:8px;
+                      font-family:var(--font); font-size:14px; line-height:1.5; font-weight:500; color:var(--ink); background:none; }
+  .proto-seg button:hover { background:#F7F6FB; }
+  .proto-seg button.active { background:var(--nav-active); color:var(--primary-600); font-weight:700; }
   /* Mobile device — screen locked to 360 x 800 (not responsive), Android-style bezel,
      punch-hole camera, and side buttons matching the 9:20 ratio.
      Dashboard rendered at design width (412) then scaled so nothing stretches. */
@@ -104,17 +103,23 @@
      is dropped so the prototype fills the screen like a real app. Notes become
      a sticky bottom sheet: collapsed to a bar, expanding to full screen. */
   @media (max-width:768px) {
-    .workspace { display:block; height:100vh; height:100dvh; }
+    .workspace { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
-    /* left concept nav is desktop-only */
-    .nav { display:none; }
+    /* nav collapses to a slim top bar carrying only the State switch */
+    .nav { width:auto; flex:0 0 auto; flex-direction:row; align-items:center; justify-content:center;
+           gap:10px; padding:8px 12px; border-right:0; border-bottom:1px solid var(--stroke); overflow:visible; }
+    .nav .brand, .nav .concept-section { display:none; }
+    .state-section { position:static; flex-direction:row; align-items:center; gap:10px; }
+    .state-section .overline { padding:0; }
+    /* back to horizontal pill tabs to save vertical space on a phone */
+    .proto-seg { flex-direction:row; gap:2px; background:#F2F0F8; border-radius:999px; padding:3px; }
+    .proto-seg button { width:auto; text-align:center; padding:7px 12px; border-radius:999px;
+                        font-size:12px; font-weight:700; color:var(--caption); white-space:nowrap; }
+    .proto-seg button:hover { background:none; }
+    .proto-seg button.active { background:var(--primary); color:#fff; }
 
-    .canvas { height:100vh; height:100dvh; padding:0; overflow:hidden;
+    .canvas { flex:1 1 auto; min-height:0; height:auto; padding:0; overflow:hidden;
               background:var(--white); justify-content:flex-start; }
-
-    /* slim preview switcher above the screen */
-    .proto-bar { width:100%; border-radius:0; border:0; border-bottom:1px solid var(--stroke);
-                 box-shadow:none; margin:0; padding:8px 12px; justify-content:center; }
 
     /* device chrome removed — the dashboard IS the screen */
     .device { width:100%; flex:1 1 auto; min-height:0; padding:0; border-radius:0;
@@ -145,21 +150,21 @@
   <!-- Left: concept navigation -->
   <aside class="nav">
     <div class="brand"><span class="name">Payment Design</span></div>
-    <div class="nav-section">
+    <div class="nav-section concept-section">
       <span class="overline">Concept</span>
       <button class="nav-item active">Agent dashboard</button>
     </div>
-  </aside>
-
-  <!-- Center: concept canvas -->
-  <main class="canvas">
-    <div class="proto-bar">
-      <span class="proto-label">Preview</span>
+    <div class="nav-section state-section">
+      <span class="overline">State</span>
       <div class="proto-seg" id="proto-seg">
         <button class="active" onclick="setQrisPreview('active',this)">QRIS Aktif</button>
         <button onclick="setQrisPreview('inactive',this)">QRIS Belum Aktif</button>
       </div>
     </div>
+  </aside>
+
+  <!-- Center: concept canvas -->
+  <main class="canvas">
     <div class="device">
       <span class="btn-vol"></span>
       <span class="btn-pw"></span>
