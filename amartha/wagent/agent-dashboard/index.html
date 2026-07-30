@@ -51,12 +51,16 @@
             scrollbar-width:none; -ms-overflow-style:none; }
   .canvas::-webkit-scrollbar { width:0; height:0; display:none; }
 
-  /* State switcher — lives in the left sidebar. Demo/discussion control only,
-     not part of the product UI. Options stack vertically like nav items. */
-  .state-section { position:sticky; top:0; }
-  .state-section .overline { padding:0 8px 2px; font-size:11px; font-weight:700; }
-  .proto-seg { display:flex; flex-direction:column; gap:6px; }
-  .proto-seg button { width:100%; text-align:left; border:none; cursor:pointer; padding:6px 8px; border-radius:8px;
+  /* State switcher — a floating card that sits just after the sidebar and
+     stays put. Demo/discussion control only, not part of the product UI.
+     Options stack vertically. */
+  .state-panel { position:fixed; top:20px; left:calc(var(--nav-w) + 20px); z-index:20;
+                 display:flex; flex-direction:column; gap:8px; width:184px; padding:12px;
+                 background:var(--white); border:1px solid var(--stroke); border-radius:12px;
+                 box-shadow:0 4px 20px rgba(88,92,95,.14); }
+  .state-panel .overline { padding:0 2px; font-size:11px; font-weight:700; }
+  .proto-seg { display:flex; flex-direction:column; gap:4px; }
+  .proto-seg button { width:100%; text-align:left; border:none; cursor:pointer; padding:8px 10px; border-radius:8px;
                       font-family:var(--font); font-size:14px; line-height:1.5; font-weight:500; color:var(--ink); background:none; }
   .proto-seg button:hover { background:#F7F6FB; }
   .proto-seg button.active { background:var(--nav-active); color:var(--primary-600); font-weight:700; }
@@ -105,12 +109,12 @@
   @media (max-width:768px) {
     .workspace { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
-    /* nav collapses to a slim top bar carrying only the State switch */
-    .nav { width:auto; flex:0 0 auto; flex-direction:row; align-items:center; justify-content:center;
-           gap:10px; padding:8px 12px; border-right:0; border-bottom:1px solid var(--stroke); overflow:visible; }
-    .nav .brand, .nav .concept-section { display:none; }
-    .state-section { position:static; flex-direction:row; align-items:center; gap:10px; }
-    .state-section .overline { padding:0; }
+    /* sidebar is desktop-only; the floating panel becomes a slim top bar */
+    .nav { display:none; }
+    .state-panel { position:static; width:auto; flex:0 0 auto; flex-direction:row; align-items:center;
+                   justify-content:center; gap:10px; padding:8px 12px; border:0;
+                   border-bottom:1px solid var(--stroke); border-radius:0; box-shadow:none; }
+    .state-panel .overline { padding:0; }
     /* back to horizontal pill tabs to save vertical space on a phone */
     .proto-seg { flex-direction:row; gap:2px; background:#F2F0F8; border-radius:999px; padding:3px; }
     .proto-seg button { width:auto; text-align:center; padding:7px 12px; border-radius:999px;
@@ -154,12 +158,14 @@
       <span class="overline">Concept</span>
       <button class="nav-item active">Agent dashboard</button>
     </div>
-    <div class="nav-section state-section">
-      <span class="overline">State</span>
-      <div class="proto-seg" id="proto-seg">
-        <button class="active" onclick="setQrisPreview('active',this)">QRIS Aktif</button>
-        <button onclick="setQrisPreview('inactive',this)">QRIS Belum Aktif</button>
-      </div>
+  </aside>
+
+  <!-- Floating state switcher — sits just after the sidebar, stays put -->
+  <aside class="state-panel">
+    <span class="overline">State</span>
+    <div class="proto-seg" id="proto-seg">
+      <button class="active" onclick="setQrisPreview('active',this)">QRIS Aktif</button>
+      <button onclick="setQrisPreview('inactive',this)">QRIS Belum Aktif</button>
     </div>
   </aside>
 
