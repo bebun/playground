@@ -108,6 +108,12 @@
   .qlabel-row { display:flex; align-items:center; gap:6px; }
   .qinfo { border:none; background:none; padding:0; cursor:pointer; display:flex; color:var(--neutral-500); }
 
+  /* S1 state variants (2 & 3) */
+  #tbodies { width:100%; }
+  .tbody[hidden] { display:none; }
+  .kamt-sm { font-size:20px; font-weight:700; line-height:1.4; color:var(--neutral-900); }
+  .thr { width:100%; height:0; border-top:1px solid #E7E9F2; }
+
   /* Bottom sheet (info) */
   .scrim { position:absolute; inset:0; z-index:40; background:rgba(17,25,40,.45);
            opacity:0; pointer-events:none; transition:opacity .25s ease; }
@@ -284,7 +290,9 @@
           <div class="period-date" id="s-date">19 Jul 2026 - 25 Jul 2026</div>
         </div>
 
-        <div class="tbody">
+        <div id="tbodies">
+        <!-- State 1 · current design (Figma 2009:1624) -->
+        <div class="tbody" data-state="1">
           <div class="kbody">
             <div class="ogrp">
               <div class="orow"><span class="olabel">Omzet</span><b class="oval" id="s-omzet">Rp1.554.000</b></div>
@@ -326,6 +334,62 @@
             </div>
           </div>
         </div>
+
+        <!-- State 2 · Pemasukan first (Figma 2058:328) -->
+        <div class="tbody" data-state="2" hidden>
+          <div class="kbody">
+            <div class="kgrp">
+              <div class="klabel">Pemasukan</div>
+              <div class="kamt-row"><span class="kamt" id="s2-pemasukan">Rp4.035.500</span></div>
+            </div>
+            <div class="ksplit">
+              <div class="kcell"><b id="s2-poket">Rp1.554.000</b><span>Poket Premium</span></div>
+              <span class="kvdiv"></span>
+              <div class="kcell"><b id="s2-qris">Rp2.481.500</b><span class="qlabel-row">QRIS
+                <button class="qinfo" onclick="openQrisInfo()" aria-label="Info pemasukan QRIS"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg></button></span></div>
+            </div>
+            <div class="kgrp">
+              <div class="klabel qlabel-row"><span>Total Keuntungan</span>
+                <button class="qinfo" onclick="toast('Total Keuntungan = keuntungan penjualan + QRIS')" aria-label="Info total keuntungan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg></button>
+              </div>
+              <div class="kamt-row"><span class="kamt-sm" id="s2-untung">Rp281.500</span></div>
+            </div>
+            <div class="thr"></div>
+            <button class="tlink" onclick="location.href='laporan-keuangan.html'">
+              <span>Laporan Keuangan Selengkapnya</span>
+              <span class="chev"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(13.958 3.542) rotate(90) scale(0.4697)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8661 0.366117C13.3543 -0.122039 14.1457 -0.122039 14.6339 0.366117L27.1339 12.8661C27.622 13.3543 27.622 14.1457 27.1339 14.6339C26.6457 15.122 25.8543 15.122 25.3661 14.6339L13.75 3.01777L2.13388 14.6339C1.64573 15.122 0.854272 15.122 0.366117 14.6339C-0.122039 14.1457 -0.122039 13.3543 0.366117 12.8661L12.8661 0.366117Z" fill="currentColor"/></g></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- State 3 · Total Keuntungan first (Figma 2060:518) -->
+        <div class="tbody" data-state="3" hidden>
+          <div class="kbody">
+            <div class="kgrp">
+              <div class="klabel qlabel-row"><span>Total Keuntungan</span>
+                <button class="qinfo" onclick="toast('Total Keuntungan = keuntungan penjualan + QRIS')" aria-label="Info total keuntungan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg></button>
+              </div>
+              <div class="kamt-row"><span class="kamt-sm" id="s3-untung">Rp281.500</span></div>
+            </div>
+            <div class="thr"></div>
+            <div class="kgrp">
+              <div class="klabel">Pemasukan</div>
+              <div class="kamt-row"><span class="kamt" id="s3-pemasukan">Rp4.035.500</span></div>
+            </div>
+            <div class="ksplit">
+              <div class="kcell"><b id="s3-poket">Rp1.554.000</b><span>Poket Premium</span></div>
+              <span class="kvdiv"></span>
+              <div class="kcell"><b id="s3-qris">Rp2.481.500</b><span class="qlabel-row">QRIS
+                <button class="qinfo" onclick="openQrisInfo()" aria-label="Info pemasukan QRIS"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.15" fill="currentColor"/></svg></button></span></div>
+            </div>
+            <div class="thr"></div>
+            <button class="tlink" onclick="location.href='laporan-keuangan.html'">
+              <span>Laporan Keuangan Selengkapnya</span>
+              <span class="chev"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><g transform="translate(13.958 3.542) rotate(90) scale(0.4697)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8661 0.366117C13.3543 -0.122039 14.1457 -0.122039 14.6339 0.366117L27.1339 12.8661C27.622 13.3543 27.622 14.1457 27.1339 14.6339C26.6457 15.122 25.8543 15.122 25.3661 14.6339L13.75 3.01777L2.13388 14.6339C1.64573 15.122 0.854272 15.122 0.366117 14.6339C-0.122039 14.1457 -0.122039 13.3543 0.366117 12.8661L12.8661 0.366117Z" fill="currentColor"/></g></svg></span>
+            </button>
+          </div>
+        </div>
+        </div><!-- /tbodies -->
       </div>
     </div>
 
@@ -556,11 +620,14 @@
     toastTimer = setTimeout(()=>t.classList.remove('show'), 1400);
   }
 
-  /* S1 period toggle */
+  /* S1 period toggle.
+     pemasukan = omzet + qris (Poket Premium + QRIS). untungTotal is the all-in
+     profit shown in states 2 & 3; the 7-day figure is from Figma, the others
+     are placeholder prototype numbers. */
   const P = {
-    hari:   { omzet:'Rp238.000',   untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500'   },
-    minggu: { omzet:'Rp1.554.000', untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500' },
-    bulan:  { omzet:'Rp6.640.000', untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000' },
+    hari:   { omzet:'Rp238.000',   untung:'Rp12.500',    jual:'Rp9.500',     reward:'Rp3.000',   qris:'Rp358.500',    pemasukan:'Rp596.500',    untungTotal:'Rp41.000'    },
+    minggu: { omzet:'Rp1.554.000', untung:'Rp81.500',    jual:'Rp59.500',    reward:'Rp12.000',  qris:'Rp2.481.500',  pemasukan:'Rp4.035.500',  untungTotal:'Rp281.500'   },
+    bulan:  { omzet:'Rp6.640.000', untung:'Rp2.360.000', jual:'Rp2.015.000', reward:'Rp345.000', qris:'Rp10.420.000', pemasukan:'Rp17.060.000', untungTotal:'Rp1.240.000' },
   };
   /* Tanggal real-time: Hari ini = hari ini; 7/30 hari = (H-1 dikurangi N hari) s/d H-1 */
   const IDN_MON = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
@@ -572,16 +639,26 @@
     const start = new Date(end); start.setDate(start.getDate() - (k === 'minggu' ? 7 : 30));
     return `${fmtD(start)} - ${fmtD(end)}`;
   }
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
   function setPeriod(k, btn){
     const d = P[k];
-    document.getElementById('s-untung').textContent = d.untung;
-    document.getElementById('s-jual').textContent   = d.jual;
-    document.getElementById('s-reward').textContent = d.reward;
-    document.getElementById('s-omzet').textContent  = d.omzet;
-    document.getElementById('s-qris').textContent   = d.qris;
-    document.getElementById('s-date').textContent   = periodDate(k);
+    // state 1
+    setText('s-untung', d.untung); setText('s-jual', d.jual); setText('s-reward', d.reward);
+    setText('s-omzet', d.omzet);   setText('s-qris', d.qris);
+    // states 2 & 3 (Pemasukan = Poket Premium + QRIS)
+    ['s2','s3'].forEach(p => {
+      setText(p+'-pemasukan', d.pemasukan); setText(p+'-poket', d.omzet);
+      setText(p+'-qris', d.qris);           setText(p+'-untung', d.untungTotal);
+    });
+    setText('s-date', periodDate(k));
     document.querySelectorAll('#segment button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+
+  /* S1 layout state switcher — driven by the wrapper's State panel */
+  function setState(n){
+    n = String(n);
+    document.querySelectorAll('#tbodies > .tbody').forEach(el => { el.hidden = el.dataset.state !== n; });
   }
 
   /* QRIS info bottom sheet */

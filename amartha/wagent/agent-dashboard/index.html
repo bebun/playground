@@ -164,8 +164,9 @@
   <aside class="state-panel">
     <span class="overline">State</span>
     <div class="proto-seg" id="proto-seg">
-      <button class="active" onclick="setQrisPreview('active',this)">QRIS Aktif</button>
-      <button onclick="setQrisPreview('inactive',this)">QRIS Belum Aktif</button>
+      <button class="active" onclick="setStatePreview(1,this)">State 1</button>
+      <button onclick="setStatePreview(2,this)">State 2</button>
+      <button onclick="setStatePreview(3,this)">State 3</button>
     </div>
   </aside>
 
@@ -264,13 +265,14 @@
     if (ifr) fitFrame(ifr);
   });
 
-  /* Preview switcher (outside the phone) drives dashboard.html's own setQris(state)
-     across the iframe boundary — same-origin, so this is a direct function call. */
-  function setQrisPreview(state, btn){
+  /* State switcher (outside the phone) drives dashboard.html's own setState(n)
+     across the iframe boundary — same-origin, so this is a direct function call.
+     Swaps the section-1 layout between the three design variants. */
+  function setStatePreview(n, btn){
     document.querySelectorAll('#proto-seg button').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     try {
-      document.querySelector('.screen iframe').contentWindow.setQris(state);
+      document.querySelector('.screen iframe').contentWindow.setState(n);
     } catch (e) { /* cross-origin or not yet loaded — ignore */ }
   }
 </script>
