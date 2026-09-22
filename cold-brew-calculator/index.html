@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Takaran Cold Brew Nanas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --ground:#EEF1EC; --surface:#FFFFFF; --ink:#1C2620; --muted:#5E6B63; --line:#D6DDD6;
+  --tea:#46613F; --tea-soft:#E1E9DC; --pine:#B9820F; --pine-soft:#F6ECD2; --field:#F7F9F6;
+  --focus:#B9820F;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#141A16; --surface:#1C241F; --ink:#E6ECE6; --muted:#9BA89F; --line:#2E3A33;
+    --tea:#9DC08F; --tea-soft:#25331F; --pine:#E3B34A; --pine-soft:#3A2F14; --field:#18201B; --focus:#E3B34A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141A16; --surface:#1C241F; --ink:#E6ECE6; --muted:#9BA89F; --line:#2E3A33;
+  --tea:#9DC08F; --tea-soft:#25331F; --pine:#E3B34A; --pine-soft:#3A2F14; --field:#18201B; --focus:#E3B34A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif;padding-inline:16px;padding-block:28px 48px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:20px}
+header h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:clamp(28px,6vw,40px);line-height:1.05;margin:0 0 6px;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:0;color:var(--muted);max-width:60ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px}
+.card h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;font-weight:600;margin:0;display:flex;align-items:center;gap:10px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--tea);flex:none}
+.card.pine .dot{background:var(--pine)}
+.hint{color:var(--muted);font-size:13px;margin:-8px 0 0}
+.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.inputs.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:560px){.inputs,.inputs.two{grid-template-columns:1fr 1fr}.inputs .full-sm{grid-column:1/-1}}
+label.f{display:grid;gap:6px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.box{display:flex;align-items:center;background:var(--field);border:1.5px solid var(--line);border-radius:10px;transition:border-color .15s}
+.box:focus-within{border-color:var(--focus)}
+.box.anchor{border-color:var(--tea)}
+.card.pine .box.anchor{border-color:var(--pine)}
+.box .pre,.box .unit{font:500 14px "IBM Plex Mono",monospace;color:var(--muted);padding:0 10px}
+.box .pre{padding-right:0}
+input[type=number]{flex:1;min-width:0;width:100%;border:0;background:transparent;color:var(--ink);font:600 20px "IBM Plex Mono",monospace;padding:10px 0 10px 12px;font-variant-numeric:tabular-nums;outline:none}
+.box .pre + input{padding-left:4px}
+input::-webkit-inner-spin-button{opacity:.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--field);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px "IBM Plex Sans",sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--tea);border-color:var(--tea);color:var(--surface)}
+.card.pine .chip[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:#1C1606}
+.chip:focus-visible,.toggle:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.toggle{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:500;width:fit-content;user-select:none}
+.toggle input{width:18px;height:18px;accent-color:var(--tea)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.out div{background:var(--tea-soft);padding:12px 14px;display:grid;gap:2px}
+.card.pine .out div{background:var(--pine-soft)}
+.out span{font-size:12px;color:var(--muted);font-weight:500}
+.out b{font:600 22px "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.out b small{font-size:13px;font-weight:500;color:var(--muted);margin-left:3px}
+.out .hl b{color:var(--tea)}
+.card.pine .out .hl b{color:var(--pine)}
+.steps{margin:0;padding-left:20px;display:grid;gap:4px;color:var(--ink)}
+.steps li::marker{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.note{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:12px;margin:0}
+.warn{color:var(--pine);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Takaran Cold Brew Nanas</h1>
+    <p>Isi field mana aja, sisanya ngitung sendiri. Border berwarna = angka yang lagi jadi patokan.</p>
+  </header>
+
+  <!-- 1. BREW -->
+  <section class="card" aria-labelledby="h-brew">
+    <h2 id="h-brew"><span class="dot"></span>Brew</h2>
+    <p class="hint">Rasio dikunci. Ubah kopi → air ikut. Ubah air → kopi ikut.</p>
+    <div class="inputs">
+      <label class="f" for="ratio">Rasio
+        <span class="box" id="b-ratio"><span class="pre">1 :</span><input id="ratio" type="number" inputmode="decimal" step="0.5" min="4" value="14"></span>
+      </label>
+      <label class="f" for="coffee">Kopi
+        <span class="box" id="b-coffee"><input id="coffee" type="number" inputmode="decimal" step="1" min="0" value="60"><span class="unit">g</span></span>
+      </label>
+      <label class="f full-sm" for="water">Air total
+        <span class="box" id="b-water"><input id="water" type="number" inputmode="decimal" step="10" min="0" value="840"><span class="unit">ml</span></span>
+      </label>
+    </div>
+    <div class="chips" role="group" aria-label="Rasio cepat">
+      <button class="chip" data-ratio="12" type="button">1:12 pekat, buat es</button>
+      <button class="chip" data-ratio="13" type="button">1:13</button>
+      <button class="chip" data-ratio="14" type="button">1:14 tea-like</button>
+      <button class="chip" data-ratio="16" type="button">1:16 hemat</button>
+    </div>
+    <label class="toggle" for="bloom"><input id="bloom" type="checkbox"> Pakai bloom air panas 90°C</label>
+
+    <div class="out" aria-live="polite">
+      <div id="o-bloom-wrap"><span>Bloom 90°C</span><b id="o-bloom">–</b></div>
+      <div id="o-cold-wrap"><span id="o-cold-label">Air suhu ruang</span><b id="o-cold">–</b></div>
+      <div class="hl"><span>Perkiraan hasil</span><b id="o-yield">–</b></div>
+      <div><span>Diserap ampas</span><b id="o-loss">–</b></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <p class="note">Yield = air − (kopi × 2). Ampas nyerap ±2 ml per gram. Steep kulkas 12–14 jam, saring mesh lalu kertas V60.</p>
+  </section>
+
+  <!-- 2. BLEND -->
+  <section class="card pine" aria-labelledby="h-blend">
+    <h2 id="h-blend"><span class="dot"></span>Blend nanas per sajian</h2>
+    <p class="hint">Masukin berapa ml kopi yang mau dituang, keluar takaran nanasnya.</p>
+    <div class="inputs two">
+      <label class="f" for="serve">Cold brew
+        <span class="box anchor"><input id="serve" type="number" inputmode="decimal" step="10" min="0" value="200"><span class="unit">ml</span></span>
+      </label>
+      <label class="f" for="jratio">Rasio nanas
+        <span class="box"><span class="pre">1 :</span><input id="jratio" type="number" inputmode="decimal" step="1" min="1" value="8"></span>
+      </label>
+    </div>
+    <div class="chips" role="group" aria-label="Rasio nanas cepat">
+      <button class="chip" data-jr="12" type="button">1:12 aftertaste aja</button>
+      <button class="chip" data-jr="8" type="button">1:8 default</button>
+      <button class="chip" data-jr="6" type="button">1:6 nanas di depan</button>
+    </div>
+    <div class="chips" role="group" aria-label="Isi dari hasil batch">
+      <button class="chip" id="use-yield" type="button">Pakai seluruh hasil batch</button>
+      <button class="chip" id="use-glass" type="button">Gelas es 250ml (kopi 120ml)</button>
+    </div>
+    <div class="out" aria-live="polite">
+      <div class="hl"><span>Jus / sirup nanas</span><b id="o-juice">–</b></div>
+      <div><span>Dalam sendok teh</span><b id="o-tsp">–</b></div>
+      <div><span>Daging nanas perlu</span><b id="o-flesh">–</b></div>
+      <div><span>Total di gelas</span><b id="o-total">–</b></div>
+    </div>
+    <p class="note">Daging = jus × 2,2 (yield real lo 87 ml dari 193 g). Sejumput garam di gelas, bukan di batch. Kalau pakai es, isi gelas es penuh dulu.</p>
+  </section>
+
+  <!-- 3. NANAS -->
+  <section class="card pine" aria-labelledby="h-fruit">
+    <h2 id="h-fruit"><span class="dot"></span>Nanas yang ada</h2>
+    <p class="hint">Punya segini daging nanas, cukup buat berapa kopi?</p>
+    <div class="inputs two">
+      <label class="f" for="flesh">Daging nanas
+        <span class="box anchor"><input id="flesh" type="number" inputmode="decimal" step="10" min="0" value="193"><span class="unit">g</span></span>
+      </label>
+      <label class="f" for="fyield">Yield jus
+        <span class="box"><input id="fyield" type="number" inputmode="decimal" step="1" min="1" max="100" value="45"><span class="unit">%</span></span>
+      </label>
+    </div>
+    <div class="out" aria-live="polite">
+      <div class="hl"><span>Jus didapat</span><b id="o-fjuice">–</b></div>
+      <div><span>Cukup buat kopi</span><b id="o-fcoffee">–</b></div>
+      <div><span>Status vs batch</span><b id="o-fstatus" style="font-size:16px">–</b></div>
+    </div>
+    <p class="note">Dihitung pakai rasio nanas di atas. Jus segar habiskan hari itu juga; sisa bisa dimasak jadi sirup (jus + gula 1:1).</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const num = el => { const v = parseFloat(el.value); return isFinite(v) ? v : 0; };
+  const fmt = (v, d=0) => isFinite(v) ? v.toLocaleString('id-ID',{maximumFractionDigits:d, minimumFractionDigits:0}) : '–';
+  const set = (id, v, unit, d=0) => { $(id).innerHTML = fmt(v,d) + (unit ? '<small>'+unit+'</small>' : ''); };
+
+  const KEY='cb-nanas-v1';
+  let anchor='coffee';
+  const ids=['ratio','coffee','water','serve','jratio','flesh','fyield'];
+  try{
+    const s=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(s){ ids.forEach(k=>{ if(s[k]!=null) $(k).value=s[k]; }); if(s.bloom!=null) $('bloom').checked=s.bloom; if(s.anchor) anchor=s.anchor; }
+  }catch(e){}
+  const save=()=>{ try{ const o={anchor,bloom:$('bloom').checked}; ids.forEach(k=>o[k]=$(k).value); localStorage.setItem(KEY,JSON.stringify(o)); }catch(e){} };
+
+  function brew(){
+    const r=num($('ratio'));
+    if(r>0){
+      if(anchor==='coffee') $('water').value = Math.round(num($('coffee'))*r);
+      else $('coffee').value = +(num($('water'))/r).toFixed(1);
+    }
+    $('b-coffee').classList.toggle('anchor',anchor==='coffee');
+    $('b-water').classList.toggle('anchor',anchor==='water');
+    const c=num($('coffee')), w=num($('water')), bl=$('bloom').checked;
+    const bloom = bl ? c*1.5 : 0;
+    $('o-bloom-wrap').hidden=!bl;
+    $('o-cold-label').textContent = bl ? 'Air dingin (tambahan)' : 'Air suhu ruang';
+    set('o-bloom',bloom,'ml'); set('o-cold',w-bloom,'ml');
+    const loss=c*2, y=Math.max(0,w-loss);
+    set('o-yield',y,'ml'); set('o-loss',loss,'ml');
+    const st=[];
+    st.push('Giling <span class="mono">'+fmt(c,1)+' g</span> kasar (setting V60 +1 di ZP6S).');
+    if(bl){ st.push('Bloom: tuang <span class="mono">'+fmt(bloom)+' ml</span> air 90°C, aduk, tunggu 1 menit.');
+            st.push('Tambah <span class="mono">'+fmt(w-bloom)+' ml</span> air dingin.'); }
+    else st.push('Tuang <span class="mono">'+fmt(w)+' ml</span> air suhu ruang, aduk sampai semua basah.');
+    st.push('Tutup, kulkas 12–14 jam.');
+    st.push('Saring mesh → saring ulang kertas V60. Hasil ±<span class="mono">'+fmt(y)+' ml</span>.');
+    $('steps').innerHTML=st.map(s=>'<li>'+s+'</li>').join('');
+    return y;
+  }
+  function blend(){
+    const s=num($('serve')), jr=num($('jratio'));
+    const j = jr>0 ? s/jr : 0;
+    set('o-juice',j,'ml',1); set('o-tsp',j/5,'sdt',1); set('o-flesh',j*2.2,'g'); set('o-total',s+j,'ml');
+    document.querySelectorAll('[data-jr]').forEach(b=>b.setAttribute('aria-pressed', String(+b.dataset.jr===jr)));
+  }
+  function fruit(y){
+    const f=num($('flesh')), fy=num($('fyield'))/100, jr=num($('jratio'));
+    const j=f*fy, cov=j*jr;
+    set('o-fjuice',j,'ml'); set('o-fcoffee',cov,'ml');
+    const need = jr>0 ? y/jr : 0, diff=j-need;
+    const el=$('o-fstatus');
+    if(y<=0){ el.textContent='–'; el.className=''; return; }
+    if(diff>=-3){ el.textContent='Cukup · sisa '+fmt(Math.max(0,diff))+' ml'; el.className=''; }
+    else { el.textContent='Kurang '+fmt(-diff)+' ml'; el.className='warn'; }
+  }
+  function all(){
+    const y=brew(); blend(); fruit(y);
+    const r=num($('ratio'));
+    document.querySelectorAll('[data-ratio]').forEach(b=>b.setAttribute('aria-pressed', String(+b.dataset.ratio===r)));
+    save(); window.__yield=y;
+  }
+
+  $('coffee').addEventListener('input',()=>{anchor='coffee';all();});
+  $('water').addEventListener('input',()=>{anchor='water';all();});
+  ['ratio','serve','jratio','flesh','fyield'].forEach(k=>$(k).addEventListener('input',all));
+  $('bloom').addEventListener('change',all);
+  document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>{$('ratio').value=b.dataset.ratio;all();}));
+  document.querySelectorAll('[data-jr]').forEach(b=>b.addEventListener('click',()=>{$('jratio').value=b.dataset.jr;all();}));
+  $('use-yield').addEventListener('click',()=>{$('serve').value=Math.round(window.__yield||0);all();});
+  $('use-glass').addEventListener('click',()=>{$('serve').value=120;all();});
+  all();
+})();
+</script>
+</body>
+</html>
