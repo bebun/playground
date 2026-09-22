@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import LoginGate from '../components/LoginGate.astro';
 import AppHeader from '../components/AppHeader.astro';
 import BeanCard from '../components/BeanCard.astro';
 import BrewCard from '../components/BrewCard.astro';
@@ -13,25 +14,29 @@ import SavedView from '../components/SavedView.astro';
   title="Cold Brew Calculator"
   description="Cold brew ratios by bean, water and add-ons, with saved recipes."
 >
-  <div class="wrap">
-    <AppHeader />
+  <LoginGate />
 
-    <main id="view-calc" class="wrap">
-      <div class="editing" id="editing" hidden>
-        <span>Editing <b id="editing-name"></b></span>
-        <button type="button" class="btn ghost" id="btn-new">New recipe</button>
-      </div>
-      <BeanCard />
-      <BrewCard />
-      <WaterCard />
-      <ElementsCard />
-    </main>
+  <div id="app-root" hidden>
+    <div class="wrap">
+      <AppHeader />
 
-    <main id="view-saved" class="wrap" hidden>
-      <SavedView />
-    </main>
+      <main id="view-calc" class="wrap">
+        <div class="editing" id="editing" hidden>
+          <span>Editing <b id="editing-name"></b></span>
+          <button type="button" class="btn ghost" id="btn-new">New recipe</button>
+        </div>
+        <BeanCard />
+        <BrewCard />
+        <WaterCard />
+        <ElementsCard />
+      </main>
+
+      <main id="view-saved" class="wrap" hidden>
+        <SavedView />
+      </main>
+    </div>
+    <SaveBar />
   </div>
-  <SaveBar />
 </Base>
 
 <style>

@@ -20,6 +20,7 @@ import {
   type Recipe,
 } from '../lib/calc';
 import { NAME_MAX, deleteSaved, fetchSaved, getSaved, listSaved, loadDraft, saveDraft, upsertSaved } from '../lib/store';
+import { getUser, isAllowed, signInWithGoogle, signOut, supabase, type AuthUser } from '../lib/auth';
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const num = (el: HTMLInputElement) => {
@@ -623,15 +624,51 @@ function route() {
 window.addEventListener('hashchange', route);
 
 /* ---------- boot ---------- */
-await fetchSaved();
-const draft = loadDraft();
-if (draft) {
-  r = { ...defaultRecipe(), ...draft };
-  if (r.id) {
-    const s = getSaved(r.id);
-    savedSnapshot = s ? JSON.stringify({ ...s, updatedAt: 0, name: s.name.trim() }) : '';
-    if (!s) r.id = null;
+async function bootApp() {
+  await fetchSaved();
+  const draft = loadDraft();
+  if (draft) {
+    r = { ...defaultRecipe(), ...draft };
+    if (r.id) {
+      const s = getSaved(r.id);
+      savedSnapshot = s ? JSON.stringify({ ...s, updatedAt: 0, name: s.name.trim() }) : '';
+      if (!s) r.id = null;
+    }
+  }
+  fillInputs();
+  route();
+}
+
+/* ---------- auth gate ---------- */
+let booted = false;
+function showGate(message?: string) {
+  $('login-gate').hidden = false;
+  $('app-root').hidden = true;
+  const err = $('login-error');
+  err.hidden = !message;
+  err.textContent = message ?? '';
+}
+async function showApp() {
+  $('login-gate').hidden = true;
+  $('app-root').hidden = false;
+  if (!booted) {
+    booted = true;
+    await bootApp();
   }
 }
-fillInputs();
-route();
+async function applyAuth(user: AuthUser | null) {
+  if (isAllowed(user)) {
+    await showApp();
+  } else {
+    showGate(user?.email ? `${user.email} doesn't have access to this app.` : undefined);
+  }
+}
+
+$('btn-google-login').addEventListener('click', () => signInWithGoogle());
+$('btn-logout').addEventListener('click', () => signOut());
+
+supabase?.auth.onAuthStateChange((_event, session) => {
+  applyAuth(session?.user ?? null);
+});
+
+await applyAuth(await getUser());

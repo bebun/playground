@@ -1,14 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from './auth';
 import type { Recipe } from './calc';
-
-declare const __SUPABASE_URL__: string;
-declare const __SUPABASE_ANON_KEY__: string;
 
 const DRAFT_KEY = 'cbc.draft.v1';
 export const NAME_MAX = 25;
-
-const supabase =
-  __SUPABASE_URL__ && __SUPABASE_ANON_KEY__ ? createClient(__SUPABASE_URL__, __SUPABASE_ANON_KEY__) : null;
 
 function read<T>(key: string, fallback: T): T {
   try {

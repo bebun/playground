@@ -1,0 +1,35 @@
+---
+---
+
+<div id="login-gate" class="login-gate">
+  <div class="login-card">
+    <h1>Cold Brew Calculator</h1>
+    <p>Sign in with Google to continue.</p>
+    <button type="button" class="btn primary" id="btn-google-login">Sign in with Google</button>
+    <p class="note" id="login-error" hidden></p>
+  </div>
+</div>
+
+<style>
+  .login-gate {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding-block: 40px;
+  }
+  .login-card {
+    max-width: 340px;
+    width: 100%;
+    display: grid;
+    gap: 14px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .login-card h1 { font-size: 22px; font-weight: 700; }
+  .login-card p { margin: 0; color: var(--muted); }
+  .login-card .btn { justify-self: center; }
+  .login-card .note { color: var(--warn-ink); }
+</style>
