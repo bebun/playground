@@ -20,7 +20,7 @@ import {
   type Recipe,
 } from '../lib/calc';
 import { NAME_MAX, deleteSaved, fetchSaved, getSaved, listSaved, loadDraft, saveDraft, upsertSaved } from '../lib/store';
-import { getUser, isAllowed, signInWithGoogle, signOut, supabase, type AuthUser } from '../lib/auth';
+import { isAllowed, signInWithGoogle, signOut, supabase, type AuthUser } from '../lib/auth';
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const num = (el: HTMLInputElement) => {
@@ -667,8 +667,14 @@ async function applyAuth(user: AuthUser | null) {
 $('btn-google-login').addEventListener('click', () => signInWithGoogle());
 $('btn-logout').addEventListener('click', () => signOut());
 
-supabase?.auth.onAuthStateChange((_event, session) => {
-  applyAuth(session?.user ?? null);
-});
-
-await applyAuth(await getUser());
+if (supabase) {
+  // onAuthStateChange fires once immediately with the current session
+  // (including one just restored from an OAuth redirect), so this alone
+  // is the source of truth — a separate getUser() call up front would
+  // race it and can show the gate before the redirect session lands.
+  supabase.auth.onAuthStateChange((_event, session) => {
+    applyAuth(session?.user ?? null);
+  });
+} else {
+  showGate();
+}
