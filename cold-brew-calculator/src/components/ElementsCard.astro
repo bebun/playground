@@ -1,0 +1,57 @@
+---
+---
+
+<section class="card" aria-labelledby="h-el">
+  <div class="card-head">
+    <h2 id="h-el"><span class="step">4</span> Add elements <span class="opt">optional</span></h2>
+    <p>Juice or syrup, added after filtering or during the steep. Add as many as you like.</p>
+  </div>
+
+  <div id="elements" class="elements"></div>
+  <p class="note" id="elements-empty">No elements yet. The cold brew stays plain.</p>
+  <button type="button" class="btn add" id="btn-add-element">+ Add element</button>
+
+  <div class="serve" id="serve-wrap" hidden>
+    <label class="f" for="serve">Cold brew per serving
+      <span class="box anchor"><input id="serve" type="number" inputmode="decimal" step="10" min="0" /><span class="unit">ml</span></span>
+    </label>
+    <div class="chips" role="group" aria-label="Serving presets">
+      <button type="button" class="chip" data-serve="120">120 ml · over ice</button>
+      <button type="button" class="chip" data-serve="200">200 ml</button>
+      <button type="button" class="chip" data-serve="250">250 ml · bottle</button>
+    </div>
+  </div>
+
+  <details class="research">
+    <summary>After filtering vs during the steep</summary>
+    <div class="body">
+      <p><strong>Short answer: add after filtering.</strong> You can taste each glass and adjust, and the cold brew stays a clean base you can reuse.</p>
+      <ul>
+        <li>No SCA guideline covers adding fruit to a cold brew steep. SCA's "co-fermented" describes farm processing, not brewing.</li>
+        <li>Cold brew is low-acid (pH around 5), well above the pH 4.6 food-safety line. Fruit acid doesn't bring it below that.</li>
+        <li>Fruit or syrup in a 12–14 hour steep adds sugar and microbes to that low-acid liquid. Keep it refrigerated the whole time. My rule of thumb, not a tested shelf life: drink it within 3 days.</li>
+        <li>Juice or syrup added during the steep counts as liquid, so it dilutes the brew. The calculator adds it into the effective ratio and yield.</li>
+        <li>Whole fruit (grams) both soaks up and releases liquid, so its effect on yield can't be predicted. Measure your yield after the first batch.</li>
+        <li>Once it's in, you can't dial it back. Treat during-steep elements as an experiment until you've found a winner after filtering.</li>
+      </ul>
+      <p class="src">Sources: <a href="https://blogs.cornell.edu/fvc/2017/09/20/cold-brew-coffee/" target="_blank" rel="noopener">Cornell Food Venture Center, cold brew safety</a> · <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/jfs.70024" target="_blank" rel="noopener">Singh et al., pH and temperature on pathogens in cold brew (2025)</a> · <a href="https://www.bccdc.ca/resource-gallery/Documents/Educational%20Materials/EH/FPS/Food/Nitro_Cold_Brew_Coffee_Food_Safety_Risks.pdf" target="_blank" rel="noopener">BCCDC, cold brew food safety risks</a></p>
+    </div>
+  </details>
+</section>
+
+<style is:global>
+  .elements { display: grid; gap: 12px; }
+  .el { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 12px; background: var(--surface); }
+  .el-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .el-head h3 { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .el-head h3::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--pine-strong); }
+  .seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; flex-wrap: wrap; }
+  .seg button { border: 0; background: var(--field); padding: 8px 12px; font-weight: 500; font-size: 13px; cursor: pointer; }
+  .seg button + button { border-left: 1.5px solid var(--line); }
+  .seg button[aria-pressed='true'] { background: var(--pine-strong); color: #1c1606; font-weight: 600; }
+  .el-row { display: grid; gap: 6px; }
+  .el-row > .lbl { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .el .chip[aria-pressed='true'] { background: var(--pine-strong); border-color: var(--pine-strong); color: #1c1606; }
+  .add { justify-self: start; }
+  .serve { display: grid; gap: 10px; border-top: 1px dashed var(--line); padding-top: 14px; }
+</style>

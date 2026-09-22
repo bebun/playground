@@ -1,0 +1,38 @@
+---
+import { ORIGINS, PROCESSES } from '../lib/data';
+---
+
+<section class="card" aria-labelledby="h-bean">
+  <div class="card-head">
+    <h2 id="h-bean"><span class="step">1</span> Bean</h2>
+    <p>Origin, process and altitude set the suggested ratio in the next step.</p>
+  </div>
+
+  <div class="grid">
+    <label class="f" for="origin">Origin / variety
+      <span class="box">
+        <select id="origin">
+          {ORIGINS.map((o) => <option value={o.id}>{o.name}</option>)}
+        </select>
+      </span>
+    </label>
+    <label class="f" for="origin-custom" id="origin-custom-wrap" hidden>Origin name
+      <span class="box"><input id="origin-custom" type="text" maxlength="40" placeholder="e.g. Java Preanger" /></span>
+    </label>
+    <label class="f" for="process">Process <span class="opt">optional</span>
+      <span class="box">
+        <select id="process">
+          <option value="">Not specified</option>
+          {PROCESSES.map((p) => <option value={p.id}>{p.name}</option>)}
+        </select>
+      </span>
+    </label>
+    <label class="f" for="altitude">Altitude <span class="opt">optional</span>
+      <span class="box">
+        <input id="altitude" type="number" inputmode="numeric" step="50" min="0" max="3000" placeholder="1400" />
+        <span class="unit">masl</span>
+      </span>
+    </label>
+  </div>
+  <p class="note" id="origin-note"></p>
+</section>

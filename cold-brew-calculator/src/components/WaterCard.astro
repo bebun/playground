@@ -1,0 +1,26 @@
+---
+import { WATERS, SCA_WATER } from '../lib/data';
+---
+
+<section class="card" aria-labelledby="h-water">
+  <div class="card-head">
+    <h2 id="h-water"><span class="step">3</span> Water</h2>
+    <p>Recorded with the recipe. It changes taste, not the math.</p>
+  </div>
+  <div class="grid">
+    <label class="f" for="water-type">Type
+      <span class="box">
+        <select id="water-type">
+          {WATERS.map((w) => <option value={w.id}>{w.name}</option>)}
+        </select>
+      </span>
+    </label>
+    <label class="f" for="water-name" id="water-name-wrap" hidden>Brand / name
+      <span class="box"><input id="water-name" type="text" maxlength="40" placeholder="e.g. Pristine 8+" /></span>
+    </label>
+    <label class="f" for="water-tds" id="water-tds-wrap" hidden>TDS <span class="opt">optional</span>
+      <span class="box"><input id="water-tds" type="number" inputmode="numeric" min="0" max="1000" step="5" placeholder="150" /><span class="unit">ppm</span></span>
+    </label>
+  </div>
+  <p class="note" id="water-note" data-min={SCA_WATER.tdsMin} data-max={SCA_WATER.tdsMax} data-target={SCA_WATER.tdsTarget}></p>
+</section>

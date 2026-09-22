@@ -1,0 +1,41 @@
+---
+import { NAME_MAX } from '../lib/store';
+---
+
+<div class="savebar" role="region" aria-label="Save recipe">
+  <div class="savebar-inner">
+    <label class="name" for="r-name">
+      <span class="sr">Recipe name</span>
+      <span class="box">
+        <input id="r-name" type="text" maxlength={NAME_MAX} placeholder="Name this recipe" autocomplete="off" />
+        <span class="unit" id="name-count">0/{NAME_MAX}</span>
+      </span>
+    </label>
+    <button type="button" class="btn primary" id="btn-save">Save</button>
+    <button type="button" class="btn" id="btn-save-new" hidden>Save as new</button>
+  </div>
+  <p class="status" id="save-status" aria-live="polite"></p>
+</div>
+
+<style>
+  .savebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 20px rgb(0 0 0 / 0.06);
+  }
+  .savebar-inner { max-width: 780px; margin: 0 auto; display: flex; gap: 8px; align-items: center; }
+  .name { flex: 1; min-width: 0; }
+  .status { max-width: 780px; margin: 4px auto 0; font-size: 12px; color: var(--muted); min-height: 1em; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 480px) {
+    .savebar-inner { flex-wrap: wrap; }
+    .name { flex-basis: 100%; }
+    .savebar-inner .btn { flex: 1; }
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+---
+
+<section class="card" aria-labelledby="h-saved">
+  <div class="card-head">
+    <h2 id="h-saved">Saved recipes</h2>
+    <p>Open one to see its numbers. Edit, then save again to update it.</p>
+  </div>
+  <ul class="saved" id="saved-list"></ul>
+  <p class="note" id="saved-empty">Nothing saved yet. Name a recipe in the calculator and press Save.</p>
+  <p class="note rule">Saved in this browser only. Another device or a cleared browser won't have them.</p>
+</section>
+
+<style is:global>
+  .saved { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .saved li { border: 1.5px solid var(--line); border-radius: 12px; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 12px 14px; align-items: center; }
+  .saved .open { all: unset; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+  .saved .open:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 6px; }
+  .saved .nm { font-family: var(--font-display); font-weight: 600; font-size: 17px; overflow-wrap: anywhere; }
+  .saved .meta { font-size: 13px; color: var(--muted); }
+  .saved .nums { font-family: var(--font-mono); font-size: 13px; }
+  .saved .actions { display: flex; gap: 6px; }
+</style>
