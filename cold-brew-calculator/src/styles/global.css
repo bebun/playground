@@ -1,0 +1,76 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Fixed-comp stage ──────────────────────────────────────────
+   The page is reproduced 1:1 from the Figma frame and scaled to
+   fit the viewport width so the design is never altered.        */
+.stage-wrap {
+  width: 100%;
+  /* height is set in JS to the scaled comp height; clip the stage's
+     un-scaled layout box (transform:scale only shrinks visually). */
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  width: var(--comp-width);
+  height: var(--comp-height);
+  transform-origin: top left;
+}
+
+/* Absolutely-positioned content block helper */
+.blk {
+  position: absolute;
+}
+
+/* Typography primitives used across the comp */
+.t-body {
+  font-size: 20px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  margin: 0;
+}
+.t-body strong {
+  font-weight: var(--fw-bold);
+}
+.t-section {
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  line-height: 54px;
+  margin: 0;
+}
+.t-label {
+  font-size: 20px;
+  font-weight: var(--fw-bold);
+  line-height: 54px;
+  margin: 0;
+}

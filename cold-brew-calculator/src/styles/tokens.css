@@ -1,0 +1,40 @@
+/* ───────────────────────────────────────────────────────────
+   Design tokens — the seed of the design system.
+   We grow this file as we add components & pages.
+   ─────────────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-ink: #000000;
+  --color-bg: #ffffff;
+  --color-accent-green: #06b506;
+  --color-footer-bg: #000000;
+  --color-footer-fg: #ffffff;
+  --color-footer-muted: #cbffcb;
+
+  /* Navigation — inverted, blue-black dominant */
+  --color-nav-bg: #090c13; /* near-black with a cool blue cast */
+  --color-ivory: #f4efe1; /* putih gading */
+  --color-neon-blue: 45, 156, 255; /* RGB triplet for rgba() beams */
+  --color-beam-base: 166, 236, 224; /* #A6ECE0 — bright mint at the beam's base */
+
+  /* Typography */
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-display: "Finlandica", "Manrope", sans-serif;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-bold: 700;
+
+  /* The source comp is a fixed 1920px desktop frame. */
+  --comp-width: 1920px;
+  --comp-height: 5951px;
+
+  /* Layout — content sits 256/1920 = 13.333% from the left, matching the
+     comp's content column so the nav aligns with the page content. */
+  --content-inset: 13.333%;
+  --nav-height: 80px;
+
+  /* Set by the case-study stage script; 1 on plain (unscaled) pages.
+     Lets the nav scale in lockstep with the scaled comp content. */
+  --stage-scale: 1;
+}

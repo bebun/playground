@@ -1,0 +1,147 @@
+---
+// Main site navigation. Reusable across pages.
+interface Link {
+  label: string;
+  href: string;
+}
+
+const links: Link[] = [
+  { label: "About", href: "/about" },
+  { label: "Works", href: "/works" },
+];
+
+const path = Astro.url.pathname;
+
+// The homepage currently renders a case study, so treat it as a "Works" page
+// until real routing lands.
+const isActive = (href: string) =>
+  path === href || (path === "/" && href === "/works");
+---
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="Home">
+      <span class="nav-logo__mark">Logo</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="nav-link"
+            aria-current={isActive(link.href) ? "page" : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-nav-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Sizes are authored in comp units and multiplied by --stage-scale so the
+     nav reads at the same visual size as the (scaled) page content. */
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(24px * var(--stage-scale));
+    height: calc(var(--nav-height) * var(--stage-scale));
+    padding-inline: var(--content-inset);
+  }
+
+  /* Logo — placeholder mark until the real one lands */
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-logo__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(40px * var(--stage-scale));
+    min-width: calc(72px * var(--stage-scale));
+    padding: 0 calc(14px * var(--stage-scale));
+    border: 1px dashed rgba(244, 239, 225, 0.3);
+    border-radius: calc(8px * var(--stage-scale));
+    font-family: var(--font-sans);
+    font-size: calc(14px * var(--stage-scale));
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(244, 239, 225, 0.55);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: calc(48px * var(--stage-scale));
+  }
+  .nav-link {
+    position: relative;
+    font-family: var(--font-sans);
+    /* matches body copy (20px in comp units) for a settled hierarchy */
+    font-size: calc(20px * var(--stage-scale));
+    font-weight: 500;
+    line-height: 1;
+    color: var(--color-ivory);
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+  }
+  .nav-link:hover {
+    opacity: 1;
+  }
+
+  /* Active item: a neon-blue "lightning beam" rising from the bottom-center,
+     its base touching the nav's bottom edge (the black background boundary). */
+  .nav-link[aria-current="page"] {
+    font-weight: var(--fw-bold);
+    opacity: 1; /* fully lit; it's the current page */
+    cursor: default; /* not a navigable target — plain arrow */
+  }
+  .nav-link[aria-current="page"]:hover {
+    opacity: 1; /* no hover response on the active item */
+  }
+  .nav-link[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    /* drop the base down to the nav's bottom edge: the link is centered in
+       an 80px bar, so ~30px below the link bottom in comp units. */
+    bottom: calc(-30px * var(--stage-scale));
+    transform: translateX(-50%);
+    width: calc(184px * var(--stage-scale));
+    height: calc(40px * var(--stage-scale));
+    background: radial-gradient(
+      62% 100% at 50% 100%,
+      rgba(var(--color-beam-base), 0.5) 0%,
+      rgba(var(--color-neon-blue), 0.2) 40%,
+      transparent 72%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Mobile: the comp no longer scales, so cap the menu type at a calm size
+     and tighten the beam to match the smaller label. */
+  @media (max-width: 768px) {
+    .nav-link {
+      font-size: 16px;
+    }
+    .nav-link[aria-current="page"]::before {
+      width: 120px;
+      height: 32px;
+      bottom: -32px; /* base flush with the bar's bottom edge */
+    }
+  }
+</style>
