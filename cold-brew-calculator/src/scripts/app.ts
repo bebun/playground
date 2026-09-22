@@ -45,7 +45,8 @@ const inp = {
   ratio: $<HTMLInputElement>('ratio'),
   coffee: $<HTMLInputElement>('coffee'),
   water: $<HTMLInputElement>('water'),
-  bloom: $<HTMLInputElement>('bloom'),
+  bloomRoom: $<HTMLButtonElement>('bloom-room'),
+  bloomHot: $<HTMLButtonElement>('bloom-hot'),
   waterType: $<HTMLSelectElement>('water-type'),
   waterName: $<HTMLInputElement>('water-name'),
   waterTds: $<HTMLInputElement>('water-tds'),
@@ -61,7 +62,8 @@ function fillInputs() {
   inp.ratio.value = String(r.ratio);
   inp.coffee.value = String(r.coffeeG);
   inp.water.value = String(r.waterMl);
-  inp.bloom.checked = r.bloom;
+  inp.bloomRoom.setAttribute('aria-pressed', String(!r.bloom));
+  inp.bloomHot.setAttribute('aria-pressed', String(r.bloom));
   inp.waterType.value = r.waterTypeId;
   inp.waterName.value = r.waterCustomName;
   inp.waterTds.value = r.waterCustomTds != null ? String(r.waterCustomTds) : '';
@@ -381,8 +383,16 @@ inp.water.addEventListener('input', () => {
   inp.coffee.value = String(r.coffeeG);
   update();
 });
-inp.bloom.addEventListener('change', () => {
-  r.bloom = inp.bloom.checked;
+inp.bloomRoom.addEventListener('click', () => {
+  r.bloom = false;
+  inp.bloomRoom.setAttribute('aria-pressed', 'true');
+  inp.bloomHot.setAttribute('aria-pressed', 'false');
+  update();
+});
+inp.bloomHot.addEventListener('click', () => {
+  r.bloom = true;
+  inp.bloomRoom.setAttribute('aria-pressed', 'false');
+  inp.bloomHot.setAttribute('aria-pressed', 'true');
   update();
 });
 

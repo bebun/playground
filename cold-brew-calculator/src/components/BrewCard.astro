@@ -32,7 +32,37 @@
   </div>
   <p class="note" id="ratio-mode"></p>
 
-  <label class="toggle" for="bloom"><input id="bloom" type="checkbox" /> Hot bloom (90°C, 1.5× coffee weight)</label>
+  <div class="bloom-row">
+    <div class="chips" role="group" aria-label="Bloom method" id="bloom-group">
+      <button type="button" class="chip" id="bloom-room" data-bloom="false" aria-pressed="true">Room temperature</button>
+      <button type="button" class="chip" id="bloom-hot" data-bloom="true" aria-pressed="false">Hot bloom (90°C, 1.5× coffee weight)</button>
+    </div>
+    <details class="research inline">
+      <summary>What the research says?</summary>
+      <div class="body">
+        <p><strong>Short answer: leave it off.</strong> Your no-bloom 40 g batch already hit the tea-like target, and nothing in the research argues for adding heat.</p>
+        <ul>
+          <li>Warmer water extracts faster and pulls more acids and polyphenols. In one study, cold brew came out at pH 5.38 vs 5.18 for hot, with lower titratable acidity and fewer polyphenols.</li>
+          <li>A hot bloom is a short hot extraction stacked on a cold one. Expect more brightness and aroma, and less of the smooth, low-acid cold brew character.</li>
+          <li>Degassing, the usual reason to bloom, barely matters in a 12–14 hour immersion. The grounds end up fully wet either way.</li>
+          <li>No peer-reviewed study tests a hot bloom in cold brew specifically. The table below is inference from the extraction data, not measured results.</li>
+        </ul>
+        <div class="table-wrap">
+          <table class="t">
+            <thead><tr><th>Bean</th><th>Hot bloom likely does</th><th>Call</th></tr></thead>
+            <tbody>
+              <tr><td>Washed, high-grown (Yirgacheffe, Ají Bourbon)</td><td>More florals and acidity, less smooth</td><td>Optional. Try only if the brew is flat</td></tr>
+              <tr><td>Washed, mid altitude (Kintamani)</td><td>Brighter citrus, less tea-like</td><td>Skip. Your test already works</td></tr>
+              <tr><td>Honey</td><td>Slightly more sweetness and body</td><td>Skip</td></tr>
+              <tr><td>Natural, fermented, co-fermented</td><td>Pushes boozy, winey ferment notes</td><td>Skip</td></tr>
+              <tr><td>Wet-hulled, low altitude</td><td>More earthy bitterness</td><td>Skip</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="src">Sources: <a href="https://www.sciencedirect.com/science/article/pii/S2772502223000719" target="_blank" rel="noopener">Effects of grind size, temperature and brew ratio on cold brew (2023)</a> · <a href="https://www.nature.com/articles/s41598-018-34392-w" target="_blank" rel="noopener">Rao &amp; Fuller, Acidity and antioxidant activity of cold brew (2018)</a> · <a href="https://www.nature.com/articles/s41598-017-18247-4" target="_blank" rel="noopener">Fuller &amp; Rao, Time, roast and grind in cold brew (2017)</a></p>
+      </div>
+    </details>
+  </div>
   <p class="warn" id="bloom-warn" hidden></p>
 
   <div class="out" aria-live="polite">
@@ -44,32 +74,6 @@
   <p class="note" id="effective-ratio" hidden></p>
 
   <ol class="steps" id="steps"></ol>
-
-  <details class="research">
-    <summary>Hot bloom vs room temperature: what the research says</summary>
-    <div class="body">
-      <p><strong>Short answer: leave it off.</strong> Your no-bloom 40 g batch already hit the tea-like target, and nothing in the research argues for adding heat.</p>
-      <ul>
-        <li>Warmer water extracts faster and pulls more acids and polyphenols. In one study, cold brew came out at pH 5.38 vs 5.18 for hot, with lower titratable acidity and fewer polyphenols.</li>
-        <li>A hot bloom is a short hot extraction stacked on a cold one. Expect more brightness and aroma, and less of the smooth, low-acid cold brew character.</li>
-        <li>Degassing, the usual reason to bloom, barely matters in a 12–14 hour immersion. The grounds end up fully wet either way.</li>
-        <li>No peer-reviewed study tests a hot bloom in cold brew specifically. The table below is inference from the extraction data, not measured results.</li>
-      </ul>
-      <div class="table-wrap">
-        <table class="t">
-          <thead><tr><th>Bean</th><th>Hot bloom likely does</th><th>Call</th></tr></thead>
-          <tbody>
-            <tr><td>Washed, high-grown (Yirgacheffe, Ají Bourbon)</td><td>More florals and acidity, less smooth</td><td>Optional. Try only if the brew is flat</td></tr>
-            <tr><td>Washed, mid altitude (Kintamani)</td><td>Brighter citrus, less tea-like</td><td>Skip. Your test already works</td></tr>
-            <tr><td>Honey</td><td>Slightly more sweetness and body</td><td>Skip</td></tr>
-            <tr><td>Natural, fermented, co-fermented</td><td>Pushes boozy, winey ferment notes</td><td>Skip</td></tr>
-            <tr><td>Wet-hulled, low altitude</td><td>More earthy bitterness</td><td>Skip</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="src">Sources: <a href="https://www.sciencedirect.com/science/article/pii/S2772502223000719" target="_blank" rel="noopener">Effects of grind size, temperature and brew ratio on cold brew (2023)</a> · <a href="https://www.nature.com/articles/s41598-018-34392-w" target="_blank" rel="noopener">Rao &amp; Fuller, Acidity and antioxidant activity of cold brew (2018)</a> · <a href="https://www.nature.com/articles/s41598-017-18247-4" target="_blank" rel="noopener">Fuller &amp; Rao, Time, roast and grind in cold brew (2017)</a></p>
-    </div>
-  </details>
 </section>
 
 <style is:global>
@@ -83,4 +87,8 @@
   .suggest-parts .why { color: var(--muted); }
   .steps { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
   .steps li::marker { color: var(--muted); font: 500 13px var(--font-mono); }
+  .bloom-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 16px; }
+  .bloom-row .chips { flex: 0 0 auto; }
+  .bloom-row details.research.inline { flex: 0 0 auto; max-width: 100%; }
+  .bloom-row details.research.inline[open] { flex: 1 1 100%; }
 </style>
