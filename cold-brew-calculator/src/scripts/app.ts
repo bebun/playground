@@ -19,7 +19,7 @@ import {
   type BrewElement,
   type Recipe,
 } from '../lib/calc';
-import { NAME_MAX, deleteSaved, getSaved, listSaved, loadDraft, saveDraft, upsertSaved } from '../lib/store';
+import { NAME_MAX, deleteSaved, fetchSaved, getSaved, listSaved, loadDraft, saveDraft, upsertSaved } from '../lib/store';
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const num = (el: HTMLInputElement) => {
@@ -492,7 +492,7 @@ inp.name.addEventListener('input', () => {
   r.name = inp.name.value.slice(0, NAME_MAX);
   update();
 });
-function doSave(asNew: boolean) {
+async function doSave(asNew: boolean) {
   const name = r.name.trim();
   if (!name) {
     flash('Name the recipe first.');
@@ -502,8 +502,9 @@ function doSave(asNew: boolean) {
   if (asNew || !r.id) r.id = newId();
   r.name = name;
   r.updatedAt = Date.now();
-  if (!upsertSaved(structuredClone(r))) {
-    flash('Couldn’t save. This browser is blocking storage.');
+  flash('Saving…');
+  if (!(await upsertSaved(structuredClone(r)))) {
+    flash('Couldn’t save. Check your connection and try again.');
     return;
   }
   savedSnapshot = snapshot();
@@ -564,13 +565,14 @@ $('saved-list').addEventListener('click', (ev) => {
     location.hash = `#r/${id}`;
   } else if (t.dataset.act === 'delete') {
     if (t.dataset.confirm) {
-      deleteSaved(id);
-      if (r.id === id) {
-        r.id = null;
-        savedSnapshot = '';
-      }
-      renderSaved();
-      renderSaveState();
+      deleteSaved(id).then(() => {
+        if (r.id === id) {
+          r.id = null;
+          savedSnapshot = '';
+        }
+        renderSaved();
+        renderSaveState();
+      });
     } else {
       t.dataset.confirm = '1';
       t.textContent = 'Tap again to delete';
@@ -591,7 +593,7 @@ function showView(view: 'calc' | 'saved') {
     if (t.dataset.view === view) t.setAttribute('aria-current', 'page');
     else t.removeAttribute('aria-current');
   });
-  if (view === 'saved') renderSaved();
+  if (view === 'saved') fetchSaved().then(renderSaved);
 }
 document.querySelectorAll<HTMLElement>('.tab').forEach((t) =>
   t.addEventListener('click', () => {
@@ -621,6 +623,7 @@ function route() {
 window.addEventListener('hashchange', route);
 
 /* ---------- boot ---------- */
+await fetchSaved();
 const draft = loadDraft();
 if (draft) {
   r = { ...defaultRecipe(), ...draft };

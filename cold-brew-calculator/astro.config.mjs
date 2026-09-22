@@ -13,5 +13,11 @@ export default defineConfig({
       // Astro inlines processed <script>s smaller than this limit.
       assetsInlineLimit: 1024 * 1024,
     },
+    define: {
+      // Injected at build time from Vercel's Supabase integration (sensitive
+      // env vars — only readable inside the Vercel build, never via CLI/API).
+      __SUPABASE_URL__: JSON.stringify(process.env.cbc_sb_SUPABASE_URL ?? ''),
+      __SUPABASE_ANON_KEY__: JSON.stringify(process.env.cbc_sb_SUPABASE_ANON_KEY ?? ''),
+    },
   },
 });

@@ -1,8 +1,14 @@
+import { createClient } from '@supabase/supabase-js';
 import type { Recipe } from './calc';
 
-const SAVED_KEY = 'cbc.saved.v1';
+declare const __SUPABASE_URL__: string;
+declare const __SUPABASE_ANON_KEY__: string;
+
 const DRAFT_KEY = 'cbc.draft.v1';
 export const NAME_MAX = 25;
+
+const supabase =
+  __SUPABASE_URL__ && __SUPABASE_ANON_KEY__ ? createClient(__SUPABASE_URL__, __SUPABASE_ANON_KEY__) : null;
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -22,25 +28,49 @@ function write(key: string, value: unknown) {
   }
 }
 
-export const listSaved = (): Recipe[] =>
-  read<Recipe[]>(SAVED_KEY, []).sort((a, b) => b.updatedAt - a.updatedAt);
-
-export const getSaved = (id: string) => listSaved().find((r) => r.id === id) ?? null;
-
-export function upsertSaved(r: Recipe): boolean {
-  const all = read<Recipe[]>(SAVED_KEY, []);
-  const i = all.findIndex((x) => x.id === r.id);
-  if (i >= 0) all[i] = r;
-  else all.push(r);
-  return write(SAVED_KEY, all);
-}
-
-export function deleteSaved(id: string) {
-  write(
-    SAVED_KEY,
-    read<Recipe[]>(SAVED_KEY, []).filter((r) => r.id !== id),
-  );
-}
-
 export const loadDraft = () => read<Recipe | null>(DRAFT_KEY, null);
 export const saveDraft = (r: Recipe) => write(DRAFT_KEY, r);
+
+/* ---------- saved recipes (Supabase, shared across devices) ---------- */
+
+let cache: Recipe[] = [];
+
+export async function fetchSaved(): Promise<Recipe[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('recipes')
+    .select('data')
+    .order('updated_at', { ascending: false });
+  if (error || !data) {
+    console.error('Supabase fetchSaved failed', error);
+    return cache;
+  }
+  cache = data.map((row) => row.data as Recipe);
+  return cache;
+}
+
+export const listSaved = (): Recipe[] => cache;
+export const getSaved = (id: string) => cache.find((r) => r.id === id) ?? null;
+
+export async function upsertSaved(r: Recipe): Promise<boolean> {
+  if (!supabase) return false;
+  const { error } = await supabase.from('recipes').upsert({
+    id: r.id,
+    name: r.name,
+    updated_at: new Date(r.updatedAt).toISOString(),
+    data: r,
+  });
+  if (error) {
+    console.error('Supabase upsertSaved failed', error);
+    return false;
+  }
+  await fetchSaved();
+  return true;
+}
+
+export async function deleteSaved(id: string) {
+  if (!supabase) return;
+  const { error } = await supabase.from('recipes').delete().eq('id', id);
+  if (error) console.error('Supabase deleteSaved failed', error);
+  await fetchSaved();
+}
